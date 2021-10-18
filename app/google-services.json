@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "561792670633",
+    "project_id": "rfid-e0af2",
+    "storage_bucket": "rfid-e0af2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:561792670633:android:95f4d55786465fbfe2c2b8",
+        "android_client_info": {
+          "package_name": "com.rfid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "561792670633-09otj0f4slfsg0hf5ahufq30fsfpo42n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLobGLT9Fx6ijkDiHLkFzyLyjGABzuDAg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "561792670633-09otj0f4slfsg0hf5ahufq30fsfpo42n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
