@@ -20,6 +20,8 @@ import com.rfid.util.SharedPreferencesPackage;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+
 public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatActivity
 {
     protected B dataBinding;

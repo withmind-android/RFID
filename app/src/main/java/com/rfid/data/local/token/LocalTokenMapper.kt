@@ -6,7 +6,7 @@ object LocalTokenMapper {
     fun mappingRemoteDataToLocal(token: Token): TokenEntity {
         return TokenEntity(
             accessToken = token.access,
-            refreshToken = token.refresh
+            userId = "userid"
         )
     }
 }

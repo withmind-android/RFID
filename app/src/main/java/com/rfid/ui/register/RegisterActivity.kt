@@ -18,14 +18,15 @@ import com.rfid.adapter.DetectPictureAdapter
 import com.rfid.adapter.RegisterAdapter
 import com.rfid.adapter.item.PictureItem
 import com.rfid.adapter.item.RegisterItem
-import com.rfid.ui.base.BaseActivity
 import com.rfid.databinding.ActivityRegisterBinding
+import com.rfid.ui.base.BaseActivityK
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
+class RegisterActivity : BaseActivityK<ActivityRegisterBinding>(R.layout.activity_register) {
+// viewModels
     private lateinit var registerAdapter: RegisterAdapter
     private var registerList = mutableListOf<RegisterItem>()
     private lateinit var detectPictureAdapter: DetectPictureAdapter
@@ -34,30 +35,23 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     protected lateinit var currentPhotoPath: String
     private val REQUEST_IMAGE_CAPTURE = 1
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        onBindView(R.layout.activity_register)
-
+    override fun init() {
         registerList = intent.getSerializableExtra("list") as MutableList<RegisterItem>
 
-        init()
-    }
-
-    fun init() {
         registerAdapter = RegisterAdapter()
-        dataBinding.appBarRegister.register.rvRegister.layoutManager?.isItemPrefetchEnabled = false
-        dataBinding.appBarRegister.register.rvRegister.setItemViewCacheSize(0)
-        dataBinding.appBarRegister.register.rvRegister.adapter = registerAdapter
+        binding.appBarRegister.register.rvRegister.layoutManager?.isItemPrefetchEnabled = false
+        binding.appBarRegister.register.rvRegister.setItemViewCacheSize(0)
+        binding.appBarRegister.register.rvRegister.adapter = registerAdapter
         registerAdapter.setList(registerList)
 
         detectPictureAdapter = DetectPictureAdapter()
-        dataBinding.appBarRegister.register.rvPicture.layoutManager?.isItemPrefetchEnabled = false
-        dataBinding.appBarRegister.register.rvPicture.setItemViewCacheSize(0)
-        dataBinding.appBarRegister.register.rvPicture.adapter = detectPictureAdapter
+        binding.appBarRegister.register.rvPicture.layoutManager?.isItemPrefetchEnabled = false
+        binding.appBarRegister.register.rvPicture.setItemViewCacheSize(0)
+        binding.appBarRegister.register.rvPicture.adapter = detectPictureAdapter
         if (pictures.size == 0) {
             // 등록된 사진없음
             pictures.apply {
-                add(PictureItem("", null, false))
+                add(PictureItem(null, "", null, false))
             }
         } else {
 
@@ -67,9 +61,13 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
             override fun onClick(view: View, position: Int) {
                 settingPermission()
             }
+
+            override fun onClickDelete(deleteId: Int) {
+                TODO("Not yet implemented")
+            }
         })
 
-        dataBinding.appBarRegister.register.btSend.setOnClickListener {
+        binding.appBarRegister.register.btSend.setOnClickListener {
             Log.e(TAG, "register 전송")
             setResult(RESULT_OK)
             finish()
@@ -84,7 +82,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
             if (Build.VERSION.SDK_INT < 28) {
                 val bitmap = MediaStore.Images.Media
                     .getBitmap(contentResolver, Uri.fromFile(file))
-                pictures.add(0, PictureItem("", file, false))
+                pictures.add(0, PictureItem(null,"", file, false))
                 detectPictureAdapter.resetDeleteBtn()
             } else {
                 val decode = ImageDecoder.createSource(
@@ -92,7 +90,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
                     Uri.fromFile(file)
                 )
                 val bitmap = ImageDecoder.decodeBitmap(decode)
-                pictures.add(0, PictureItem("", file, false))
+                pictures.add(0, PictureItem(null,"", file, false))
                 detectPictureAdapter.resetDeleteBtn()
             }
         }
