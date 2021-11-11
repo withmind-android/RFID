@@ -29,7 +29,6 @@ class SettingActivity : BaseActivityK<ActivitySettingBinding>(R.layout.activity_
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             setResult(RESULT_CANCELED)
-            Log.d("finish()", "finishing!!!!")
             finish()
             return true
         }
