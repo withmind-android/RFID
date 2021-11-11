@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffffff">
+
+            <LinearLayout
+                android:id="@+id/linear_connect"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_detect_title"
+                        style="@style/black_bold_14_font"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/detecting"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:columnCount="3"
+                        android:rowCount="2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_detect_title">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/detect_item_1"
+                            style="@style/cv_detect">
+
+                            <LinearLayout
+                                style="@style/ll_main"
+                                android:background="@color/pale_red">
+
+                                <ImageView
+                                    style="@style/iv_wrap_wrap"
+                                    android:src="@drawable/img_01" />
+
+                                <TextView
+                                    style="@style/tv_white_14"
+                                    android:text="@string/detect_item_1" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/detect_item_2"
+                            style="@style/cv_detect">
+
+                            <LinearLayout
+                                style="@style/ll_main"
+                                android:background="@color/yellow_orange">
+
+                                <ImageView
+                                    style="@style/iv_wrap_wrap"
+                                    android:src="@drawable/img_02" />
+
+                                <TextView
+                                    style="@style/tv_white_14"
+                                    android:text="@string/detect_item_2" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/detect_item_3"
+                            style="@style/cv_detect">
+
+                            <LinearLayout
+                                style="@style/ll_main"
+                                android:background="@color/gross_green">
+
+                                <ImageView
+                                    style="@style/iv_wrap_wrap"
+                                    android:src="@drawable/img_03" />
+
+                                <TextView
+                                    style="@style/tv_white_14"
+                                    android:text="@string/detect_item_3" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/detect_item_4"
+                            style="@style/cv_detect">
+
+                            <LinearLayout
+                                style="@style/ll_main"
+                                android:background="@color/sky_blue">
+
+                                <ImageView
+                                    style="@style/iv_wrap_wrap"
+                                    android:src="@drawable/img_04" />
+
+                                <TextView
+                                    style="@style/tv_white_14"
+                                    android:text="@string/detect_item_4" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/detect_item_5"
+                            style="@style/cv_detect">
+
+                            <LinearLayout
+                                style="@style/ll_main"
+                                android:background="@color/peacock_blue">
+
+                                <ImageView
+                                    style="@style/iv_wrap_wrap"
+                                    android:src="@drawable/img_05" />
+
+                                <TextView
+                                    style="@style/tv_white_14"
+                                    android:text="@string/detect_item_5" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/detect_item_6"
+                            style="@style/cv_detect">
+
+                            <LinearLayout
+                                style="@style/ll_main"
+                                android:background="@color/darkish_pink">
+
+                                <ImageView
+                                    style="@style/iv_wrap_wrap"
+                                    android:src="@drawable/img_06" />
+
+                                <TextView
+                                    style="@style/tv_white_14"
+                                    android:text="@string/detect_item_6" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                    </GridLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/bt_shipment"
+                    style="@style/btn_main_dark_font_white_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
+                    android:text="@string/shipping_registration"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e3e3e3" />
+
+                <RelativeLayout
+                    android:id="@+id/rel_search_reader"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp">
+
+                    <TextView
+                        style="@style/black_bold_14_font"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/search_reader" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#e3e3e3" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp">
+
+                    <Switch
+                        android:id="@+id/switch_read_connect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:switchMinWidth="73dp"
+                        android:thumb="@drawable/switch_thumb_selector"
+                        android:thumbTextPadding="16dp"
+                        android:track="@drawable/switch_track_selector" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@id/switch_read_connect"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/black_bold_14_font"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/connect_dlg_title" />
+
+                        <TextView
+                            android:id="@+id/text_rfid_name"
+                            style="@style/hint_14_font"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e3e3e3" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</layout>

@@ -1,0 +1,53 @@
+package com.rfid.data.remote.tag
+
+data class Ironware(
+    val result: String? = "",
+    val field1: String? = "",
+    val field2: String? = "",
+    val field3: String? = "",
+    val field4: String? = "",
+    val field5: String? = "",
+    val value1: Int = 0,
+    val value2: Int = 0,
+    val value3: Int = 0,
+    val value4: Int = 0,
+    val value5: Int = 0,
+    val standard1: Int = 0,
+    val standard2: Int = 0,
+    val standard3: Int = 0,
+    val standard4: Int = 0,
+    val standard5: Int = 0,
+    val unit1: String? = "",
+    val unit2: String? = "",
+    val unit3: String? = "",
+    val unit4: String? = "",
+    val unit5: String? = "",
+    val images: MutableList<Img>
+)
+
+data class PostIronware(
+    var tag: String = "",
+    var result: String = "",
+    var field1: String = "",
+    var field2: String = "",
+    var field3: String = "",
+    var field4: String = "",
+    var field5: String = "",
+    var value1: Int = 0,
+    var value2: Int = 0,
+    var value3: Int = 0,
+    var value4: Int = 0,
+    var value5: Int = 0,
+    var standard1: Int = 0,
+    var standard2: Int = 0,
+    var standard3: Int = 0,
+    var standard4: Int = 0,
+    var standard5: Int = 0,
+    var unit1: String = "",
+    var unit2: String = "",
+    var unit3: String = "",
+    var unit4: String = "",
+    var unit5: String = "",
+    var images: MutableList<String>,
+    var deleted_images: MutableList<Int>
+)

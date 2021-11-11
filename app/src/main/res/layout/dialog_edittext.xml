@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:gravity="center" >
+
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:padding="10dp"
+		android:background="#ffffffff">
+		<LinearLayout
+			android:id="@+id/linear_title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:layout_marginLeft="10dp"
+			android:orientation="vertical">
+			<TextView
+				android:id="@+id/tv_title"
+				style="@style/black_bold_18_font"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:gravity="left"
+				android:singleLine="true"
+				android:text="@string/write_tag"/>
+
+		</LinearLayout>
+
+		<RelativeLayout
+			android:id="@+id/relative_contents"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/linear_title"
+			android:layout_marginTop="10dp"
+			android:layout_marginBottom="10dp"
+			android:padding="5dp">
+
+			<TextView
+				android:id="@+id/tv_current_tag_id"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/current_tag_id"
+				android:layout_alignParentTop="true"
+				android:visibility="gone"/>
+
+			<EditText
+				android:id="@+id/et_current_tag_id"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textColor="#000000"
+				android:textCursorDrawable="@drawable/edit_cursor"
+				android:singleLine="true"
+				android:layout_below="@+id/tv_current_tag_id"
+				android:layout_marginBottom="3dp"
+				android:visibility="gone"/>
+
+			<TextView
+				android:id="@+id/tv_tag_id_to_write"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/tag_id_to_write"
+				android:layout_below="@+id/et_current_tag_id"/>
+
+			<EditText
+				android:id="@+id/et_tag_id_to_write"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textColor="#000000"
+				android:textCursorDrawable="@drawable/edit_cursor"
+				android:singleLine="true"
+				android:layout_below="@id/tv_tag_id_to_write"
+				android:layout_marginBottom="3dp"/>
+
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingRight="10dp"
+			android:layout_below="@id/relative_contents">
+
+			<Button
+				android:id="@+id/btn_apply"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentRight="true"
+				android:background="@drawable/btn_bg"
+				android:padding="10dp"
+				android:textSize="14dp"
+				android:textColor="#ffff0011"
+				android:text="OK"/>
+
+			<Button
+				android:id="@+id/btn_cancel"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_toLeftOf="@+id/btn_apply"
+				android:background="@drawable/btn_bg"
+				android:layout_marginRight="10dp"
+				android:padding="10dp"
+				android:textSize="14dp"
+				android:textColor="#ffff0011"
+				android:text="CANCEL"/>
+		</RelativeLayout>
+	</RelativeLayout>
+
+</LinearLayout>

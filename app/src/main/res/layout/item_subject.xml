@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        style="@style/ll_detect"
+        android:layout_marginTop="5dp"
+        android:background="@color/transparent"
+        android:weightSum="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/et_subject_title"
+            style="@style/et_white_two_radius_5"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2.5"
+            android:inputType="text"
+            android:maxLength="6"
+            android:maxLines="1"
+            android:textAlignment="textStart"
+            tools:text="@string/thick_1" />
+
+        <EditText
+            android:id="@+id/et_subject_value"
+            style="@style/et_white_two_radius_5"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2.5"
+            android:maxLength="6"
+            android:maxLines="1"
+            tools:text="90" />
+
+        <EditText
+            android:id="@+id/et_subject_standard"
+            style="@style/et_white_two_radius_5"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2.5"
+            android:maxLength="6"
+            android:maxLines="1"
+            tools:text="100" />
+
+        <Spinner
+            android:id="@+id/sp_subject"
+            style="@style/sp_default"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:gravity="center" />
+    </LinearLayout>
+</layout>

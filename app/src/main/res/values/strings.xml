@@ -1,0 +1,584 @@
+<resources>
+    <string name="main">메인</string>
+    <string name="project_product">프로젝트 및 제조사 선택</string>
+
+    <string name="app_name">RFID</string>
+    <string name="app_name_demo">RFID</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="home_second">Home Second</string>
+
+    <string name="rfid_connect_request">RFID Read is not Connected.\n Would you like to connect it now?(If you want to quit, please click the "Cancel" button.)</string>
+    <string name="start">Start</string>
+    <string name="stop">중단</string>
+    <string name="ok">확인</string>
+    <string name="apply">Apply</string>
+    <string name="close">Close</string>
+    <string name="cancel">취소</string>
+    <string name="select_interval">Select Interval</string>
+    <string name="unknown">UnKnown</string>
+
+    <string name="string_splash_main_name">RFID</string>
+    <string name="string_splash_sub_name"></string>
+    <string name="string_splash_company_name">"POINT MOBILE Co.,LTD"</string>
+
+    <string name="updating">Updating...</string>
+    <string name="disconnecting">Disconnecting</string>
+
+    <string name="bluetooth_on">Bluetooth on</string>
+
+    <string name="version">Version</string>
+    <string name="connection">Connection</string>
+    <string name="device_information">RFID Reader Settings</string>
+    <string name="rfid_settings">Configuration</string>
+    <string name="rfid_wedge">Wedge</string>
+    <string name="launcher_rfid_demo">Launch RFID Demo</string>
+    <string name="launcher_rfid_control">Launch RFID Control</string>
+    <string name="about">About</string>
+    <string name="app_info">RFID Reader Information</string>
+    <string name="demo_settings">Demo Settings</string>
+    <string name="nav_title">RFID Reader Solution</string>
+    <string name="app_version">%1$s</string>
+
+    <string name="demo_tag_info">RFID Tag Info</string>
+    <string name="continuous_read">Continuous Read</string>
+    <string name="save_log">Save Log</string>
+    <string name="auto_scan">Auto Read</string>
+    <string name="beep_sound">Beep Sound</string>
+    <string name="temp">Temperature option</string>
+    <string name="temp_fail">Failed obtain temperature.</string>
+
+    <string name="read_rfid_tag">Start Inventory</string>
+    <string name="stop_rfid_tag">Stop RFID Tag</string>
+    <string name="write_tag">Write Tag</string>
+    <string name="read_tag">Read Tag</string>
+    <string name="current_tag_id">Current tag id</string>
+    <string name="tag_id_to_write">Tag id to write</string>
+
+    <string name="bluetooth">Bluetooth on</string>
+    <string name="search_reader">RFID Reader 찾기</string>
+    <string name="reader">Reader</string>
+    <string name="bluetooth_noti">Bluetooth On</string>
+    <string name="open_option">Open option : </string>
+
+    <!--    <string name="volume_setting_fail">Beep Sound Setting Failed. Retry.</string>-->
+    <!--    <string name="setting_fail">Setting Failed Category Exists</string>-->
+    <string name="error_result">Err. %1$d</string>
+    <string name="error_null">Err. null</string>
+    <string name="error_non_string">Err. ""</string>
+
+    <string name="continuous_read_toggle">Continuous Read</string>
+    <string name="auto_scan_toggle">Auto Read</string>
+    <string name="save_log_toggle">Save Log Toggle</string>
+
+    <string name="os_version">RFID Reader OS Version</string>
+    <string name="fw_version">RFID Reader BT F/W Version</string>
+    <string name="beep_volume">Beep Volume</string>
+    <string name="vibrator">Vibrator</string>
+    <string name="battery_life">RFID Reader Battery Health</string>
+    <string name="battery_level">RFID Reader Battery Level</string>
+    <string name="battery_status">RFID Reader Battery Status</string>
+
+    <string name="radio_power">Radio Power</string>
+    <string name="radio_power_value">Radio power : %d dBm</string>
+    <string name="tx_power_value">%d (%ddBm)</string>
+    <string name="tx_cycle">Tx Cycle</string>
+    <string name="result_type">Result Type</string>
+    <string name="terminator">Terminator</string>
+    <string name="prefix">Prefix</string>
+    <string name="suffix">Suffix</string>
+    <string name="advanced">Advanced</string>
+    <string name="session">Session</string>
+    <string name="session_value">Session : </string>
+    <string name="q">Q</string>
+    <string name="q_value">Q : </string>
+    <string name="target">Target</string>
+    <string name="inventory_config">Inventory Config</string>
+    <string name="inventory_mode">Inventory Mode</string>
+    <string name="inventory_timeout">Inventory Timeout</string>
+    <string name="report_time">Report Time</string>
+    <string name="report_time_value">Report Time : </string>
+    <string name="report_rssi">Report RSSI</string>
+    <string name="report_rssi_value">Report Rssi : </string>
+    <string name="tag_focus">Tag Focus</string>
+    <string name="fast_id">Fast ID</string>
+    <string name="save_tag_list_to_csv">Save tag list to csv</string>
+    <string name="default_setting">Reset RFID Setting</string>
+    <string name="default_description">RFID Setting will reset to default settings</string>
+    <string name="auto_read_interval">Auto read interval(sec)</string>
+    <string name="filter_duplicate_tags">Filter duplicate tags</string>
+    <string name="tagPattern_hexadecimal">You can only enter Hexadecimal for Tag Pattern</string>
+
+    <string name="reader_fw_version">RFID Reader F/W Version</string>
+    <string name="device_name">RFID Reader Serial Number</string>
+    <string name="device_mac">RFID Reader Mac Address</string>
+
+    <string name="bluetooth_enable">Bluetooth enabled.</string>
+    <string name="bluetooth_disable">Bluetooth disabled.</string>
+    <string name="bluetooth_already_connected">Bluetooth is already connected with this reader</string>
+
+    <string name="scanner_mode">UHF RFID reader is configured to the Scanner Mode. Switch to the UHF RFID Reader Mode firstly.</string>
+
+    <string name="load_default">Reset RFID Setting to default?</string>
+
+    <string name="high">High</string>
+    <string name="low">Low</string>
+    <string name="mute">Mute</string>
+
+    <string name="result_callback">Callback(User Message)</string>
+    <string name="result_keyboard">Keyboard Event</string>
+    <string name="result_clipboard_keycode">Clipboard (KEYCODE_PASTE)</string>
+    <string name="result_clipboard_ctrl_v">Clipboard (Ctrl+V)</string>
+    <string name="result_intent">Intent Broadcast</string>
+    <string name="result_custom_intent">Custom Intent</string>
+    <string name="custom_intent_action">Intent action</string>
+    <string name="custom_intent_category">Intent category</string>
+    <string name="custom_intent_data">Extra data</string>
+
+    <string name="terminator_none">None</string>
+    <string name="terminator_space">Space</string>
+    <string name="terminator_tab">Tab</string>
+    <string name="terminator_lf">LF</string>
+    <string name="terminator_tab_lf">Tab &amp; LF</string>
+
+    <string name="good">Good</string>
+    <string name="replace_need">Replacement is necessary</string>
+    <string name="charging">Charging</string>
+    <string name="not_charging">Not Charging</string>
+
+    <string name="inventory_param">Inventory Param</string>
+    <string name="inventory_report_format">Inventory Report Format</string>
+    <string name="inventory_operation_mode">Operation Mode</string>
+    <string name="inventory_timeout_warning">You can only enter 0 to 120 min</string>
+    <string name="flag">Flag</string>
+    <string name="flag_value">Flag : </string>
+    <string name="single">Mode</string>
+    <string name="single_value">Mode : </string>
+    <string name="select">Select</string>
+    <string name="select_value">Select : </string>
+    <string name="timeout">Timeout</string>
+    <string name="timeout_value">Timeout : </string>
+    <string name="continuous_moe">Continuous Mode</string>
+    <string name="single_mode">Single Mode</string>
+    <string name="non_select_moe">Non Select Mode</string>
+    <string name="exclusion_mode">Exclusion Mode</string>
+    <string name="select_mode">Select Mode</string>
+    <string name="time_0_des">0 means infinite ( Available from 1 to 120 min )</string>
+    <string name="time_unit">Min</string>
+    <string name="txcycle_on_desc">Available from 40 to 400</string>
+    <string name="txcycle_off_desc">Available from 0 to 255</string>
+    <string name="current_txcycle">Current Tx Cycle : \t</string>
+    <string name="tx_on_duration">Tx ON duration : \t</string>
+    <string name="tx_off_duration">Tx OFF duration : \t</string>
+    <string name="tx_data_format_title">Tx Data Format </string>
+    <string name="data_format">Data Format</string>
+    <string name="filter">Filter</string>
+    <string name="filter1">Filter1</string>
+    <string name="filter2">Filter2</string>
+
+    <string name="connect_dlg_title">RFID Reader 연결상태</string>
+    <string name="connect_dlg_msg">Do you want to connect to the device?</string>
+    <string name="connect">Connect</string>
+    <string name="request_disconnect">RFIDReader has connected. Do you want to disconnect it first?</string>
+
+    <string name="not_connected">먼저 RFID Reader를 연결해주세요.</string>
+
+    <string name="search_bt_devices">Device 찾는중입니다. 잠시만 기다려주세요.</string>
+
+    <string name="connect_request_msg">Device 연결 : </string>
+    <string name="disconnect_request_msg">Device 연결취소 : </string>
+    <string name="please_wait">잠시만 기다려주세요..</string>
+    <string name="rfid_opening">RFID Open</string>
+    <string name="rfid_closing">RFID Close</string>
+
+    <string name="disconnect_title">Disconnect to device</string>
+    <string name="disconnect_msg">Do you want to disconnect to the device ? \n(MAC : %s )</string>
+    <string name="disconnect">Disconnect</string>
+
+    <string name="last_connect_device">가장 최근에 연결한 RFID Reader</string>
+
+    <string name="tag_data">TAG_DATA</string>
+    <string name="prefix_tag_data">PREFIX_TAG_DATA</string>
+    <string name="tag_data_suffix">TAG_DATA_SUFFIX</string>
+    <string name="prefix_tag_data_suffix">PREFIX_TAG_DATA_SUFFIX</string>
+    <string name="no_prefix">NO_PREFIX</string>
+    <string name="no_suffix">NO_SUFFIX</string>
+
+    <string name="pc_epc_crc">PC_EPC_CRC</string>
+    <string name="pc_epc">PC_EPC</string>
+    <string name="epc_crc">EPC_CRC</string>
+    <string name="epc_only">EPC_ONLY</string>
+
+    <string name="select_none">None</string>
+    <string name="select_exclusion">Exclusion</string>
+    <string name="select_inclusion">Inclusion</string>
+
+    <string name="matching_tags">Matching tags</string>
+    <string name="non_matching_tags">Non-matching tags</string>
+
+    <string name="filter_select">Select</string>
+    <string name="filter_offset">Offset</string>
+    <string name="filter_tag_pattern">Tag pattern</string>
+    <string name="filter_select_matching_tags">Select matching tags</string>
+    <string name="filter_enable_filter">Enable filter</string>
+    <string name="filter_offset_unit">Digit</string>
+    <string name="filter_over_offset_max">You can enter only 0 to 62.</string>
+    <string name="filter_select_explain">(This select is synchronized with select in Filter%d.)</string>
+    <string name="filter_enable_filter_explain">(This enable filter is synchronized with enable filter in Filter%d.)</string>
+
+    <string name="wrong_data_format">Wrong DataFormat</string>
+    <string name="device_disconnected">Disconnected from %1$s</string>
+    <string name="device_disconnected_reader">Disconnected from the Reader</string>
+
+    <string name="import_configuration">Import Configuration</string>
+    <string name="export_configuration">Export Configuration</string>
+
+    <string name="json_import">Please select a JSON file to import.</string>
+    <string name="json_import_file_not_exist">/RFIDControl/RFIDJsons/Configuration.json file not exists.</string>
+    <string name="json_import_success">Successfully imported!</string>
+    <string name="json_import_fail">Failed to imported!</string>
+    <string name="json_export">Please enter a JSON file name to export.</string>
+    <string name="json_export_explanation">The current configuration settings will be exported as a /RFIDControl/RFIDJsons/Configuration.json file.</string>
+    <string name="json_export_over_write_agreement">Configuration.json file already exists. Do you want to over-write the file?</string>
+    <string name="json_export_success">Successfully exported!</string>
+    <string name="json_export_fail">Failed to exported!</string>
+    <string name="json_export_file_exist">This file name is already exist. Please enter a file name again.</string>
+    <string name="json_export_file_name_null">Please enter a file name.</string>
+    <string name="json_import_file_name_null">Please select a file.</string>
+    <string name="json_path_null">Find th json file in the default path : /RFIDControl/RFIDJsons</string>
+    <string name="not_json_file">This is not json file. Please select json file.</string>
+    <string name="json_file_select">Select JSON file for applying</string>
+    <string name="text_import">Import</string>
+    <string name="text_export">Export</string>
+    <string name="auto_json_imported_explain">During Bluetooth connection process,\nRFID Configuration will be imported \nautomatically.</string>
+    <string name="json_something_wrong">Cannot read Configuration.json.\nSomething wrong with the file.</string>
+    <string name="json_file_error">Json file import failed. Set default value.</string>
+    <string name="json_file_error2">Json file import failed. Something wrong with the file.</string>
+    <string name="json_file_error3">Configuration.json file doesn\'t exist. Set default value.</string>
+
+    <string name="nfc_tap_to_pair">NFC Tap-to-Pair</string>
+    <string name="nfc_explanation">Hold the Host Device close to the N-Mark on the RFID Reader until the Host Device plays a success sound cue.</string>
+    <string name="nfc_not_support">This device doesn\'t support NFC</string>
+    <string name="nfc_enable">Please turn on NFC to connect with Tap-to-Pair</string>
+    <string name="nrf_turning_on">Turning NFC on…</string>
+
+    <string name="dialog_gps_title">Location</string>
+    <string name="dialog_gps_msg">Location is supposed to be enabled to use BLE. Please enable Location on settings.</string>
+
+    <string name="update_fw">Update RFID F/W</string>
+    <string name="auto_update">Auto update</string>
+    <string name="auto_fw_update_explain">During Bluetooth connection process,\nRFID F/W will be updated \nautomatically.</string>
+    <string name="auto_config_update_explain"> During Bluetooth connection process,\nRFID Configuration will be updated \nautomatically. \npath : RFIDControl/RFIDJsons/Configuration.json</string>
+    <string name="select_rfu_file">Please select a RFU file to update</string>
+    <string name="update_now">Update now</string>
+    <string name="update_mcu_fw">Updating MCU F/W ......</string>
+    <string name="update_bt_fw">Updating BT F/W ......</string>
+    <string name="importing_config">Importing RFID Configuration ......</string>
+    <string name="file_not_found">File not found</string>
+    <string name="not_supported">Not supported</string>
+    <string name="update_fail">Fail</string>
+    <string name="update_success">Success</string>
+    <string name="update_skip">Skip</string>
+    <string name="update_result_fail">Something went wrong!</string>
+    <string name="rfu_path_null">Find the RFU file in the default path : /RFIDControl/RFIDRFUs</string>
+    <string name="rfu_file_select">Select RFU file for applying</string>
+    <string name="rfu_file_null">Please select a RFU file.</string>
+    <string name="rfu_extract_fail">Extract RFU Fail</string>
+    <string name="rfu_extract_file_not_found">Extract RFU not found</string>
+    <string name="file_doesnt_exist">File doesn\'t exist</string>
+    <string name="something_went_wrong">Something went wrong…</string>
+    <string name="bt_fw_update_fail_with_error">BT update fail with 133 Error!</string>
+    <string name="rfid_is_not_opened">RFID is not opened</string>
+    <string name="mcu_fw_update">MCU F/W Update</string>
+    <string name="bt_fw_update">BT F/W Update</string>
+    <string name="config_update">Configuration Update</string>
+    <string name="mac_address_null">Mac Address is null</string>
+    <string name="device_null">Device is null</string>
+    <string name="mcu_file_sending">MCU F/W file sending…</string>
+    <string name="mc_file_sending_success">MCU F/W file sending… Success</string>
+    <string name="no_device_info">Device info doesn\'t exist</string>
+    <string name="wait_for_mcu_update">Wait for MCU F/W Update…</string>
+    <string name="wait_for_bt_update">Wait for BT F/W Update…</string>
+    <string name="wait_for_config_update">Wait for Configuration Update…</string>
+    <string name="bt_disconnected">BT Disconnected</string>
+    <string name="verify_bt_firmware_file">Verify BT Firmware File</string>
+    <string name="ble_connection_request">BLE Connection request</string>
+    <string name="connect_ble_mode">Connect BLE Mode device</string>
+    <string name="connect_ble_mode_fail">Connect BLE Mode device fail</string>
+    <string name="change_ble_mode_fail">Failed change to BLE mode</string>
+    <string name="ble_disconnected">BLE disconnected</string>
+    <string name="invalid_bt_fw_file">Invalid BT F/W File</string>
+    <string name="gatt_writing_error">Error writing CP Characteristic</string>
+    <string name="gatt_verification">Download verification</string>
+    <string name="bt_fw_update_fail">BT F/W update fail</string>
+    <string name="connection_fail">Connection failed!!</string>
+    <string name="bt_fw_update_process_aborted">BT F/W Update process aborted</string>
+    <string name="get_os_version_fail">Failed get os version</string>
+    <string name="get_bt_fw_version_fail">Failed get BT F/W version</string>
+    <string name="extract_fail">Extract Failed!</string>
+    <string name="mcu_update_fail">Failed import MCU file.</string>
+    <string name="config_update_fail">Failed update configuration.</string>
+    <string name="config_file_not_exist">Config file is not exist.</string>
+    <string name="open_fail">RFID open fail.</string>
+
+    <string name="check_mode">Reader is not wired mode.</string>
+    <string name="reader_detached">RFID reader is disconnected. Install again to reconnect.</string>
+
+    <string name="pm85">PM85</string>
+    <string name="pm90">PM90</string>
+    <string name="pm30">PM30</string>
+
+    <string name="option_bt">Bluetooth</string>
+    <string name="option_uart">UART</string>
+    <string name="option_wired">Wired</string>
+
+    <string name="auto_interval_max_value">You can enter only 10 to 99.</string>
+    <string name="auto_interval_null">Please enter or select interval time </string>
+    <string name="auto_interval">Auto Scan Interval</string>
+    <string name="auto_interval_1">1</string>
+    <string name="auto_interval_2">2</string>
+    <string name="auto_interval_3">3</string>
+    <string name="auto_interval_4">4</string>
+    <string name="auto_interval_5">5</string>
+    <string name="auto_interval_6">6</string>
+    <string name="auto_interval_7">7</string>
+    <string name="auto_interval_8">8</string>
+    <string name="auto_interval_9">9</string>
+    <string name="auto_interval_range">(10 ~ 99)</string>
+
+    <!--Sleep-->
+    <string name="sleep_title">Sleep</string>
+    <string name="sleep_sub_title">Timeout : </string>
+    <string name="sleep_30s">30sec</string>
+    <string name="sleep_1m">1min</string>
+    <string name="sleep_5m">5min</string>
+    <string name="sleep_10m">10min</string>
+    <string name="sleep_30m">30min</string>
+    <string name="sleep_1h">1hour</string>
+    <string name="sleep_2h">2hour</string>
+
+    <!--Filter-->
+    <string name="first_filter">Filter1</string>
+    <string name="second_filter">Filter2</string>
+    <string name="id">아이디</string>
+    <string name="password">비밀번호</string>
+    <string name="auto_login">자동로그인</string>
+    <string name="login">로그인</string>
+    <string name="project">프로젝트</string>
+    <string name="product">제조사</string>
+    <string name="select_finish">선택완료</string>
+    <string name="setting">설정</string>
+    <string name="open_source_license">오픈소스 라이선스</string>
+    <string name="ip">IP</string>
+    <string name="port">PORT</string>
+    <string name="logout">로그아웃</string>
+    <string name="detecting">부재검측</string>
+    <string name="detect_item_1">몰드검사</string>
+    <string name="detect_item_2">피복두께 검사</string>
+    <string name="detect_item_3">매입철물 검사</string>
+    <string name="detect_item_4">콘크리트 검사</string>
+    <string name="detect_item_5">탈형강도 검사</string>
+    <string name="detect_item_6">외관 검사</string>
+    <string name="shipping_registration">출하등록</string>
+    <string name="tag_check">태그 체크</string>
+    <string name="rfid_tag_check">RFID 태그를 체크해주세요.</string>
+
+    <string name="tag_id">태그 ID</string>
+    <string name="tag_num">부재번호</string>
+    <string name="tag_kind">부재종류</string>
+
+    // 몰드 // 외관
+    <string name="width">가로</string>
+    <string name="height">세로</string>
+    <string name="length">길이</string>
+    // 피복두께
+    <string name="thick">피복두께</string>
+    <string name="thick_1">주철근</string>
+    <string name="thick_2">띠철근</string>
+    <string name="thick_3">철물개수</string>
+    // 매입철물
+    <string name="blank"> </string>
+    <string name="subject">항목</string>
+    <string name="enter">입력</string>
+    <string name="standard">기준치</string>
+    // 콘크리트
+    <string name="slump">슬럼프</string>
+    <string name="air">공기량</string>
+    <string name="slave">염화량</string>
+    // 탈형강도
+    <string name="strength">탈형강도</string>
+
+    <string name="detect_picture">검측 사진</string>
+    <string name="detect_result">검측 결과</string>
+    <string name="detect_fail">불량</string>
+    <string name="detect_success">양호</string>
+    <string name="detect_send">전송</string>
+
+    <string name="mm_in">(mm)</string>
+    <string name="mm">mm</string>
+    <string name="per_in">(%)</string>
+    <string name="per">%</string>
+    <string name="mpa_in">(MPa)</string>
+    <string name="mpa">MPa</string>
+    <string name="plus">+</string>
+
+    <string name="standard_1_first">995 ~ 1005</string>
+    <string name="standard_1_second">1997 ~ 2003</string>
+    <string name="standard_1_third">498 ~ 505</string>
+
+    <string name="standard_2_first">7453 ~ 7467</string>
+    <string name="standard_2_second">1707 ~ 1713</string>
+    <string name="standard_2_third">198 ~ 205</string>
+
+    <string name="standard_3_first">794 ~ 806</string>
+    <string name="standard_3_second">444 ~ 456</string>
+    <string name="standard_3_third">8861 ~ 8899</string>
+
+    <string name="standard_4_first">494 ~ 506</string>
+    <string name="standard_4_second">694 ~ 706</string>
+    <string name="standard_4_third">7431 ~ 7469</string>
+
+    <string name="standard_thick_1">Int:20, Ext:40</string>
+    <string name="standard_thick_2">Int:20, Ext:30</string>
+    <string name="standard_thick_3_first">40</string>
+    <string name="standard_thick_3_second">30</string>
+    <string name="standard_thick_4">30</string>
+
+    <string-array name="spinner_detect">
+        <item>mm</item>
+        <item>EA</item>
+    </string-array>
+
+    <string-array name="pm85_option">
+        <item>@string/option_bt</item>
+        <!--        <item>@string/option_wired</item>-->
+    </string-array>
+
+    <string-array name="pm90_option">
+        <item>@string/option_bt</item>
+        <item>@string/option_wired</item>
+    </string-array>
+
+    <string-array name="pm30_option">
+        <item>@string/option_bt</item>
+        <item>@string/option_wired</item>
+    </string-array>
+
+    <string-array name="pm550_option">
+        <item>@string/option_bt</item>
+    </string-array>
+
+    <string-array name="pm75_option">
+        <item>@string/option_bt</item>
+        <item>@string/option_wired</item>
+    </string-array>
+
+    <string-array name="not_support">
+        <item>@string/option_bt</item>
+    </string-array>
+
+    <string-array name="select_array">
+        <item>@string/matching_tags</item>
+        <item>@string/non_matching_tags</item>
+    </string-array>
+
+    <string-array name="volume_array">
+        <item>@string/mute</item>
+        <item>@string/low</item>
+        <item>@string/high</item>
+    </string-array>
+
+    <string-array name="result_type_array">
+        <item>@string/result_callback</item>
+        <item>@string/result_keyboard</item>
+        <item>@string/result_clipboard_keycode</item>
+    </string-array>
+
+    <string-array name="terminator_array">
+        <item>@string/terminator_none</item>
+        <item>@string/terminator_space</item>
+        <item>@string/terminator_tab</item>
+        <item>@string/terminator_lf</item>
+        <item>@string/terminator_tab_lf</item>
+    </string-array>
+
+    <string-array name="session_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="q_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="target_array">
+        <item>A</item>
+        <item>B</item>
+        <item>AB</item>
+    </string-array>
+
+    <string-array name="tx_data_format">
+        <item>@string/tag_data</item>
+        <item>@string/prefix_tag_data</item>
+        <item>@string/tag_data_suffix</item>
+        <item>@string/prefix_tag_data_suffix</item>
+    </string-array>
+
+    <string-array name="data_format">
+        <item>@string/pc_epc_crc</item>
+        <item>@string/pc_epc</item>
+        <item>@string/epc_crc</item>
+        <item>@string/epc_only</item>
+    </string-array>
+
+    <string-array name="select_mode_array">
+        <item>@string/select_none</item>
+        <item>@string/select_exclusion</item>
+        <item>@string/select_inclusion</item>
+    </string-array>
+
+    <string-array name="interval_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+
+    <string-array name="sleep_time">
+        <item>@string/sleep_30s</item>
+        <item>@string/sleep_1m</item>
+        <item>@string/sleep_5m</item>
+        <item>@string/sleep_10m</item>
+        <item>@string/sleep_30m</item>
+        <item>@string/sleep_1h</item>
+        <item>@string/sleep_2h</item>
+    </string-array>
+
+    <string-array name="filter_names">
+        <item>@string/first_filter</item>
+        <item>@string/second_filter</item>
+    </string-array>
+
+
+</resources>

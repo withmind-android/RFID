@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorSplashBackground">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+
+    <color name="White">#FFFFFF</color>
+    <color name="Black">#000000</color>
+    <color name="black_alpha">#80000000</color>
+    <color name="Blue">#2196F3</color>
+    <color name="Blue_40">#732196F3</color>
+    <color name="DarkBlue">#0D47A1</color>
+    <color name="Pink">#E91E63</color>
+    <color name="Red">#FF0000</color>
+    <color name="col_80e0e0e0">#80e0e0e0</color>
+    <color name="col_805E5E5E">#805E5E5E</color>
+
+    <color name="transparent">#00FFFFFF</color>
+    //
+    <color name="hint_grey">#707070</color>
+    <color name="pale_grey">#fbfbfd</color>
+    <color name="nice_blue">#1277ac</color>
+    <color name="nice_blue_18">#2E1277ac</color>
+    <color name="nice_blue_50">#801277ac</color>
+    <color name="ocean_blue">#0077ac</color>
+    <color name="nice_blue_two">#1478aa</color>
+    <color name="cobalt">#1e4ba0</color>
+    <color name="red">#e10000</color>
+    <color name="pinkish_grey">#cccccc</color>
+    <color name="rusty_red">#ce1111</color>
+    <color name="dodger_blue">#3392fb</color>
+    <color name="sky_blue">#58a7fe</color>
+    <color name="greyish">#b7b7b7</color>
+    <color name="white_four">#d8d8d8</color>
+    <color name="white_five">#f4f4f4</color>
+    <color name="light_orange">#ffa240</color>
+    <color name="tomato">#e52727</color>
+
+    //
+    <color name="login_line">#5CFFFFFF</color>
+    <color name="login_edit_text">#BAFFFFFF</color>
+    <color name="login_hint">#707070</color>
+    <color name="main_gradation_light">#5f4eee</color>
+    <color name="main_gradation_dark">#202746</color>
+    <color name="disable_color">#e1e1e1</color>
+    <color name="text_black">#333333</color>
+    <color name="text_hint">#999999</color>
+    <color name="white">#ffffff</color>
+    <color name="pale_red">#d94c35</color>
+    <color name="yellow_orange">#ffb900</color>
+    <color name="gross_green">#a1bb1a</color>
+    <color name="tealish">#33bbd2</color>
+    <color name="peacock_blue">#005495</color>
+    <color name="darkish_pink">#de5a71</color>
+    <color name="slate_grey">#63687d</color>
+    <color name="white_two">#fafafa</color>
+    <color name="white_three">#f1f1f1</color>
+    <color name="grapefruit">#ff4d4d</color>
+    <color name="purpleish_blue">#5c57ea</color>
+    <color name="cool_grey">#b9bac2</color>
+</resources>
