@@ -876,6 +876,7 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         }
 
         override fun notifyChangedState(state: Int) {
+            Log.e(TAG, "notifyChangedState: ")
             Log.d(TAG, "notifyChangedState : $state")
             if (state == RFIDConst.DeviceState.TRIGGER_RFID_KEYDOWN) {
                 Log.d(D, "Trigger key down")
