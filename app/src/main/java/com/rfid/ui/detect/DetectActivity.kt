@@ -33,10 +33,10 @@ class DetectActivity : BaseActivityK<ActivityDetectBinding>(R.layout.activity_de
         binding.appBarDetect.tbTitle.text = title
 
         for (i in tagList.indices) {
-            //TODO 앞뒤로 뭐 4자리 짜른다는거
-//            var tag = tagList[i].tag.substring(4)
-//            tag = tag.substring(0, tag.length - 4)
-//            tagList[i].tag = tag
+        //  TODO 앞뒤로 뭐 4자리 짜른다는거
+        //  var tag = tagList[i].tag.substring(4)
+        //  tag = tag.substring(0, tag.length - 4)
+        //  tagList[i].tag = tag
             when (id) {
                 1 -> {
                     pagerAdapter.addFragment(DetectItem1(tagList[i], pagerAdapter))
