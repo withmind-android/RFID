@@ -551,6 +551,7 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
                     Log.e(TAG, mItems!![i].name)
                 }
                 // TODO idList 안에 mItems[i].name 을 담는다
+                // api 에 들어가는 값
 //                    idList.add("10001")
 //                    idList.add("10006")
 //                    idList.add("10011")
@@ -876,7 +877,6 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         }
 
         override fun notifyChangedState(state: Int) {
-            Log.e(TAG, "notifyChangedState: ")
             Log.d(TAG, "notifyChangedState : $state")
             if (state == RFIDConst.DeviceState.TRIGGER_RFID_KEYDOWN) {
                 Log.d(D, "Trigger key down")

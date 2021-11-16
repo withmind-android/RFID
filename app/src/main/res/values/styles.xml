@@ -116,6 +116,33 @@
         <item name="android:textSize">15dp</item>
     </style>
 
+    <style name="tv_license_title">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="tv_license_link">
+        <item name="android:textSize">15dp</item>
+        <item name="android:autoLink">web</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+
+    <style name="tv_license_content">
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/hint_grey</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+
+    <style name="tv_license">
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:drawableStart">@drawable/ic_arrow_right</item>
+        <item name="android:text">Apache License 2.0</item>
+    </style>
+
     // btn
 
     <style name="btn_white_radius_5" parent="Widget.AppCompat.ActionButton">

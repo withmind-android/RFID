@@ -1,5 +1,6 @@
 package com.rfid.ui
 
+import android.content.Intent
 import android.util.Log
 import android.view.MenuItem
 import com.jakewharton.rxbinding4.view.clicks
@@ -24,6 +25,17 @@ class SettingActivity : BaseActivityK<ActivitySettingBinding>(R.layout.activity_
                     openDialog("로그아웃 하시겠습니까?")
                 }, { it.printStackTrace() })
         )
+
+        compositeDisposable.add(
+            binding.openSourceLicense
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    openLicense()
+                }, {
+                    it.printStackTrace()
+                })
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -33,5 +45,11 @@ class SettingActivity : BaseActivityK<ActivitySettingBinding>(R.layout.activity_
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun openLicense() {
+        val intent = Intent()
+        intent.setClass(applicationContext, LicenseActivity::class.java)
+        startActivity(intent)
     }
 }
