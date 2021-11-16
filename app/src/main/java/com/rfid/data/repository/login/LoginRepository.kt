@@ -7,4 +7,5 @@ import io.reactivex.rxjava3.core.Single
 interface LoginRepository {
     fun login(id: String, password: String, isAuto: Boolean): Completable
     fun getUser(): Single<UserEntity>
+    fun logout(): Completable
 }

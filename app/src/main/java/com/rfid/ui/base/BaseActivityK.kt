@@ -22,6 +22,7 @@ import com.gun0912.tedpermission.rx3.TedPermission
 import com.rfid.R
 import com.rfid.RFIDApplication
 import com.rfid.ui.login.LoginActivity
+import com.rfid.util.Constants
 import com.rfid.util.SharedPreferencesPackage
 import com.rfid.util.SharedPreferencesPackage.setAutoLogin
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -55,6 +56,7 @@ abstract class BaseActivityK<B : ViewDataBinding>(
             setAutoLogin("", "", false)
             dialog.dismiss()
             val intent = Intent()
+            intent.putExtra(Constants.LOGOUT, true)
             intent.setClass(applicationContext, LoginActivity::class.java)
             startActivity(intent)
             finish()

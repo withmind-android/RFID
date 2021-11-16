@@ -35,12 +35,17 @@ class LoginActivity : BaseActivityK<ActivityLoginBinding>(R.layout.activity_logi
 
     override fun init() {
         viewModel.apply {
+            val isLogin = intent.getBooleanExtra(Constants.LOGOUT, false)
+
             userInfo.observe(this@LoginActivity, { userEntity ->
                 binding.etLoginId.setText(userEntity.userId)
                 binding.etLoginPw.setText(userEntity.userPw)
                 binding.cbLoginAuto.isChecked = userEntity.isAuto
-                if (userEntity.isAuto) {
+
+                if (userEntity.isAuto && !isLogin) {
                     startLogin(userEntity.userId, userEntity.userPw, userEntity.isAuto)
+                } else {
+                    logout()
                 }
             })
             isLoading.observe(this@LoginActivity, { isLoading ->

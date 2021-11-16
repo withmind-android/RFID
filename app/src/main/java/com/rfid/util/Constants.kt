@@ -12,5 +12,7 @@ object Constants {
     const val MANUFACTURE_ID = "manufacture_id"
     const val MANUFACTURE_NAME = "manufacture_name"
 
+    const val LOGOUT = "logout"
+
     const val THROTTLE = 2000L
 }

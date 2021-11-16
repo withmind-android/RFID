@@ -6,7 +6,6 @@ import com.rfid.data.remote.project.Manufactures
 import com.rfid.data.remote.project.ProjectDataSource
 import com.rfid.data.remote.project.Projects
 import com.rfid.util.SharedPreferencesPackage
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 class ProjectRepositoryImpl constructor(

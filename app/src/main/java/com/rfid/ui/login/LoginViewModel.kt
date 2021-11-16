@@ -18,6 +18,9 @@ class LoginViewModel(
     private val _userInfo = MutableLiveData<UserEntity>()
     val userInfo: LiveData<UserEntity> = _userInfo
 
+    private val _logout = MutableLiveData<Boolean>()
+    val logout: LiveData<Boolean> = _logout
+
     init {
         compositeDisposable.add(
             repository
@@ -48,6 +51,19 @@ class LoginViewModel(
                 }, {
                     Log.e(TAG, "startLogin: fail")
                     _loginState.value = false
+                    it.printStackTrace()
+                })
+        )
+    }
+    fun logout() {
+        compositeDisposable.add(
+            repository
+                .logout()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _logout.value = true
+                }, {
+                    _logout.value = false
                     it.printStackTrace()
                 })
         )

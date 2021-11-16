@@ -144,6 +144,7 @@ class ProjectActivity :
             if (resultCode == RESULT_OK) {
                 // 로그아웃
                 val intent = Intent()
+                intent.putExtra(Constants.LOGOUT, true)
                 intent.setClass(applicationContext, LoginActivity::class.java)
                 startActivity(intent)
                 finish()

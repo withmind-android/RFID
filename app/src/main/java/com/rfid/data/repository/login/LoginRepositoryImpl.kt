@@ -39,6 +39,11 @@ class LoginRepositoryImpl constructor(
             .getUser()
     }
 
+    override fun logout(): Completable {
+        return userDataSource
+            .deleteUser()
+    }
+
     companion object {
         private const val TAG = "LoginRepositoryImpl"
     }

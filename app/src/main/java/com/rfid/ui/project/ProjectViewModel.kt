@@ -9,7 +9,7 @@ import com.rfid.data.repository.project.ProjectRepository
 import com.rfid.ui.base.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 
-class ProjectViewModel (
+class ProjectViewModel(
     private val repository: ProjectRepository
 ) : BaseViewModel() {
 
@@ -25,7 +25,7 @@ class ProjectViewModel (
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     _projects.value = it
-                },{
+                }, {
                     it.printStackTrace()
                 })
         )
