@@ -15,12 +15,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tabGravity="fill"
-                app:tabIndicatorColor="@color/Black"
-                app:tabIndicatorGravity="bottom"
+                app:tabIndicatorColor="@color/main_gradation_light"
+                app:tabIndicatorGravity="stretch"
+                app:tabIndicatorHeight="5dp"
                 app:tabMaxWidth="0dp"
                 app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/Black"
-                app:tabTextColor="@color/DarkBlue" />
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextColor="@color/Black" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/main_gradation_light"
+                app:layout_constraintBottom_toBottomOf="@+id/tl_detect"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_detect"

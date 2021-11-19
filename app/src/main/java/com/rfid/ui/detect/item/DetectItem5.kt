@@ -21,6 +21,7 @@ import com.rfid.data.remote.tag.*
 import com.rfid.data.repository.tag.TagRepositoryImpl
 import com.rfid.databinding.ItemDetect5Binding
 import com.rfid.ui.base.BaseFragment
+import com.rfid.ui.detect.TabLayoutListener
 import com.rfid.util.BitmapConverter
 import com.rfid.util.SharedPreferencesPackage
 import java.io.File
@@ -155,6 +156,7 @@ class DetectItem5(
                     val pageId = pagerAdapter.getItemId(position)
                     val delPosition = idList.indexOf(pageId)
                     pagerAdapter.removeFragment(delPosition)
+                    tabLayoutListener.removeFragment(delPosition)
 
                     if (idList.size == 1) {
                         Log.e(TAG, "detect 마지막 전송")
@@ -193,6 +195,12 @@ class DetectItem5(
                 viewModel.postUnMolding(mPostUnMolding)
             }
         }
+    }
+
+    // tabLayout listener
+    private lateinit var tabLayoutListener: TabLayoutListener
+    fun setItemClickListener(tabLayoutListener: TabLayoutListener) {
+        this.tabLayoutListener = tabLayoutListener
     }
 
     companion object {

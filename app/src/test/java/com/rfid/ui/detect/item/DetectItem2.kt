@@ -202,7 +202,7 @@ class DetectItem2(
                 binding.llItem2.visibility = View.GONE
                 binding.tvStandardThick1.text = getString(R.string.standard_thick_1)
             }
-            "슬래브" -> {
+            "슬라브" -> {
                 binding.llItem2.visibility = View.GONE
                 binding.tvStandardThick1.text = getString(R.string.standard_thick_2)
             }

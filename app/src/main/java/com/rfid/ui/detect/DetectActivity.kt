@@ -19,6 +19,12 @@ class DetectActivity : BaseActivityK<ActivityDetectBinding>(R.layout.activity_de
     private var title: String? = null
 
     private lateinit var mOptionMenu: Menu
+    private lateinit var detectItem1: DetectItem1
+    private lateinit var detectItem2: DetectItem2
+    private lateinit var detectItem3: DetectItem3
+    private lateinit var detectItem4: DetectItem4
+    private lateinit var detectItem5: DetectItem5
+    private lateinit var detectItem6: DetectItem6
 
     private val pagerAdapter = PagerFragmentStateAdapter(this)
 
@@ -39,34 +45,71 @@ class DetectActivity : BaseActivityK<ActivityDetectBinding>(R.layout.activity_de
         //  tagList[i].tag = tag
             when (id) {
                 1 -> {
-                    pagerAdapter.addFragment(DetectItem1(tagList[i], pagerAdapter))
+                    detectItem1 = DetectItem1(tagList[i], pagerAdapter)
+                    detectItem1.setItemClickListener(object : TabLayoutListener {
+                        override fun removeFragment(position: Int) {
+                            tagList.removeAt(position)
+                            setMediator()
+                        }
+                    })
+                    pagerAdapter.addFragment(detectItem1)
                 }
                 2 -> {
-                    pagerAdapter.addFragment(DetectItem2(tagList[i], pagerAdapter))
+                    detectItem2 = DetectItem2(tagList[i], pagerAdapter)
+                    detectItem2.setItemClickListener(object : TabLayoutListener {
+                        override fun removeFragment(position: Int) {
+                            tagList.removeAt(position)
+                            setMediator()
+                        }
+                    })
+                    pagerAdapter.addFragment(detectItem2)
                 }
                 3 -> {
-                    pagerAdapter.addFragment(DetectItem3(tagList[i], pagerAdapter))
+                    detectItem3 = DetectItem3(tagList[i], pagerAdapter)
+                    detectItem3.setItemClickListener(object : TabLayoutListener {
+                        override fun removeFragment(position: Int) {
+                            tagList.removeAt(position)
+                            setMediator()
+                        }
+                    })
+                    pagerAdapter.addFragment(detectItem3)
                 }
                 4 -> {
-                    pagerAdapter.addFragment(DetectItem4(tagList[i], pagerAdapter))
+                    detectItem4 = DetectItem4(tagList[i], pagerAdapter)
+                    detectItem4.setItemClickListener(object : TabLayoutListener {
+                        override fun removeFragment(position: Int) {
+                            tagList.removeAt(position)
+                            setMediator()
+                        }
+                    })
+                    pagerAdapter.addFragment(detectItem4)
                 }
                 5 -> {
-                    pagerAdapter.addFragment(DetectItem5(tagList[i], pagerAdapter))
+                    detectItem5 = DetectItem5(tagList[i], pagerAdapter)
+                    detectItem5.setItemClickListener(object : TabLayoutListener {
+                        override fun removeFragment(position: Int) {
+                            tagList.removeAt(position)
+                            setMediator()
+                        }
+                    })
+                    pagerAdapter.addFragment(detectItem5)
                 }
                 6 -> {
-                    pagerAdapter.addFragment(DetectItem6(tagList[i], pagerAdapter))
+                    detectItem6 = DetectItem6(tagList[i], pagerAdapter)
+                    detectItem6.setItemClickListener(object : TabLayoutListener {
+                        override fun removeFragment(position: Int) {
+                            tagList.removeAt(position)
+                            setMediator()
+                        }
+                    })
+                    pagerAdapter.addFragment(detectItem6)
                 }
             }
         }
         // Adapter
         binding.appBarDetect.detect.vpDetect.adapter = pagerAdapter
 
-        TabLayoutMediator(
-            binding.appBarDetect.detect.tlDetect,
-            binding.appBarDetect.detect.vpDetect
-        ) { tab, position ->
-            tab.text = "   ${position + 1}   "
-        }.attach()
+        setMediator()
 
         binding.appBarDetect.detect.vpDetect.apply {
             offscreenPageLimit = 1
@@ -76,6 +119,17 @@ class DetectActivity : BaseActivityK<ActivityDetectBinding>(R.layout.activity_de
             }
             adapter = pagerAdapter
         }
+    }
+
+    private fun setMediator() {
+        TabLayoutMediator(
+            binding.appBarDetect.detect.tlDetect,
+            binding.appBarDetect.detect.vpDetect,
+            false
+        ) { tab, position ->
+//            tab.text = "   ${position + 1}   "
+            tab.text = "${position + 1}. ${tagList[position].type}"
+        }.attach()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

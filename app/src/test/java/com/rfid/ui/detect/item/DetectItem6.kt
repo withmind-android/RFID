@@ -211,7 +211,7 @@ class DetectItem6(
                 binding.tvStandardHeight.text = getString(R.string.standard_1_second)
                 binding.tvStandardLength.text = getString(R.string.standard_1_third)
             }
-            "슬래브" -> {
+            "슬라브" -> {
                 binding.tvStandardWidth.text = getString(R.string.standard_2_first)
                 binding.tvStandardHeight.text = getString(R.string.standard_2_second)
                 binding.tvStandardLength.text = getString(R.string.standard_2_third)

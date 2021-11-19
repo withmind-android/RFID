@@ -21,6 +21,7 @@ import com.rfid.data.remote.tag.*
 import com.rfid.data.repository.tag.TagRepositoryImpl
 import com.rfid.databinding.ItemDetect6Binding
 import com.rfid.ui.base.BaseFragment
+import com.rfid.ui.detect.TabLayoutListener
 import com.rfid.util.BitmapConverter
 import com.rfid.util.SharedPreferencesPackage
 import java.io.File
@@ -62,7 +63,6 @@ class DetectItem6(
         setImgAdapter()
         applyBinding()
         applyViewModel()
-        setStandard(item.type)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -115,9 +115,7 @@ class DetectItem6(
 
             standard.observe(viewLifecycleOwner, { mStandard ->
                 binding.apply {
-                    tvStandardWidth.text = mStandard.width.toString()
-                    tvStandardHeight.text = mStandard.height.toString()
-                    tvStandardLength.text = mStandard.length.toString()
+                    setStandard(item.type, mStandard.width, mStandard.height, mStandard.length)
                 }
             })
 
@@ -162,6 +160,7 @@ class DetectItem6(
                     val pageId = pagerAdapter.getItemId(position)
                     val delPosition = idList.indexOf(pageId)
                     pagerAdapter.removeFragment(delPosition)
+                    tabLayoutListener.removeFragment(delPosition)
 
                     if (idList.size == 1) {
                         Log.e(TAG, "detect 마지막 전송")
@@ -204,29 +203,41 @@ class DetectItem6(
         }
     }
 
-    private fun setStandard(type: String) {
+    private fun setStandard(type: String, width: Int, height: Int, length: Int) {
+        val two = 2
+        val three = 3
+        val five = 5
+        val six = 6
+        val seven = 7
+        val nineteen = 19
         when (type) {
             "벽제" -> {
-                binding.tvStandardWidth.text = getString(R.string.standard_1_first)
-                binding.tvStandardHeight.text = getString(R.string.standard_1_second)
-                binding.tvStandardLength.text = getString(R.string.standard_1_third)
+                binding.tvStandardWidth.text = "${width - five} ~ ${width + five}"
+                binding.tvStandardHeight.text = "${height - three} ~ ${height + three}"
+                binding.tvStandardLength.text = "${length - two} ~ ${length + five}"
             }
-            "슬래브" -> {
-                binding.tvStandardWidth.text = getString(R.string.standard_2_first)
-                binding.tvStandardHeight.text = getString(R.string.standard_2_second)
-                binding.tvStandardLength.text = getString(R.string.standard_2_third)
+            "슬라브" -> {
+                binding.tvStandardWidth.text = "${width - seven} ~ ${width + seven}"
+                binding.tvStandardHeight.text = "${height - three} ~ ${height + three}"
+                binding.tvStandardLength.text = "${length - two} ~ ${length + five}"
             }
             "거더" -> {
-                binding.tvStandardWidth.text = getString(R.string.standard_3_first)
-                binding.tvStandardHeight.text = getString(R.string.standard_3_second)
-                binding.tvStandardLength.text = getString(R.string.standard_3_third)
+                binding.tvStandardWidth.text = "${width - six} ~ ${width + six}"
+                binding.tvStandardHeight.text = "${height - six} ~ ${height + six}"
+                binding.tvStandardLength.text = "${length - nineteen} ~ ${length + nineteen}"
             }
             "기둥" -> {
-                binding.tvStandardWidth.text = getString(R.string.standard_4_first)
-                binding.tvStandardHeight.text = getString(R.string.standard_4_second)
-                binding.tvStandardLength.text = getString(R.string.standard_4_third)
+                binding.tvStandardWidth.text = "${width - six} ~ ${width + six}"
+                binding.tvStandardHeight.text = "${height - six} ~ ${height + six}"
+                binding.tvStandardLength.text = "${length - nineteen} ~ ${length + nineteen}"
             }
         }
+    }
+
+    // tabLayout listener
+    private lateinit var tabLayoutListener: TabLayoutListener
+    fun setItemClickListener(tabLayoutListener: TabLayoutListener) {
+        this.tabLayoutListener = tabLayoutListener
     }
 
     companion object {

@@ -4,6 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/withmind/AndroidStudioProjects/RFID/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.20364583333333333" />
+        <entry key="..\:/Users/withmind/RFID/app/src/main/res/layout/activity_detect.xml" value="0.34375" />
+        <entry key="..\:/Users/withmind/RFID/app/src/main/res/layout/activity_shipment.xml" value="0.34375" />
+        <entry key="..\:/Users/withmind/RFID/app/src/main/res/layout/app_bar_detect.xml" value="0.34375" />
+        <entry key="..\:/Users/withmind/RFID/app/src/main/res/layout/app_bar_shipment.xml" value="0.34375" />
+        <entry key="..\:/Users/withmind/RFID/app/src/main/res/layout/content_detect.xml" value="0.34375" />
+        <entry key="..\:/Users/withmind/RFID/app/src/main/res/layout/content_shipment.xml" value="0.34375" />
+        <entry key="..\:/Users/withmind/RFID/app/src/main/res/layout/item_detect_1.xml" value="0.34375" />
+        <entry key="..\:/Users/withmind/RFID/app/src/main/res/layout/item_detect_3.xml" value="0.34375" />
+        <entry key="..\:/Users/withmind/RFID/app/src/main/res/layout/item_detect_5.xml" value="0.34375" />
+        <entry key="..\:/Users/withmind/RFID/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.35989583333333336" />
       </map>
     </option>
   </component>

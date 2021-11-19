@@ -451,7 +451,7 @@
     <string name="standard_thick_2">Int:20, Ext:30</string>
     <string name="standard_thick_3_first">40</string>
     <string name="standard_thick_3_second">30</string>
-    <string name="standard_thick_4">30</string>
+    <string name="standard_thick_4">40</string>
 
     <string-array name="spinner_detect">
         <item>mm</item>

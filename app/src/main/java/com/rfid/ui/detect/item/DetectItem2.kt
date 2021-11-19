@@ -23,6 +23,7 @@ import com.rfid.data.remote.tag.*
 import com.rfid.data.repository.tag.TagRepositoryImpl
 import com.rfid.ui.base.BaseFragment
 import com.rfid.databinding.ItemDetect2Binding
+import com.rfid.ui.detect.TabLayoutListener
 import com.rfid.util.BitmapConverter
 import com.rfid.util.SharedPreferencesPackage
 import java.io.File
@@ -155,6 +156,7 @@ class DetectItem2(
                     val pageId = pagerAdapter.getItemId(position)
                     val delPosition = idList.indexOf(pageId)
                     pagerAdapter.removeFragment(delPosition)
+                    tabLayoutListener.removeFragment(delPosition)
 
                     if (idList.size == 1) {
                         Log.e(TAG, "detect 마지막 전송")
@@ -202,7 +204,7 @@ class DetectItem2(
                 binding.llItem2.visibility = View.GONE
                 binding.tvStandardThick1.text = getString(R.string.standard_thick_1)
             }
-            "슬래브" -> {
+            "슬라브" -> {
                 binding.llItem2.visibility = View.GONE
                 binding.tvStandardThick1.text = getString(R.string.standard_thick_2)
             }
@@ -217,6 +219,12 @@ class DetectItem2(
                 binding.tvStandardThick1.text = getString(R.string.standard_thick_4)
             }
         }
+    }
+
+    // tabLayout listener
+    private lateinit var tabLayoutListener: TabLayoutListener
+    fun setItemClickListener(tabLayoutListener: TabLayoutListener) {
+        this.tabLayoutListener = tabLayoutListener
     }
 
     companion object {
