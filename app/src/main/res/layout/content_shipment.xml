@@ -16,6 +16,7 @@
             android:orientation="vertical"
             android:scrollbars="vertical"
             android:fadeScrollbars="false"
+            android:scrollbarSize="15dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"

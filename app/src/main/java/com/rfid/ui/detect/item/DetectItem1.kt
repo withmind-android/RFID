@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
-import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
@@ -212,7 +211,7 @@ class DetectItem1(
         val seven = 7
         val nineteen = 19
         when (type) {
-            "벽제" -> {
+            "벽체" -> {
                 binding.tvStandardWidth.text = "${width - five} ~ ${width + five}"
                 binding.tvStandardHeight.text = "${height - three} ~ ${height + three}"
                 binding.tvStandardLength.text = "${length - two} ~ ${length + five}"

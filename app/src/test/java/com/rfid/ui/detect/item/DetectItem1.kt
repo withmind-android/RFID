@@ -207,7 +207,7 @@ class DetectItem1(
 
     private fun setStandard(type: String) {
         when (type) {
-            "벽제" -> {
+            "벽체" -> {
                 binding.tvStandardWidth.text = getString(R.string.standard_1_first)
                 binding.tvStandardHeight.text = getString(R.string.standard_1_second)
                 binding.tvStandardLength.text = getString(R.string.standard_1_third)

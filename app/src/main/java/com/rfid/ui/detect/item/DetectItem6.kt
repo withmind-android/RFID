@@ -211,7 +211,7 @@ class DetectItem6(
         val seven = 7
         val nineteen = 19
         when (type) {
-            "벽제" -> {
+            "벽체" -> {
                 binding.tvStandardWidth.text = "${width - five} ~ ${width + five}"
                 binding.tvStandardHeight.text = "${height - three} ~ ${height + three}"
                 binding.tvStandardLength.text = "${length - two} ~ ${length + five}"

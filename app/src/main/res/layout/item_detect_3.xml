@@ -8,8 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
+        android:fadeScrollbars="false"
         android:fillViewport="true"
         android:isScrollContainer="true"
+        android:scrollbarSize="15dp"
         android:scrollbars="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout

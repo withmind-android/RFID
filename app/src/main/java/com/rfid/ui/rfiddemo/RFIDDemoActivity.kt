@@ -552,10 +552,6 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
                 }
                 // TODO idList 안에 mItems[i].name 을 담는다
                 // api 에 들어가는 값
-//                    idList.add("10001")
-//                    idList.add("10006")
-//                    idList.add("10011")
-//                    idList.add("10016")
                 idList.add("10003")
                 idList.add("10007")
                 idList.add("10013")

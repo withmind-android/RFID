@@ -198,7 +198,7 @@ class DetectItem2(
 
     private fun setStandard(type: String) {
         when (type) {
-            "벽제" -> {
+            "벽체" -> {
                 binding.llItem2.visibility = View.GONE
                 binding.tvStandardThick1.text = getString(R.string.standard_thick_1)
             }
