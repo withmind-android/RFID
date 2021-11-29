@@ -58,8 +58,8 @@ class DetectPictureAdapter : RecyclerView.Adapter<DetectPictureAdapter.ViewHolde
         }
 
         builder.setNegativeButton("취소") { _, _ ->
-            item.isVisibleDeleteBtn = true
-            deleteImg.visibility = View.VISIBLE
+            item.isVisibleDeleteBtn = false
+            deleteImg.visibility = View.GONE
             notifyDataSetChanged()
             Toast.makeText(mContext, "취소했습니다.", Toast.LENGTH_SHORT).show()
         }

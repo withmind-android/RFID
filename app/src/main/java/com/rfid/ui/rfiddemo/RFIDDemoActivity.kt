@@ -548,14 +548,14 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
             .subscribe({
                 Log.d(TAG, "Completed stop scan")
                 for (i in mItems!!.indices) {
+                    // TODO idList 안에 mItems[i].name 을 담는다
+                    // api 에 들어가는 값
+                    idList.add("10003")
+                    idList.add("10007")
+                    idList.add("10013")
+                    idList.add("10015")
                     Log.e(TAG, mItems!![i].name)
                 }
-                // TODO idList 안에 mItems[i].name 을 담는다
-                // api 에 들어가는 값
-                idList.add("10003")
-                idList.add("10007")
-                idList.add("10013")
-                idList.add("10015")
                 viewModel.scanTag(idList)
             }) {
                 Log.d(TAG, "Error in triggerStopScanCompletable")
