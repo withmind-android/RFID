@@ -129,6 +129,9 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         mIdx = intent.getIntExtra("idx", 0)
 
         viewModel.tags.observe(this, {
+            idList.clear()
+            mItems!!.clear()
+            mHashItems!!.clear()
             registerItems = it.data
             if (mIdx == 0) {
                 sendRegisterView()
@@ -547,16 +550,21 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.d(TAG, "Completed stop scan")
-                for (i in mItems!!.indices) {
-                    // TODO idList 안에 mItems[i].name 을 담는다
-                    // api 에 들어가는 값
-                    idList.add("10003")
-                    idList.add("10007")
-                    idList.add("10013")
-                    idList.add("10015")
-                    Log.e(TAG, mItems!![i].name)
+                if(mItems!!.size != 0) {
+                    for (i in mItems!!.indices) {
+                        // TODO idList 안에 mItems[i].name 을 담는다
+                        // api 에 들어가는 값
+                        // idList.add("${mItems[i].name}")
+                        idList.add("10003")
+                        idList.add("10007")
+                        idList.add("10013")
+                        idList.add("10015")
+                    }
+                    viewModel.scanTag(idList)
+                } else {
+                    Toast.makeText(this, "다시한번 태그를 확인해주세요.", Toast.LENGTH_SHORT).show()
                 }
-                viewModel.scanTag(idList)
+
             }) {
                 Log.d(TAG, "Error in triggerStopScanCompletable")
             }
@@ -814,7 +822,7 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
                 mTotalCount += 1
                 mHashItems!![data] = 1
                 mItems!!.add(RfidListItem(data, 1))
-//                idList.add(data)
+                idList.add(data)
                 mRvAdapter!!.notifyItemChanged(mItems!!.size - 1)
             } else {
                 mHashItems!![data] = count + 1
