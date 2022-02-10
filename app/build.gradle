@@ -45,6 +45,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation "androidx.gridlayout:gridlayout:1.0.0"
+    implementation fileTree(dir: 'D:\\work\\doc\\AT907 SDK Library v1.0.2021071400\\Lib', include: ['*.aar', '*.jar'], exclude: [])
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -78,5 +79,5 @@ dependencies {
     // https://stackoverflow.com/a/49323956
     kapt "androidx.room:room-compiler:$room_version"
 
-    compileOnly files('libs/device.sdk.classes.jar')
+//    compileOnly files('libs/device.sdk.classes.jar')
 }

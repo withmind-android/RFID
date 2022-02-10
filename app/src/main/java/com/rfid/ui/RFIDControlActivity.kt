@@ -18,18 +18,18 @@ import android.widget.*
 import androidx.drawerlayout.widget.DrawerLayout
 import com.jakewharton.rxbinding4.view.clicks
 import com.rfid.R
-import com.rfid.RFIDApplication.NotifyDataCallbacks
+//import com.rfid.RFIDApplication.NotifyDataCallbacks
 import com.rfid.databinding.ActivityRfidControlBinding
 import com.rfid.ui.base.BaseActivityK
 import com.rfid.ui.rfiddemo.RFIDDemoActivity
 import com.rfid.util.Constants
 import com.rfid.util.PreferenceUtil
 import com.rfid.util.Utils
-import device.common.DevInfoIndex
-import device.common.rfid.RFIDConst
-import device.common.rfid.RecvPacket
-import device.sdk.Information
-import device.sdk.RFIDManager
+//import device.common.DevInfoIndex
+//import device.common.rfid.RFIDConst
+//import device.common.rfid.RecvPacket
+//import device.sdk.Information
+//import device.sdk.RFIDManager
 import java.lang.ref.WeakReference
 import java.util.concurrent.TimeUnit
 
@@ -39,13 +39,14 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
     private var mUtil: Utils? = null
     private var mPrefUtil: PreferenceUtil? = null
     private var mBluetoothAdapter: BluetoothAdapter? = null
-    private var mRfidMgr: RFIDManager? = null
+//    private var mRfidMgr: RFIDManager? = null
     private var mMacAddress: String? = null
     private var mDeviceName: String? = null
     private val mIsDrawerOpen = false
     private var isProgress = false
     private var isPause = false
     private val mHandler = ConnectionCheckHandler(this)
+
 
     enum class OpenOption {
         BLUETOOTH, WIRED, UART, UNKNOWN
@@ -59,23 +60,24 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         mProgress = ProgressDialog(this@RFIDControlActivity)
-        mRfidMgr = RFIDManager.getInstance()
+//        mRfidMgr = RFIDManager.getInstance()
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
         //init value
         if (mPrefUtil!!.getBooleanPreference(PreferenceUtil.KEY_FIRST_START, true)) {
             mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SAVE_LOG, false)
             mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SCAN_AUTO_ENABLE, false)
-            mRfidMgr!!.SetResultType(RFIDConst.ResultType.RFID_RESULT_COPYPASTE)
+//            mRfidMgr!!.SetResultType(RFIDConst.ResultType.RFID_RESULT_COPYPASTE)
             mPrefUtil!!.putIntPreference(
                 PreferenceUtil.KEY_RESULT_TYPE,
-                RFIDConst.ResultType.RFID_RESULT_COPYPASTE
+//                RFIDConst.ResultType.RFID_RESULT_COPYPASTE
+                2
             )
             Log.d(TAG, "First Start App")
         }
         mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_FIRST_START, false)
         createFolder()
-        initOpenOption(checkDeviceInfo())
+//        initOpenOption(checkDeviceInfo())
         POWER_OFF_FLAG = false
         USB_DETACHED_FLAG = false
         registerBTStateReceiver()
@@ -134,54 +136,54 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
         super.onResume()
         Log.d(TAG, "RFIDControlActivity onResume")
         isPause = false
-        getRFIDApplication().setNotifyDataCallback(mDataCallbacks)
-        initState()
+//        getRFIDApplication().setNotifyDataCallback(mDataCallbacks)
+//        initState()
     }
 
-    private fun checkDeviceInfo(): Array<String> {
-        val information = Information.getInstance()
-        try {
-            val majorNum = information.majorNumber
-            return if (majorNum == DevInfoIndex.PM85_MAJOR) {
-                resources.getStringArray(R.array.pm85_option)
-            } else if (majorNum == DevInfoIndex.PM90_MAJOR) {
-                resources.getStringArray(R.array.pm90_option)
-            } else if (majorNum == DevInfoIndex.PM30_MAJOR) {
-                resources.getStringArray(R.array.pm30_option)
-            } else if (majorNum == DevInfoIndex.PM500_MAJOR) {
-                resources.getStringArray(R.array.pm550_option)
-            } else if (majorNum == DevInfoIndex.PM75_MAJOR) {
-                resources.getStringArray(R.array.pm75_option)
-            } else {
-                resources.getStringArray(R.array.not_support)
-            }
-        } catch (e: RemoteException) {
-            e.printStackTrace()
-        }
-        return resources.getStringArray(R.array.not_support)
-    }
+//    private fun checkDeviceInfo(): Array<String> {
+//        val information = Information.getInstance()
+//        try {
+//            val majorNum = information.majorNumber
+//            return if (majorNum == DevInfoIndex.PM85_MAJOR) {
+//                resources.getStringArray(R.array.pm85_option)
+//            } else if (majorNum == DevInfoIndex.PM90_MAJOR) {
+//                resources.getStringArray(R.array.pm90_option)
+//            } else if (majorNum == DevInfoIndex.PM30_MAJOR) {
+//                resources.getStringArray(R.array.pm30_option)
+//            } else if (majorNum == DevInfoIndex.PM500_MAJOR) {
+//                resources.getStringArray(R.array.pm550_option)
+//            } else if (majorNum == DevInfoIndex.PM75_MAJOR) {
+//                resources.getStringArray(R.array.pm75_option)
+//            } else {
+//                resources.getStringArray(R.array.not_support)
+//            }
+//        } catch (e: RemoteException) {
+//            e.printStackTrace()
+//        }
+//        return resources.getStringArray(R.array.not_support)
+//    }
 
-    private fun initOpenOption(selectedItem: Array<String>) {
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, selectedItem)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        /* Default mode of PM85 is Bluetooth mode */if (mUtil!!.device != DevInfoIndex.PM30_MAJOR && mUtil!!.device != DevInfoIndex.PM90_MAJOR && mUtil!!.device != DevInfoIndex.PM75_MAJOR && !mRfidMgr!!.IsOpened()) {
-            setSavedOption(OpenOption.BLUETOOTH)
-        }
-
-        /* Default mode of PM30 is USB mode */if (mUtil!!.device == DevInfoIndex.PM30_MAJOR
-            && !mRfidMgr!!.IsOpened()
-        ) {
-            setSavedOption(OpenOption.WIRED)
-        }
-
-        /*  Default mode of PM75 is UART mode*/if ((mUtil!!.device == DevInfoIndex.PM75_MAJOR
-                    || mUtil!!.device == DevInfoIndex.PM90_MAJOR)
-            && !mRfidMgr!!.IsOpened()
-        ) {
-            setSavedOption(OpenOption.UART)
-        }
-    }
+//    private fun initOpenOption(selectedItem: Array<String>) {
+//        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, selectedItem)
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//
+//        /* Default mode of PM85 is Bluetooth mode */if (mUtil!!.device != DevInfoIndex.PM30_MAJOR && mUtil!!.device != DevInfoIndex.PM90_MAJOR && mUtil!!.device != DevInfoIndex.PM75_MAJOR && !mRfidMgr!!.IsOpened()) {
+//            setSavedOption(OpenOption.BLUETOOTH)
+//        }
+//
+//        /* Default mode of PM30 is USB mode */if (mUtil!!.device == DevInfoIndex.PM30_MAJOR
+//            && !mRfidMgr!!.IsOpened()
+//        ) {
+//            setSavedOption(OpenOption.WIRED)
+//        }
+//
+//        /*  Default mode of PM75 is UART mode*/if ((mUtil!!.device == DevInfoIndex.PM75_MAJOR
+//                    || mUtil!!.device == DevInfoIndex.PM90_MAJOR)
+//            && !mRfidMgr!!.IsOpened()
+//        ) {
+//            setSavedOption(OpenOption.UART)
+//        }
+//    }
 
     private val savedOption: String
         private get() = mPrefUtil!!.getStringPreference(
@@ -213,65 +215,65 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
         super.onBackPressed()
     }
 
-    private fun initState() {
-        runOnUiThread {
-            binding.appBarMain.main.linearConnect.visibility = View.VISIBLE
-            binding.appBarMain.main.relSearchReader.visibility = View.VISIBLE
-            val macAddress = mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_CONNECT_BT_MACADDR)
-            val deviceName = mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_CONNECT_BT_NAME)
-            Log.d(TAG, if (USB_DETACHED_FLAG) "usb disconnected" else "usb connected")
-            if (mRfidMgr!!.IsOpened()) {
-                Log.d(TAG, "RFID OPENED")
-
-//                    /* When host device enters suspend mode, it cannot get callback
-//                       When user changed openOption after detached,
-//                       change openOption to Wired automatically.
-//                    */
-//                    if(USB_DETACHED_FLAG)
-//                    {
-//                        if(!getSavedOption().equals(OpenOption.WIRED.toString()))
-//                        {
-//                            mSpOpenOption.setSelection(INDEX_WIRED);
-//                            setOpenOptionView(OpenOption.WIRED.toString());
-//                        }
+//    private fun initState() {
+//        runOnUiThread {
+//            binding.appBarMain.main.linearConnect.visibility = View.VISIBLE
+//            binding.appBarMain.main.relSearchReader.visibility = View.VISIBLE
+//            val macAddress = mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_CONNECT_BT_MACADDR)
+//            val deviceName = mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_CONNECT_BT_NAME)
+//            Log.d(TAG, if (USB_DETACHED_FLAG) "usb disconnected" else "usb connected")
+//            if (mRfidMgr!!.IsOpened()) {
+//                Log.d(TAG, "RFID OPENED")
+//
+////                    /* When host device enters suspend mode, it cannot get callback
+////                       When user changed openOption after detached,
+////                       change openOption to Wired automatically.
+////                    */
+////                    if(USB_DETACHED_FLAG)
+////                    {
+////                        if(!getSavedOption().equals(OpenOption.WIRED.toString()))
+////                        {
+////                            mSpOpenOption.setSelection(INDEX_WIRED);
+////                            setOpenOptionView(OpenOption.WIRED.toString());
+////                        }
+////                    }
+//                setSwitchChanged(true)
+//
+//                /* Even if RF300 is power off RFIDManager.IsOpened maintain true to keep performing after power on.
+//                           so,check if RF300 is currently power off.
+//                         */if (POWER_OFF_FLAG) binding.appBarMain.main.switchReadConnect.isChecked = false
+//
+////                    Log.d(TAG, USB_DETACHED_FLAG ? "USB_DISCONNECTED_FLAG : true" : "USB_DISCONNECTED_FLAG : false");
+//                Log.d(
+//                    TAG,
+//                    if (POWER_OFF_FLAG) "POWER_OFF_FLAG : true" else "POWER_OFF_FLAG : false"
+//                )
+//                if (mPrefUtil!!.getStringPreference(
+//                        PreferenceUtil.KEY_OPEN_OPTION,
+//                        mUtil!!.defaultOption
+//                    ).equals(
+//                        OpenOption.BLUETOOTH.toString(), ignoreCase = true
+//                    )
+//                ) {
+//                    //startConnService();
+//                    if (macAddress == null || macAddress.isEmpty() || deviceName == null || deviceName.isEmpty()) {
+//                        val asyncDeviceInfo = AsyncDeviceInfo()
+//                        asyncDeviceInfo.execute()
+//                    } else {
+//                        binding.appBarMain.main.textRfidName.text = deviceName
 //                    }
-                setSwitchChanged(true)
-
-                /* Even if RF300 is power off RFIDManager.IsOpened maintain true to keep performing after power on.
-                           so,check if RF300 is currently power off.
-                         */if (POWER_OFF_FLAG) binding.appBarMain.main.switchReadConnect.isChecked = false
-
-//                    Log.d(TAG, USB_DETACHED_FLAG ? "USB_DISCONNECTED_FLAG : true" : "USB_DISCONNECTED_FLAG : false");
-                Log.d(
-                    TAG,
-                    if (POWER_OFF_FLAG) "POWER_OFF_FLAG : true" else "POWER_OFF_FLAG : false"
-                )
-                if (mPrefUtil!!.getStringPreference(
-                        PreferenceUtil.KEY_OPEN_OPTION,
-                        mUtil!!.defaultOption
-                    ).equals(
-                        OpenOption.BLUETOOTH.toString(), ignoreCase = true
-                    )
-                ) {
-                    //startConnService();
-                    if (macAddress == null || macAddress.isEmpty() || deviceName == null || deviceName.isEmpty()) {
-                        val asyncDeviceInfo = AsyncDeviceInfo()
-                        asyncDeviceInfo.execute()
-                    } else {
-                        binding.appBarMain.main.textRfidName.text = deviceName
-                    }
-                }
-            } else {
-                Log.d(TAG, "RFID NOT OPENED")
-                setSwitchChanged(false)
-                binding.appBarMain.main.textRfidName.text = ""
-            }
-
-            /* [#18295] When host device enters suspend mode, it cannot get callback
-                     * so if RFIDManager.IsOpened is true, it's assumed currently not detached.*/USB_DETACHED_FLAG =
-            false
-        }
-    }
+//                }
+//            } else {
+//                Log.d(TAG, "RFID NOT OPENED")
+//                setSwitchChanged(false)
+//                binding.appBarMain.main.textRfidName.text = ""
+//            }
+//
+//            /* [#18295] When host device enters suspend mode, it cannot get callback
+//                     * so if RFIDManager.IsOpened is true, it's assumed currently not detached.*/USB_DETACHED_FLAG =
+//            false
+//        }
+//    }
 
     private fun bluetoothOn() {
         Log.d(TAG, "bluetoothOn")
@@ -301,11 +303,11 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
         Log.d(TAG, "onDestroy")
 
         //Save open option
-        if (!mRfidMgr!!.IsOpened()) {
-            if (mUtil!!.device == DevInfoIndex.PM30_MAJOR) setSavedOption(OpenOption.WIRED) else if (mUtil!!.device == DevInfoIndex.PM75_MAJOR
-                || mUtil!!.device == DevInfoIndex.PM75_MAJOR
-            ) setSavedOption(OpenOption.UART)
-        }
+//        if (!mRfidMgr!!.IsOpened()) {
+//            if (mUtil!!.device == DevInfoIndex.PM30_MAJOR) setSavedOption(OpenOption.WIRED) else if (mUtil!!.device == DevInfoIndex.PM75_MAJOR
+//                || mUtil!!.device == DevInfoIndex.PM75_MAJOR
+//            ) setSavedOption(OpenOption.UART)
+//        }
         unregisterBTStateReceiver()
         unregisterParingReceiver()
     }
@@ -371,37 +373,37 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
         }
     }
 
-    fun requestRfidConnection(address: String, name: String?) {
-        val builder = AlertDialog.Builder(this@RFIDControlActivity)
-        builder.setTitle(R.string.connect_dlg_title)
-        builder.setMessage(R.string.connect_dlg_msg)
-        builder.setCancelable(false)
-        builder.setOnKeyListener { dialog, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                dialog.dismiss()
-                finish()
-            }
-            false
-        }
-        builder.setPositiveButton(R.string.connect) { dialog, which ->
-            mRfidMgr!!.ConnectBTDevice(address, name)
-            Log.d(TAG, "ConnectBTDevice")
-            val connMsg = getString(R.string.connect_request_msg) + address
-            mUtil!!.showProgress(mProgress, this@RFIDControlActivity, connMsg, true)
-            mHandler.sendEmptyMessageDelayed(REQUEST_CONNECT, 10000)
-        }
-        builder.setNegativeButton(R.string.cancel) { dialog, which -> setSwitchChanged(false) }
-        val alert = builder.create()
-        alert.setCancelable(false)
-        alert.show()
-    }
+//    fun requestRfidConnection(address: String, name: String?) {
+//        val builder = AlertDialog.Builder(this@RFIDControlActivity)
+//        builder.setTitle(R.string.connect_dlg_title)
+//        builder.setMessage(R.string.connect_dlg_msg)
+//        builder.setCancelable(false)
+//        builder.setOnKeyListener { dialog, keyCode, event ->
+//            if (keyCode == KeyEvent.KEYCODE_BACK) {
+//                dialog.dismiss()
+//                finish()
+//            }
+//            false
+//        }
+//        builder.setPositiveButton(R.string.connect) { dialog, which ->
+//            mRfidMgr!!.ConnectBTDevice(address, name)
+//            Log.d(TAG, "ConnectBTDevice")
+//            val connMsg = getString(R.string.connect_request_msg) + address
+//            mUtil!!.showProgress(mProgress, this@RFIDControlActivity, connMsg, true)
+//            mHandler.sendEmptyMessageDelayed(REQUEST_CONNECT, 10000)
+//        }
+//        builder.setNegativeButton(R.string.cancel) { dialog, which -> setSwitchChanged(false) }
+//        val alert = builder.create()
+//        alert.setCancelable(false)
+//        alert.show()
+//    }
 
     private fun performSwitchClicked() {
         /* Switch On */
         if (binding.appBarMain.main.switchReadConnect.isChecked) {
             /* Open option : Bluetooth */
             if (savedOption.equals(OpenOption.BLUETOOTH.toString(), ignoreCase = true)
-                && !mRfidMgr!!.IsOpened()
+//                && !mRfidMgr!!.IsOpened()
             ) {
                 Log.d(TAG, "Switch on, Open option : Bluetooth")
                 val macAddr = mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_CONNECT_BT_MACADDR)
@@ -430,11 +432,11 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
                     setSwitchChanged(false)
                     return
                 }
-                if (rfDevice != null) {
-                    requestRfidConnection(macAddr, rfDevice.name)
-                }
+//                if (rfDevice != null) {
+//                    requestRfidConnection(macAddr, rfDevice.name)
+//                }
             } else if (savedOption.equals(OpenOption.WIRED.toString(), ignoreCase = true)
-                && !mRfidMgr!!.IsOpened()
+//                && !mRfidMgr!!.IsOpened()
             ) {
                 Log.d(TAG, "Switch On, Open option : Wired")
                 USB_ATTACHED_TEMP_FLAG = false
@@ -442,7 +444,7 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
                 val async = AsyncInit()
                 async.execute()
             } else if (savedOption.equals(OpenOption.UART.toString(), ignoreCase = true)
-                && !mRfidMgr!!.IsOpened()
+//                && !mRfidMgr!!.IsOpened()
             ) {
                 Log.d(TAG, "Switch On, Open option : Uart")
                 val async = AsyncInit()
@@ -451,7 +453,7 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
         } else {
             /* Open option : Bluetooth */
             if (savedOption.equals(OpenOption.BLUETOOTH.toString(), ignoreCase = true)
-                && mRfidMgr!!.IsOpened()
+//                && mRfidMgr!!.IsOpened()
             ) {
                 Log.d(TAG, "Switch off, Open option : Bluetooth")
                 /* Stop service When BT is disconnected by connection switch otherwise RFID closes twice. */
@@ -462,7 +464,7 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
             } else if (savedOption.equals(
                     OpenOption.WIRED.toString(),
                     ignoreCase = true
-                ) && mRfidMgr!!.IsOpened()
+                ) // && mRfidMgr!!.IsOpened()
                 && !POWER_OFF_FLAG
                 && !USB_DETACHED_FLAG
             ) {
@@ -470,7 +472,7 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
                 val asyncClose = AsyncClose()
                 asyncClose.execute(OpenOption.WIRED)
             } else if (savedOption.equals(OpenOption.UART.toString(), ignoreCase = true)
-                && mRfidMgr!!.IsOpened()
+//                && mRfidMgr!!.IsOpened()
             ) {
                 val asyncClose = AsyncClose()
                 asyncClose.execute(OpenOption.UART)
@@ -478,95 +480,95 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
         }
     }
 
-    var mDataCallbacks: NotifyDataCallbacks = object : NotifyDataCallbacks {
-        override fun notifyDataPacket(recvPacket: RecvPacket) {
-            Log.d(TAG, "notifyDataPacket : " + recvPacket.RecvString)
-        }
-
-        override fun notifyChangedState(state: Int) {
-            Log.d(TAG, "notifyChangedState : $state")
-
-            /* Only for BLUETOOTH */if (state == RFIDConst.DeviceState.BT_CONNECTED && savedOption.equals(
-                    OpenOption.BLUETOOTH.toString(), ignoreCase = true
-                )
-                && !mRfidMgr!!.IsOpened()
-            ) {
-                POWER_OFF_FLAG = false
-                Log.d(TAG, "BT_CONNECTED")
-                val async = AsyncInit()
-                async.execute()
-            } else if (state == RFIDConst.DeviceState.BT_DISCONNECTED
-                && savedOption.equals(OpenOption.BLUETOOTH.toString(), ignoreCase = true)
-            ) {
-                Log.d(TAG, "BT_DISCONNECTED")
-                binding.appBarMain.main.textRfidName.text = ""
-                setSwitchChanged(false)
-                mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SAVE_LOG, false)
-                mRfidMgr!!.Close()
-                Log.d(TAG, "close11")
-                bluetoothOn()
-                Log.d(TAG, "bluetoothOn 2")
-            } else if (state == RFIDConst.DeviceState.USB_CONNECTED) {
-                Log.d(TAG, "USB_CONNECTED")
-                USB_DETACHED_FLAG = false
-                Log.d(TAG, if (USB_DETACHED_FLAG) "usb disconnected" else "usb connected")
-                USB_ATTACHED_TEMP_FLAG = true
-                Log.d(TAG, if (USB_ATTACHED_TEMP_FLAG) "usb attached" else "usb not attached")
-            } else if (state == RFIDConst.DeviceState.USB_DISCONNECTED) {
-                Log.d(TAG, "USB_DISCONNECTED")
-                if (binding.appBarMain.main.switchReadConnect.isChecked && getRFIDApplication().mIsSleep) Toast.makeText(
-                    applicationContext, getString(R.string.reader_detached), Toast.LENGTH_SHORT
-                ).show()
-                USB_DETACHED_FLAG = true
-                setSwitchChanged(false)
-            } else if (state == RFIDConst.DeviceState.USB_OPENED) {
-                Log.d(TAG, "USB_OPENED")
-                Log.d(TAG, if (USB_ATTACHED_TEMP_FLAG) "usb attached" else "usb not attached")
-
-//                /* When user changed openOption after detached,
-//                   change openOption to Wired automatically.
-//                 */
-//                if(!getSavedOption().equals(OpenOption.WIRED.toString()))
-//                {
-//                    mSpOpenOption.setSelection(INDEX_WIRED);
-//                    setOpenOptionView(OpenOption.WIRED.toString());
+//    var mDataCallbacks: NotifyDataCallbacks = object : NotifyDataCallbacks {
+//        override fun notifyDataPacket(recvPacket: RecvPacket) {
+//            Log.d(TAG, "notifyDataPacket : " + recvPacket.RecvString)
+//        }
+//
+//        override fun notifyChangedState(state: Int) {
+//            Log.d(TAG, "notifyChangedState : $state")
+//
+//            /* Only for BLUETOOTH */if (state == RFIDConst.DeviceState.BT_CONNECTED && savedOption.equals(
+//                    OpenOption.BLUETOOTH.toString(), ignoreCase = true
+//                )
+//                && !mRfidMgr!!.IsOpened()
+//            ) {
+//                POWER_OFF_FLAG = false
+//                Log.d(TAG, "BT_CONNECTED")
+//                val async = AsyncInit()
+//                async.execute()
+//            } else if (state == RFIDConst.DeviceState.BT_DISCONNECTED
+//                && savedOption.equals(OpenOption.BLUETOOTH.toString(), ignoreCase = true)
+//            ) {
+//                Log.d(TAG, "BT_DISCONNECTED")
+//                binding.appBarMain.main.textRfidName.text = ""
+//                setSwitchChanged(false)
+//                mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SAVE_LOG, false)
+//                mRfidMgr!!.Close()
+//                Log.d(TAG, "close11")
+//                bluetoothOn()
+//                Log.d(TAG, "bluetoothOn 2")
+//            } else if (state == RFIDConst.DeviceState.USB_CONNECTED) {
+//                Log.d(TAG, "USB_CONNECTED")
+//                USB_DETACHED_FLAG = false
+//                Log.d(TAG, if (USB_DETACHED_FLAG) "usb disconnected" else "usb connected")
+//                USB_ATTACHED_TEMP_FLAG = true
+//                Log.d(TAG, if (USB_ATTACHED_TEMP_FLAG) "usb attached" else "usb not attached")
+//            } else if (state == RFIDConst.DeviceState.USB_DISCONNECTED) {
+//                Log.d(TAG, "USB_DISCONNECTED")
+//                if (binding.appBarMain.main.switchReadConnect.isChecked && getRFIDApplication().mIsSleep) Toast.makeText(
+//                    applicationContext, getString(R.string.reader_detached), Toast.LENGTH_SHORT
+//                ).show()
+//                USB_DETACHED_FLAG = true
+//                setSwitchChanged(false)
+//            } else if (state == RFIDConst.DeviceState.USB_OPENED) {
+//                Log.d(TAG, "USB_OPENED")
+//                Log.d(TAG, if (USB_ATTACHED_TEMP_FLAG) "usb attached" else "usb not attached")
+//
+////                /* When user changed openOption after detached,
+////                   change openOption to Wired automatically.
+////                 */
+////                if(!getSavedOption().equals(OpenOption.WIRED.toString()))
+////                {
+////                    mSpOpenOption.setSelection(INDEX_WIRED);
+////                    setOpenOptionView(OpenOption.WIRED.toString());
+////                }
+//                if (USB_ATTACHED_TEMP_FLAG && savedOption == OpenOption.WIRED.toString()) {
+//                    setSwitchChanged(true)
+//                    USB_ATTACHED_TEMP_FLAG = false
 //                }
-                if (USB_ATTACHED_TEMP_FLAG && savedOption == OpenOption.WIRED.toString()) {
-                    setSwitchChanged(true)
-                    USB_ATTACHED_TEMP_FLAG = false
-                }
-                isProgress = true
-                val asyncClose = AsyncClose()
-                asyncClose.execute(OpenOption.WIRED)
-            } else if (state == RFIDConst.DeviceState.USB_CLOSED) {
-                Log.d(TAG, "USB_CLOSED")
-                if (savedOption.equals(
-                        OpenOption.WIRED.toString(),
-                        ignoreCase = true
-                    )
-                ) setSwitchChanged(false)
-            } else if (state == RFIDConst.DeviceState.POWER_OFF
-                && savedOption.equals(OpenOption.WIRED.toString(), ignoreCase = true)
-            ) {
-                Log.d(TAG, "POWER_OFF")
-                POWER_OFF_FLAG = true
-                setSwitchChanged(false)
-            } else if (state == RFIDConst.DeviceState.TRIGGER_RFID_KEYDOWN) {
-                val currentType = mPrefUtil!!.getIntPreference(
-                    PreferenceUtil.KEY_RESULT_TYPE,
-                    RFIDConst.ResultType.RFID_RESULT_COPYPASTE
-                )
-                Log.d(TAG, "result type : $currentType")
-                if (currentType == RFIDConst.ResultType.RFID_RESULT_CALLBACK
-                    && mRfidMgr!!.IsOpened()
-                ) {
-                    mRfidMgr!!.Stop()
-                    val demoIntent = Intent(applicationContext, RFIDDemoActivity::class.java)
-                    startActivity(demoIntent)
-                }
-            }
-        }
-    }
+//                isProgress = true
+//                val asyncClose = AsyncClose()
+//                asyncClose.execute(OpenOption.WIRED)
+//            } else if (state == RFIDConst.DeviceState.USB_CLOSED) {
+//                Log.d(TAG, "USB_CLOSED")
+//                if (savedOption.equals(
+//                        OpenOption.WIRED.toString(),
+//                        ignoreCase = true
+//                    )
+//                ) setSwitchChanged(false)
+//            } else if (state == RFIDConst.DeviceState.POWER_OFF
+//                && savedOption.equals(OpenOption.WIRED.toString(), ignoreCase = true)
+//            ) {
+//                Log.d(TAG, "POWER_OFF")
+//                POWER_OFF_FLAG = true
+//                setSwitchChanged(false)
+//            } else if (state == RFIDConst.DeviceState.TRIGGER_RFID_KEYDOWN) {
+//                val currentType = mPrefUtil!!.getIntPreference(
+//                    PreferenceUtil.KEY_RESULT_TYPE,
+//                    RFIDConst.ResultType.RFID_RESULT_COPYPASTE
+//                )
+//                Log.d(TAG, "result type : $currentType")
+//                if (currentType == RFIDConst.ResultType.RFID_RESULT_CALLBACK
+//                    && mRfidMgr!!.IsOpened()
+//                ) {
+//                    mRfidMgr!!.Stop()
+//                    val demoIntent = Intent(applicationContext, RFIDDemoActivity::class.java)
+//                    startActivity(demoIntent)
+//                }
+//            }
+//        }
+//    }
 
     private fun onClicks() {
         binding.appBarMain.main.apply {
@@ -649,10 +651,10 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
             if (action == BluetoothAdapter.ACTION_STATE_CHANGED) {
                 val state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)
                 if (state == BluetoothAdapter.STATE_OFF) {
-                    if (!mRfidMgr!!.IsOpened()) {
-                        bluetoothOn()
-                        Log.d(TAG, "bluetoothOn 3")
-                    }
+//                    if (!mRfidMgr!!.IsOpened()) {
+//                        bluetoothOn()
+//                        Log.d(TAG, "bluetoothOn 3")
+//                    }
                 }
             }
         }
@@ -663,7 +665,7 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             val rfidControlActivity = weakReference.get()
-            rfidControlActivity!!.checkConnection(msg)
+//            rfidControlActivity!!.checkConnection(msg)
         }
 
         init {
@@ -671,21 +673,21 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
         }
     }
 
-    private fun checkConnection(msg: Message) {
-        when (msg.what) {
-            REQUEST_CONNECT -> if (mRfidMgr != null && !mRfidMgr!!.IsOpened() and !isPause) {
-                mRfidMgr!!.DisconnectBTDevice()
-                mRfidMgr!!.Close()
-                Log.d(TAG, "close8")
-                setSwitchChanged(false)
-                mUtil!!.showProgress(mProgress, this@RFIDControlActivity, false)
-            }
-            REQUEST_DISCONNECT -> {
-                Log.d(TAG, "REQUEST_DISCONNECT")
-                mUtil!!.showProgress(mProgress, this@RFIDControlActivity, false)
-            }
-        }
-    }
+//    private fun checkConnection(msg: Message) {
+//        when (msg.what) {
+//            REQUEST_CONNECT -> if (mRfidMgr != null && !mRfidMgr!!.IsOpened() and !isPause) {
+//                mRfidMgr!!.DisconnectBTDevice()
+//                mRfidMgr!!.Close()
+//                Log.d(TAG, "close8")
+//                setSwitchChanged(false)
+//                mUtil!!.showProgress(mProgress, this@RFIDControlActivity, false)
+//            }
+//            REQUEST_DISCONNECT -> {
+//                Log.d(TAG, "REQUEST_DISCONNECT")
+//                mUtil!!.showProgress(mProgress, this@RFIDControlActivity, false)
+//            }
+//        }
+//    }
 
     private val mParingReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -749,41 +751,48 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
         override fun doInBackground(vararg voids: Void?): Boolean {
             POWER_OFF_FLAG = false
             Log.d(TAG, if (POWER_OFF_FLAG) "power off" else "power not off ")
-            val result: Boolean
+            val result: Boolean = false
             var tryCount = 0
             do {
                 /* Open for bluetooth */
                 if (savedOption.equals(OpenOption.BLUETOOTH.toString(), ignoreCase = true)) {
-                    val isOpen = mRfidMgr!!.Open(RFIDConst.DeviceType.DEVICE_BT)
-                    if (isOpen == RFIDConst.CommandErr.SUCCESS) setSavedOption(OpenOption.BLUETOOTH)
-                    Log.d(TAG, "Open via Bluetooth : $isOpen")
+//                    val isOpen = mRfidMgr!!.Open(RFIDConst.DeviceType.DEVICE_BT)
+//                    if (isOpen == RFIDConst.CommandErr.SUCCESS) setSavedOption(OpenOption.BLUETOOTH)
+                    setSavedOption(OpenOption.BLUETOOTH)
+//                    Log.d(TAG, "Open via Bluetooth : $isOpen")
+                    Log.d(TAG, "Open via Bluetooth")
                 } else if (savedOption.equals(OpenOption.WIRED.toString(), ignoreCase = true)
-                    && mUtil!!.device == DevInfoIndex.PM30_MAJOR
+//                    && mUtil!!.device == DevInfoIndex.PM30_MAJOR
                 ) {
-                    val isOpen = mRfidMgr!!.Open(RFIDConst.DeviceType.DEVICE_USB)
-                    if (isOpen == RFIDConst.CommandErr.SUCCESS) setSavedOption(OpenOption.WIRED)
-                    Log.d(TAG, "Open via USB : $isOpen")
+//                    val isOpen = mRfidMgr!!.Open(RFIDConst.DeviceType.DEVICE_USB)
+//                    if (isOpen == RFIDConst.CommandErr.SUCCESS) setSavedOption(OpenOption.WIRED)
+                    setSavedOption(OpenOption.WIRED)
+//                    Log.d(TAG, "Open via USB : $isOpen")
+                    Log.d(TAG, "Open via USB")
                 } else if (savedOption.equals(OpenOption.UART.toString(), ignoreCase = true)
-                    && (mUtil!!.device == DevInfoIndex.PM75_MAJOR
-                            || mUtil!!.device == DevInfoIndex.PM90_MAJOR)
+//                    && (mUtil!!.device == DevInfoIndex.PM75_MAJOR
+//                            || mUtil!!.device == DevInfoIndex.PM90_MAJOR)
                 ) {
-                    val isOpen = mRfidMgr!!.Open(RFIDConst.DeviceType.DEVICE_UART)
-                    Log.d(TAG, "Open via UART : $isOpen")
-                    if (isOpen == RFIDConst.CommandErr.SUCCESS) setSavedOption(OpenOption.UART)
+//                    val isOpen = mRfidMgr!!.Open(RFIDConst.DeviceType.DEVICE_UART)
+//                    Log.d(TAG, "Open via UART : $isOpen")
+//                    if (isOpen == RFIDConst.CommandErr.SUCCESS) setSavedOption(OpenOption.UART)
+                    Log.d(TAG, "Open via UART")
+                    setSavedOption(OpenOption.UART)
                 }
-                if (mRfidMgr!!.IsOpened()) {
-                    Log.d(TAG, "OPENED")
-                    //mPrefUtil.putStringPrefrence(PreferenceUtil.KEY_OPEN_OPTION, getOpenOption().toString());
-                    result = true
-                    break
-                } else {
-                    tryCount++
-                }
-                if (tryCount > 3) {
-                    result = false
-                    break
-                }
-            } while (true)
+//                if (mRfidMgr!!.IsOpened()) {
+//                    Log.d(TAG, "OPENED")
+//                    //mPrefUtil.putStringPrefrence(PreferenceUtil.KEY_OPEN_OPTION, getOpenOption().toString());
+//                    result = true
+//                    break
+//                } else {
+//                    tryCount++
+//                }
+//                if (tryCount > 3) {
+//                    result = false
+//                    break
+//                }
+//            } while (true)
+            } while (false)
 
             /* Get device info */if (result) {
                 var macAddr: String? = ""
@@ -826,21 +835,21 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
                 ) {
                     Log.d(TAG, "This is not RF850. Set tag focus as enable.")
                     tryCount = 0
-                    do {
-                        val tagFocusResult = mRfidMgr!!.SetTagFocus(Utils.ENABLE)
-                        Log.d(TAG, "tagFocusResult : $tagFocusResult")
-                        if (tagFocusResult == RFIDConst.CommandErr.SUCCESS) {
-                            mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_OPEN_ERROR, false)
-                            break
-                        } else tryCount++
-                        if (tryCount > 3) {
-                            Log.d(TAG, "close15")
-                            mRfidMgr!!.Close()
-                            mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_OPEN_ERROR, true)
-                            return false
-                        }
-                        sleep(100)
-                    } while (true)
+//                    do {
+//                        val tagFocusResult = mRfidMgr!!.SetTagFocus(Utils.ENABLE)
+//                        Log.d(TAG, "tagFocusResult : $tagFocusResult")
+//                        if (tagFocusResult == RFIDConst.CommandErr.SUCCESS) {
+//                            mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_OPEN_ERROR, false)
+//                            break
+//                        } else tryCount++
+//                        if (tryCount > 3) {
+//                            Log.d(TAG, "close15")
+//                            mRfidMgr!!.Close()
+//                            mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_OPEN_ERROR, true)
+//                            return false
+//                        }
+//                        sleep(100)
+//                    } while (true)
                 }
             }
             return result
@@ -863,7 +872,7 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
                     binding.appBarMain.main.textRfidName.text = btName
                 setSwitchChanged(true)
             } else {
-                mRfidMgr!!.DisconnectBTDevice()
+//                mRfidMgr!!.DisconnectBTDevice()
                 Log.d(TAG, "disconn4")
                 setSwitchChanged(false)
             }
@@ -884,11 +893,11 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
 
         override fun doInBackground(vararg openOptions: OpenOption?): Void? {
             mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SAVE_LOG, false)
-            mRfidMgr!!.Close()
+//            mRfidMgr!!.Close()
             Log.d(TAG, "close14")
             if (openOptions[0] == OpenOption.BLUETOOTH) {
                 Log.d(TAG, "disconnect20")
-                mRfidMgr!!.DisconnectBTDevice()
+//                mRfidMgr!!.DisconnectBTDevice()
             }
             return null
         }

@@ -28,9 +28,9 @@
             android:name=".ui.LicenseActivity"
             android:exported="true" />
 
-        <uses-library
-            android:name="device.sdk"
-            android:required="true" />
+<!--        <uses-library-->
+<!--            android:name="device.sdk"-->
+<!--            android:required="true" />-->
 
         <activity
             android:name=".ui.login.LoginActivity"

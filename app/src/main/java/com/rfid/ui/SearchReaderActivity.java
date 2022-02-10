@@ -32,9 +32,9 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.Set;
 
-import device.common.rfid.RFIDCallback;
-import device.common.rfid.RFIDConst;
-import device.sdk.RFIDManager;
+//import device.common.rfid.RFIDCallback;
+//import device.common.rfid.RFIDConst;
+//import device.sdk.RFIDManager;
 import com.rfid.R;
 import com.rfid.util.Utils;
 
@@ -49,7 +49,7 @@ public class SearchReaderActivity extends AppCompatActivity {
     private BluetoothAdapter mBluetoothAdapter;
     private ArrayList<BluetoothDevice> mItems;
 
-    private RFIDManager mRfidMgr;
+//    private RFIDManager mRfidMgr;
 
     private MenuItem mSearchMenu;
 
@@ -73,8 +73,8 @@ public class SearchReaderActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mRfidMgr = RFIDManager.getInstance();
-        mRfidMgr.RegisterRFIDCallback(mRfidStateCallback);
+//        mRfidMgr = RFIDManager.getInstance();
+//        mRfidMgr.RegisterRFIDCallback(mRfidStateCallback);
 
         mUtil = new Utils(this);
         mPrefUtil = new com.rfid.util.PreferenceUtil(getApplicationContext());
@@ -106,7 +106,7 @@ public class SearchReaderActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mBluetoothSearchReceiver);
-        mRfidMgr.UnregisterRFIDCallback(mRfidStateCallback);
+//        mRfidMgr.UnregisterRFIDCallback(mRfidStateCallback);
     }
 
     @Override
@@ -120,10 +120,11 @@ public class SearchReaderActivity extends AppCompatActivity {
     }
 
     public void updatePlayStatus() {
-        if (mBluetoothAdapter.isDiscovering())
-            mSearchMenu.setIcon(R.drawable.ic_start);
-        else
-            mSearchMenu.setIcon(R.drawable.ic_start);
+//        if (mBluetoothAdapter.isDiscovering())
+//            mSearchMenu.setIcon(R.drawable.ic_start);
+//        else
+//            mSearchMenu.setIcon(R.drawable.ic_start);
+        mSearchMenu.setIcon(R.drawable.ic_start);
     }
 
     @Override
@@ -134,7 +135,7 @@ public class SearchReaderActivity extends AppCompatActivity {
             finish();
             return true;
         } else if (item.getItemId() == R.id.action_bt_search) {
-            mBluetoothAdapter.cancelDiscovery();
+//            mBluetoothAdapter.cancelDiscovery();
             mSearchMenu.setIcon(R.drawable.ic_start);
             mItems.clear();
             mListAdapter.setItems(mItems);
@@ -173,11 +174,11 @@ public class SearchReaderActivity extends AppCompatActivity {
     }
 
     private void startSearchDevice() {
-        if (mBluetoothAdapter.isDiscovering()) {
-            mBluetoothAdapter.cancelDiscovery();
-        }
-        //mBluetoothAdapter.startDiscovery() : 블루투스 검색 시작
-        mBluetoothAdapter.startDiscovery();
+//        if (mBluetoothAdapter.isDiscovering()) {
+//            mBluetoothAdapter.cancelDiscovery();
+//        }
+//        //mBluetoothAdapter.startDiscovery() : 블루투스 검색 시작
+//        mBluetoothAdapter.startDiscovery();
 
         mProgressSearchDlg = new ProgressDialog(SearchReaderActivity.this);
         mProgressSearchDlg.setMessage(getString(R.string.search_bt_devices));
@@ -189,18 +190,18 @@ public class SearchReaderActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (mProgressSearchDlg != null && mProgressSearchDlg.isShowing()) {
-                            mBluetoothAdapter.cancelDiscovery();
+//                            mBluetoothAdapter.cancelDiscovery();
                             mProgressSearchDlg.dismiss();
                             dialog.cancel();
                         }
                     }
                 });
-        mProgressSearchDlg.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                mBluetoothAdapter.cancelDiscovery();
-            }
-        });
+//        mProgressSearchDlg.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//            @Override
+//            public void onCancel(DialogInterface dialog) {
+//                mBluetoothAdapter.cancelDiscovery();
+//            }
+//        });
         mProgressSearchDlg.show();
     }
 
@@ -248,22 +249,22 @@ public class SearchReaderActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (mRfidMgr.IsOpened()) {
-                requestRfidDisConnection(position);
-            } else {
-                requestRfidConnection(position);
-            }
+//            if (mRfidMgr.IsOpened()) {
+//                requestRfidDisConnection(position);
+//            } else {
+//                requestRfidConnection(position);
+//            }
         }
     };
 
     private Handler mHandlerBtConnect = new Handler() {
         @Override
         public void dispatchMessage(Message msg) {
-            if (mRfidMgr != null && !mRfidMgr.IsOpened()) {
-                mRfidMgr.DisconnectBTDevice();
-                Log.d(TAG, "disconn5");
-                mUtil.showProgress(mProgressDlg, SearchReaderActivity.this, false);
-            }
+//            if (mRfidMgr != null && !mRfidMgr.IsOpened()) {
+//                mRfidMgr.DisconnectBTDevice();
+//                Log.d(TAG, "disconn5");
+//                mUtil.showProgress(mProgressDlg, SearchReaderActivity.this, false);
+//            }
             super.dispatchMessage(msg);
         }
     };
@@ -277,7 +278,7 @@ public class SearchReaderActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.connect, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mRfidMgr.ConnectBTDevice(btDevice.getAddress(), btDevice.getName());
+//                mRfidMgr.ConnectBTDevice(btDevice.getAddress(), btDevice.getName());
                 Log.d(TAG, "ConnectBTDevice");
                 String connMsg = getString(R.string.connect_request_msg) + btDevice.getAddress();
                 mUtil.showProgress(mProgressDlg, SearchReaderActivity.this, connMsg, true);
@@ -307,9 +308,9 @@ public class SearchReaderActivity extends AppCompatActivity {
                     String currentMac = mPrefUtil.getStringPreference(com.rfid.util.PreferenceUtil.KEY_CONNECT_BT_MACADDR);
                     String connMsg = getString(R.string.disconnect_request_msg) + currentMac;
                     mUtil.showProgress(mProgressDlg, SearchReaderActivity.this, connMsg, true);
-                    mRfidMgr.Close();
+//                    mRfidMgr.Close();
                     Log.d("SearchReader", "close16");
-                    mRfidMgr.DisconnectBTDevice();
+//                    mRfidMgr.DisconnectBTDevice();
                     Log.d(TAG, "disconnect 13");
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -333,9 +334,9 @@ public class SearchReaderActivity extends AppCompatActivity {
             String currentMac = mPrefUtil.getStringPreference(com.rfid.util.PreferenceUtil.KEY_CONNECT_BT_MACADDR);
             String connMsg = getString(R.string.disconnect_request_msg) + currentMac;
             mUtil.showProgress(mProgressDlg, SearchReaderActivity.this, connMsg, true);
-            mRfidMgr.Close();
+//            mRfidMgr.Close();
             Log.d("SearchReader", "close17");
-            mRfidMgr.DisconnectBTDevice();
+//            mRfidMgr.DisconnectBTDevice();
             Log.d(TAG, "disconnect 14");
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -355,36 +356,36 @@ public class SearchReaderActivity extends AppCompatActivity {
         }
     });
 
-    private final RFIDCallback mRfidStateCallback = new RFIDCallback(mCallbackHandler) {
-        @Override
-        public void onNotifyChangedState(int state) {
-            if (state == RFIDConst.DeviceState.BT_CONNECTED) {
-                AsyncRfidOpen async = new AsyncRfidOpen();
-                async.execute();
-            }
-            super.onNotifyChangedState(state);
-        }
-    };
+//    private final RFIDCallback mRfidStateCallback = new RFIDCallback(mCallbackHandler) {
+//        @Override
+//        public void onNotifyChangedState(int state) {
+//            if (state == RFIDConst.DeviceState.BT_CONNECTED) {
+//                AsyncRfidOpen async = new AsyncRfidOpen();
+//                async.execute();
+//            }
+//            super.onNotifyChangedState(state);
+//        }
+//    };
 
     public class AsyncRfidOpen extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... voids) {
             boolean result = true;
-            int tryCount = 0;
-            mRfidMgr.Open(RFIDConst.DeviceType.DEVICE_BT);
-            do {
-                if (mRfidMgr.IsOpened()) {
-                    result = true;
-                    break;
-                } else {
-                    tryCount++;
-                }
-                if (tryCount > 10) {
-                    result = false;
-                    break;
-                }
-            }
-            while (true);
+//            int tryCount = 0;
+//            mRfidMgr.Open(RFIDConst.DeviceType.DEVICE_BT);
+//            do {
+//                if (mRfidMgr.IsOpened()) {
+//                    result = true;
+//                    break;
+//                } else {
+//                    tryCount++;
+//                }
+//                if (tryCount > 10) {
+//                    result = false;
+//                    break;
+//                }
+//            }
+//            while (true);
 
             if (result) {
                 String macAddr = mUtil.getBTMacAddress();
@@ -452,8 +453,8 @@ public class SearchReaderActivity extends AppCompatActivity {
             try {
                 //pairing수행
                 //device.createBond();
-                RFIDManager rfidMgr = RFIDManager.getInstance();
-                rfidMgr.ConnectBTDevice(device.getAddress(), device.getName());
+//                RFIDManager rfidMgr = RFIDManager.getInstance();
+//                rfidMgr.ConnectBTDevice(device.getAddress(), device.getName());
             } catch (Exception e) {
                 e.printStackTrace();
             }

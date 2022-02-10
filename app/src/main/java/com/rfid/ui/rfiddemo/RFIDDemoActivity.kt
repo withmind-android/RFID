@@ -4,7 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.bluetooth.BluetoothAdapter
-import android.content.Intent
+import android.content.*
 import android.content.pm.PackageManager
 import android.os.*
 import android.util.Log
@@ -15,7 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rfid.R
-import com.rfid.RFIDApplication.NotifyDataCallbacks
+//import com.rfid.RFIDApplication.NotifyDataCallbacks
 import com.rfid.adapter.RfidRvAdapter
 import com.rfid.adapter.item.RfidListItem
 import com.rfid.data.local.DatabaseClient
@@ -33,8 +33,8 @@ import com.rfid.ui.shipment.ShipmentActivity
 import com.rfid.util.PreferenceUtil
 import com.rfid.util.Utils
 import com.rfid.util.custom.DialogWriteTag
-import device.common.rfid.*
-import device.sdk.RFIDManager
+//import device.common.rfid.*
+//import device.sdk.RFIDManager
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.CompletableEmitter
@@ -69,9 +69,9 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
     }
 
     private val LOG_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd_HHmmss_SSS", Locale.getDefault())
-    private var mRfidMgr: RFIDManager? = null
+//    private var mRfidMgr: RFIDManager? = null
     private var mBluetoothAdapter: BluetoothAdapter? = null
-    private val mOperationMode = ModeOfInvent()
+//    private val mOperationMode = ModeOfInvent()
     private var mRvAdapter: RfidRvAdapter? = null
     private var mItems: ArrayList<RfidListItem>? = null
     private var registerItems: MutableList<Tag> = mutableListOf()
@@ -110,7 +110,7 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         setSupportActionBar(binding.appBarDemo.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        mRfidMgr = RFIDManager.getInstance()
+//        mRfidMgr = RFIDManager.getInstance()
         mItems = ArrayList()
         val mLinearLayoutManager = LinearLayoutManager(this)
         binding.appBarDemo.contentDemo.recyTagItem.layoutManager = mLinearLayoutManager
@@ -174,31 +174,31 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
 
     private fun checkTempOption() {
         mIsTemp = mPrefUtil!!.getBooleanPreference(PreferenceUtil.KEY_UPDATE_TEMP, false)
-        val reportFormatOfInvent_ext = ReportFormatOfInvent_ext()
+//        val reportFormatOfInvent_ext = ReportFormatOfInvent_ext()
         if (mIsTemp) {
             Log.d(TAG, "Temp option on")
-            reportFormatOfInvent_ext.temp = 1
+//            reportFormatOfInvent_ext.temp = 1
             binding.appBarDemo.contentDemo.linearTemp.visibility = View.VISIBLE
         } else {
             Log.d(TAG, "Temp option off")
-            reportFormatOfInvent_ext.temp = 0
+//            reportFormatOfInvent_ext.temp = 0
             binding.appBarDemo.contentDemo.linearTemp.visibility = View.GONE
         }
-        val result = mRfidMgr!!.SetInventoryReportFormat_ext(reportFormatOfInvent_ext)
-        if (result == RFIDConst.CommandErr.COMM_ERR) {
-            binding.appBarDemo.contentDemo.textTemperature.text = getString(R.string.temp_fail)
-        }
+//        val result = !mRfidMgr!.SetInventoryReportFormat_ext(reportFormatOfInvent_ext)
+//        if (result == RFIDConst.CommandErr.COMM_ERR) {
+//            binding.appBarDemo.contentDemo.textTemperature.text = getString(R.string.temp_fail)
+//        }
     }
 
     private fun bluetoothOn() {
-        if (!mRfidMgr!!.IsOpened()) rfidConnectDialog()
+//        if (!mRfidMgr!!.IsOpened()) rfidConnectDialog()
         if (mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_OPEN_OPTION, mUtil!!.defaultOption)
                 .equals(RFIDControlActivity.OpenOption.BLUETOOTH.toString(), ignoreCase = true)
         ) {
-            if (!mRfidMgr!!.IsOpened()) {
-                mRfidMgr!!.DisconnectBTDevice()
-                Log.d(TAG, "disconnect 11")
-            }
+//            if (!mRfidMgr!!.IsOpened()) {
+//                mRfidMgr!!.DisconnectBTDevice()
+//                Log.d(TAG, "disconnect 11")
+//            }
             if (!mBluetoothAdapter!!.isEnabled) {
                 val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                 startActivityForResult(enableBtIntent, REQUEST_BLUETOOTH)
@@ -208,26 +208,27 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
 
     private fun initState() {
         //Operation Mode Value
-        mRfidMgr!!.GetOperationMode(mOperationMode)
-        if (mOperationMode.single == RFIDConst.RFIDConfig.INVENTORY_MODE_CONTINUOUS) {
-            binding.appBarDemo.contentDemo.checkboxContinuous.isChecked = true
-            binding.appBarDemo.contentDemo.checkboxAutoScan.isChecked = false
-            mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SCAN_AUTO_ENABLE, false)
-        } else {
-            binding.appBarDemo.contentDemo.checkboxContinuous.isChecked = false
-        }
-        Log.e(
-            "checkchange_init",
-            if (mOperationMode.single == RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE) "single" else "continuous"
-        )
+//        mRfidMgr!!.GetOperationMode(mOperationMode)
+//        if (mOperationMode.single == RFIDConst.RFIDConfig.INVENTORY_MODE_CONTINUOUS) {
+//            binding.appBarDemo.contentDemo.checkboxContinuous.isChecked = true
+//            binding.appBarDemo.contentDemo.checkboxAutoScan.isChecked = false
+//            mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SCAN_AUTO_ENABLE, false)
+//        } else {
+//            binding.appBarDemo.contentDemo.checkboxContinuous.isChecked = false
+//        }
+//        Log.e(
+//            "checkchange_init",
+//            if (mOperationMode.single == RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE) "single" else "continuous"
+//        )
+        binding.appBarDemo.contentDemo.checkboxContinuous.isChecked = false
 
         //Auto Scan Value
         val isAutoScan = mPrefUtil!!.getBooleanPreference(PreferenceUtil.KEY_SCAN_AUTO_ENABLE)
         binding.appBarDemo.contentDemo.checkboxAutoScan.isChecked = isAutoScan
         if (isAutoScan) {
             binding.appBarDemo.contentDemo.checkboxContinuous.isChecked = false
-            mOperationMode.single = RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE
-            mRfidMgr!!.SetOperationMode(mOperationMode)
+//            mOperationMode.single = RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE
+//            mRfidMgr!!.SetOperationMode(mOperationMode)
         }
 
         //Log Save Value
@@ -285,7 +286,7 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         if (mAutoScanStart || mIsReadStart) {
             mAutoScanStart = false
             mIsReadStart = false
-            mRfidMgr!!.Stop()
+//            mRfidMgr!!.Stop()
             //stopScan();
             stopScanCompletable()
         }
@@ -303,16 +304,17 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         super.onResume()
         isPause = false
         idList.clear()
-        getRFIDApplication().setNotifyDataCallback(mDataCallbacks)
+//        getRFIDApplication().setNotifyDataCallback(mDataCallbacks)
         Log.d(TAG, "onResume()")
         //checkIsOpened(this, mRfidMgr);
-        if (mRfidMgr!!.IsOpened()) {
-            //Change ResultType to Callback
-            mRfidMgr!!.SetResultType(RFIDConst.ResultType.RFID_RESULT_CALLBACK)
-            mUtil!!.showProgress(mProgress, this@RFIDDemoActivity, true)
-            val asyncGetVolume = AsyncGetVolume()
-            asyncGetVolume.execute()
-        }
+//        if (mRfidMgr!!.IsOpened()) {
+//            //Change ResultType to Callback
+//            mRfidMgr!!.SetResultType(RFIDConst.ResultType.RFID_RESULT_CALLBACK)
+//            mUtil!!.showProgress(mProgress, this@RFIDDemoActivity, true)
+//            val asyncGetVolume = AsyncGetVolume()
+//            asyncGetVolume.execute()
+//        }
+
         checkTempOption()
     }
 
@@ -321,20 +323,20 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         Log.d(TAG, "onPause()")
         isPause = true
 
-        /* To roll-back previous Result Type */if (mRfidMgr!!.IsOpened()) {
-            val currentType = mPrefUtil!!.getIntPreference(
-                PreferenceUtil.KEY_RESULT_TYPE,
-                RFIDConst.ResultType.RFID_RESULT_CALLBACK
-            )
-            if (currentType != RFIDConst.ResultType.RFID_RESULT_CALLBACK) {
-                mRfidMgr!!.SetResultType(currentType)
-            }
-        }
+//        /* To roll-back previous Result Type */if (mRfidMgr!!.IsOpened()) {
+//            val currentType = mPrefUtil!!.getIntPreference(
+//                PreferenceUtil.KEY_RESULT_TYPE,
+//                RFIDConst.ResultType.RFID_RESULT_CALLBACK
+//            )
+//            if (currentType != RFIDConst.ResultType.RFID_RESULT_CALLBACK) {
+//                mRfidMgr!!.SetResultType(currentType)
+//            }
+//        }
         if (mIsReadStart || mAutoScanStart) {
             mIsReadStart = false
             mAutoScanStart = false
             stopScanCompletable()
-            mRfidMgr!!.Stop()
+//            mRfidMgr!!.Stop()
             Log.d(TAG, "stop2")
         }
         if (mToast != null) {
@@ -396,12 +398,13 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
      */
     private fun changeToSingleMode(): Boolean {
         Log.d(TAG, "changeToSingleMode()+++")
-        val modeOfInvent = ModeOfInvent()
-        modeOfInvent.single = RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE
+//        val modeOfInvent = ModeOfInvent()
+//        modeOfInvent.single = RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE
         //modeOfInvent.select = RFIDConst.RFIDConfig.INVENTORY_SELECT_INCLUSION;
-        val result = mRfidMgr!!.SetOperationMode(modeOfInvent)
-        Log.d(TAG, "changeToSingleMode()--- result : $result")
-        return result == RFIDConst.CommandErr.SUCCESS
+//        val result = mRfidMgr!!.SetOperationMode(modeOfInvent)
+//        Log.d(TAG, "changeToSingleMode()--- result : $result")
+//        return result == RFIDConst.CommandErr.SUCCESS
+        return true
     }
 
     /* 기존에 설정되어있던 모드로 되돌림 */
@@ -410,86 +413,90 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         val isContinuous =
             mPrefUtil!!.getBooleanPreference(PreferenceUtil.KEY_SCAN_CONTINUOUS_ENABLE, true)
         Log.d(TAG, if (isContinuous) "isContinuous true" else "isContinuous false")
-        val modeOfInvent = ModeOfInvent()
-        if (!isContinuous) modeOfInvent.single =
-            RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE else modeOfInvent.single =
-            RFIDConst.RFIDConfig.INVENTORY_MODE_CONTINUOUS
-        modeOfInvent.select = mPrefUtil!!.getIntPreference(
-            PreferenceUtil.KEY_SELECT,
-            RFIDConst.RFIDConfig.INVENTORY_SELECT_NONE
-        )
-        val result = mRfidMgr!!.SetOperationMode(modeOfInvent)
-        Log.d(TAG, "rollbackMode()--- result : $result")
-        return result == RFIDConst.CommandErr.SUCCESS
+//        val modeOfInvent = ModeOfInvent()
+//        if (!isContinuous) modeOfInvent.single =
+//            RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE else modeOfInvent.single =
+//            RFIDConst.RFIDConfig.INVENTORY_MODE_CONTINUOUS
+//        modeOfInvent.select = mPrefUtil!!.getIntPreference(
+//            PreferenceUtil.KEY_SELECT,
+//            RFIDConst.RFIDConfig.INVENTORY_SELECT_NONE
+//        )
+//        val result = mRfidMgr!!.SetOperationMode(modeOfInvent)
+//        Log.d(TAG, "rollbackMode()--- result : $result")
+//        return result == RFIDConst.CommandErr.SUCCESS
+        return true
     }
 
     /* write를 원하는 tag의 filter 설정 */
-    private fun setFilter(selConfig: SelConfig): Boolean {
-        Log.d(TAG, "setFilter+++")
-        val result = mRfidMgr!!.SetSelMask(selConfig)
-        Log.d(TAG, "setFilter--- result : $result")
-        return result == RFIDConst.CommandErr.SUCCESS
-    }
+//    private fun setFilter(selConfig: SelConfig): Boolean {
+//        Log.d(TAG, "setFilter+++")
+//        val result = mRfidMgr!!.SetSelMask(selConfig)
+//        Log.d(TAG, "setFilter--- result : $result")
+//        return result == RFIDConst.CommandErr.SUCCESS
+//        return true
+//    }
 
     /*변경하고자하는 tag의 현재 데이터만 write/read 되도록 설정 */
-    private fun getSelect(tagPattern: String): SelConfig {
-        val selConfig = SelConfig()
-        selConfig.index = 3
-        selConfig.memBank = 3
-        selConfig.action = 1
-        selConfig.target = 4
-        selConfig.selectData = tagPattern
-        selConfig.length = selConfig.selectData.length * 4
-        selConfig.offset = 8 * 4
-        return selConfig
-    }
+//    private fun getSelect(tagPattern: String): SelConfig {
+//        val selConfig = SelConfig()
+//        selConfig.index = 3
+//        selConfig.memBank = 3
+//        selConfig.action = 1
+//        selConfig.target = 4
+//        selConfig.selectData = tagPattern
+//        selConfig.length = selConfig.selectData.length * 4
+//        selConfig.offset = 8 * 4
+//        return selConfig
+//    }
 
     /* 설정했던 tag filter를 제거함. 제거해주지 않으면 tag read시 filter에 해당하는 tag만 읽어짐 */
-    private val defaultSelect: SelConfig
-        private get() {
-            val selConfig = SelConfig()
-            selConfig.index = 3
-            selConfig.memBank = 3
-            selConfig.action = 1
-            selConfig.target = 4
-            selConfig.selectData = ""
-            selConfig.length = selConfig.selectData.length
-            selConfig.offset = 0
-            return selConfig
-        }
+//    private val defaultSelect: SelConfig
+//        private get() {
+//            val selConfig = SelConfig()
+//            selConfig.index = 3
+//            selConfig.memBank = 3
+//            selConfig.action = 1
+//            selConfig.target = 4
+//            selConfig.selectData = ""
+//            selConfig.length = selConfig.selectData.length
+//            selConfig.offset = 0
+//            return selConfig
+//        }
 
     /* Tag 데이터를 write */
     private fun writeTag(tagIdToWrite: String): Boolean {
         Log.d(TAG, "writeTag()+++")
-        val accessTag = AccessTag()
-        accessTag.wTagData = tagIdToWrite
-        Log.d(TAG, "tagData : " + accessTag.wTagData)
-        accessTag.length = accessTag.wTagData.length / 4 //unit : word
-        if (accessTag.wTagData.length % 4 != 0) accessTag.length += 1
-        Log.d(TAG, "length : " + accessTag.length)
-        accessTag.memBank = 3
-        Log.d(TAG, "membank : " + accessTag.memBank)
-        accessTag.offset = 0
-        Log.d(TAG, "offset : " + accessTag.offset)
-        accessTag.acsPwd = "0"
-        val result = mRfidMgr!!.WriteTag(accessTag)
-        Log.d(TAG, "write tag error : " + accessTag.errOp)
-        Log.d(TAG, "writeTag()--- : $result")
-        return result == RFIDConst.CommandErr.SUCCESS
+//        val accessTag = AccessTag()
+//        accessTag.wTagData = tagIdToWrite
+//        Log.d(TAG, "tagData : " + accessTag.wTagData)
+//        accessTag.length = accessTag.wTagData.length / 4 //unit : word
+//        if (accessTag.wTagData.length % 4 != 0) accessTag.length += 1
+//        Log.d(TAG, "length : " + accessTag.length)
+//        accessTag.memBank = 3
+//        Log.d(TAG, "membank : " + accessTag.memBank)
+//        accessTag.offset = 0
+//        Log.d(TAG, "offset : " + accessTag.offset)
+//        accessTag.acsPwd = "0"
+//        val result = mRfidMgr!!.WriteTag(accessTag)
+//        Log.d(TAG, "write tag error : " + accessTag.errOp)
+//        Log.d(TAG, "writeTag()--- : $result")
+//        return result == RFIDConst.CommandErr.SUCCESS
+        return true
     }
 
     /* Tag 데이터를 read */
     private fun readTag(): Boolean {
         Log.d(TAG, "readTag()+++")
-        val accessTag = AccessTag()
-        accessTag.length = 1
-        accessTag.memBank = 3
-        accessTag.offset = 0
-        accessTag.acsPwd = "0"
-        val result = mRfidMgr!!.ReadTag(accessTag)
-        Log.d(TAG, "read tag data hex : " + accessTag.tagId)
-        Log.d(TAG, "readTag()--- : $result")
-        return result == RFIDConst.CommandErr.SUCCESS
+//        val accessTag = AccessTag()
+//        accessTag.length = 1
+//        accessTag.memBank = 3
+//        accessTag.offset = 0
+//        accessTag.acsPwd = "0"
+//        val result = mRfidMgr!!.ReadTag(accessTag)
+//        Log.d(TAG, "read tag data hex : " + accessTag.tagId)
+//        Log.d(TAG, "readTag()--- : $result")
+//        return result == RFIDConst.CommandErr.SUCCESS
+        return true
     }
 
     private fun startScanCompletable() {
@@ -576,7 +583,7 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
             mIsReadStart = false
             mAutoScanStart = false
             stopScanCompletable()
-            mRfidMgr!!.Stop()
+//            mRfidMgr!!.Stop()
             Log.d(TAG, "stop4")
         }
         super.onDestroy()
@@ -698,41 +705,41 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         alert.show()
     }
 
-    private fun getBatteryInfo(isReading: Boolean): String {
-        var batteryVolt = 0
-        var batteryLevel = 0
-        var chargingState = 0
-        var count = 0
-        do {
-            batteryLevel = mRfidMgr!!.GetBattLevel()
-            Log.d(TAG, "GetBattLevel :$batteryLevel")
-            if (batteryLevel > 0) {
-                break
-            } else count++
-            if (count > 3) break
-        } while (true)
-        count = 0
-        do {
-            chargingState = mRfidMgr!!.GetChargingState()
-            Log.d(TAG, "GetChargingState : $chargingState")
-            if (chargingState >= RFIDConst.CommandErr.SUCCESS) {
-                if (chargingState == 1 || chargingState == 0) break
-            } else {
-                count++
-            }
-            if (count > 3) break
-            mUtil!!.sleep(100)
-        } while (true)
-        do {
-            batteryVolt = mRfidMgr!!.GetBattVolt()
-            Log.d(TAG, "GetBattVolt :$batteryVolt")
-            if (batteryVolt >= 0) break else count++
-            if (count > 3) break
-            mUtil!!.sleep(100)
-        } while (true)
-        return (batteryVolt.toString() + "mV,  " + batteryLevel + "%,  "
-                + if (chargingState == 1) getString(R.string.charging) else getString(R.string.not_charging))
-    }
+//    private fun getBatteryInfo(isReading: Boolean): String {
+//        var batteryVolt = 0
+//        var batteryLevel = 0
+//        var chargingState = 0
+//        var count = 0
+//        do {
+//            batteryLevel = mRfidMgr!!.GetBattLevel()
+//            Log.d(TAG, "GetBattLevel :$batteryLevel")
+//            if (batteryLevel > 0) {
+//                break
+//            } else count++
+//            if (count > 3) break
+//        } while (true)
+//        count = 0
+//        do {
+//            chargingState = mRfidMgr!!.GetChargingState()
+//            Log.d(TAG, "GetChargingState : $chargingState")
+//            if (chargingState >= RFIDConst.CommandErr.SUCCESS) {
+//                if (chargingState == 1 || chargingState == 0) break
+//            } else {
+//                count++
+//            }
+//            if (count > 3) break
+//            mUtil!!.sleep(100)
+//        } while (true)
+//        do {
+//            batteryVolt = mRfidMgr!!.GetBattVolt()
+//            Log.d(TAG, "GetBattVolt :$batteryVolt")
+//            if (batteryVolt >= 0) break else count++
+//            if (count > 3) break
+//            mUtil!!.sleep(100)
+//        } while (true)
+//        return (batteryVolt.toString() + "mV,  " + batteryLevel + "%,  "
+//                + if (chargingState == 1) getString(R.string.charging) else getString(R.string.not_charging))
+//    }
 
     private fun makeFolderAndFile(): Boolean {
         if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) {
@@ -854,100 +861,100 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         return list
     }
 
-    private val mDataCallbacks: NotifyDataCallbacks = object :
-        NotifyDataCallbacks {
-        override fun notifyDataPacket(recvPacket: RecvPacket) {
-            Log.d(TAG, "notifyDataPacket : " + recvPacket.RecvString)
-            callbackTimerCancel()
-
-//            String temp = mUtil.hexToAscii( "7777772e6261656c64756e672e636f6d");
-//            addScanData(temp);
-//            String text =  mUtil.hexToAscii(recvPacket.RecvString);
-            addScanData(recvPacket.RecvString)
-            val isAutoScan = mPrefUtil!!.getBooleanPreference(PreferenceUtil.KEY_SCAN_AUTO_ENABLE)
-            mRfidMgr!!.GetOperationMode(mOperationMode)
-            val isContinuous =
-                mOperationMode.single == RFIDConst.RFIDConfig.INVENTORY_MODE_CONTINUOUS
-            if (!isContinuous && !isAutoScan) {
-                mIsReadStart = false
-                stopScanCompletable()
-                mRfidMgr!!.Stop()
-            }
-            mAutoScanHandler.removeCallbacksAndMessages(null)
-            if (mIsReadStart && mAutoScanStart) mAutoScanHandler.postDelayed(
-                runnable,
-                mAutoScanInterval.toLong()
-            )
-        }
-
-        override fun notifyChangedState(state: Int) {
-            Log.d(TAG, "notifyChangedState : $state")
-            if (state == RFIDConst.DeviceState.TRIGGER_RFID_KEYDOWN) {
-                Log.d(D, "Trigger key down")
-                Log.d(TAG, "TRIGGER_RFID_KEYDOWN")
-                binding.appBarDemo.contentRfid.pbLoading.visibility = View.VISIBLE
-                mAutoScanHandler.removeCallbacksAndMessages(null)
-                if (!mIsReadStart && !mAutoScanStart) {
-                    mIsReadStart = true
-                    triggerStartScanCompletable()
-                } else {
-                    mIsReadStart = false
-                    stopScanCompletable()
-                }
-            } else if (state == RFIDConst.DeviceState.TRIGGER_RFID_KEYUP) {
-                Log.d(D, "Trigger key up")
-                Log.d(TAG, "TRIGGER_RFID_KEYUP")
-                binding.appBarDemo.contentRfid.pbLoading.visibility = View.GONE
-                if (!mAutoScanStart) {
-                    mIsReadStart = false
-                    triggerStopScanCompletable()
-                }
-            } else if (state == RFIDConst.DeviceState.TRIGGER_SCAN_KEYDOWN) {
-                Log.d(TAG, "TRIGGER_SCAN_KEYDOWN")
-                if (!isPause) Toast.makeText(
-                    applicationContext,
-                    getString(R.string.scanner_mode),
-                    Toast.LENGTH_LONG
-                ).show()
-            } else if (state == RFIDConst.DeviceState.LOW_BATT) {
-                Log.d(TAG, "LOW_BATT")
-                mIsReadStart = false
-                stopScanCompletable()
-                mRfidMgr!!.Stop()
-                Log.d(TAG, "stop7")
-            } else if (state == RFIDConst.DeviceState.BT_DISCONNECTED) {
-                Log.d(TAG, "BT_DISCONNECTED")
-                mRfidMgr!!.Close()
-                Log.d(TAG, "close12")
-                mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SAVE_LOG, false)
-                mIsReadStart = false
-                RFIDControlActivity.POWER_OFF_FLAG = true
-                val intent = Intent(this@RFIDDemoActivity, RFIDControlActivity::class.java)
-                startActivity(intent)
-            } else if (state == RFIDConst.DeviceState.USB_DISCONNECTED
-                && mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_OPEN_OPTION)
-                    .equals(RFIDControlActivity.OpenOption.WIRED.toString(), ignoreCase = true)
-            ) {
-                Log.d(TAG, "USB_DISCONNECTED")
-                Log.d(TAG, if (mIsReadStart) "mIsReadStart : true" else "mIsReadStart : false")
-                RFIDControlActivity.USB_DETACHED_FLAG = true
-                mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SAVE_LOG, false)
-                mIsReadStart = false
-                val connectionIntent =
-                    Intent(this@RFIDDemoActivity, RFIDControlActivity::class.java)
-                startActivity(connectionIntent)
-            } else if (state == RFIDConst.DeviceState.POWER_OFF
-                && mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_OPEN_OPTION)
-                    .equals(RFIDControlActivity.OpenOption.WIRED.toString(), ignoreCase = true)
-            ) {
-                mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SAVE_LOG, false)
-                mIsReadStart = false
-                RFIDControlActivity.POWER_OFF_FLAG = true
-                val intent = Intent(this@RFIDDemoActivity, RFIDControlActivity::class.java)
-                startActivity(intent)
-            }
-        }
-    }
+//    private val mDataCallbacks: NotifyDataCallbacks = object :
+//        NotifyDataCallbacks {
+//        override fun notifyDataPacket(recvPacket: RecvPacket) {
+//            Log.d(TAG, "notifyDataPacket : " + recvPacket.RecvString)
+//            callbackTimerCancel()
+//
+////            String temp = mUtil.hexToAscii( "7777772e6261656c64756e672e636f6d");
+////            addScanData(temp);
+////            String text =  mUtil.hexToAscii(recvPacket.RecvString);
+//            addScanData(recvPacket.RecvString)
+//            val isAutoScan = mPrefUtil!!.getBooleanPreference(PreferenceUtil.KEY_SCAN_AUTO_ENABLE)
+//            mRfidMgr!!.GetOperationMode(mOperationMode)
+//            val isContinuous =
+//                mOperationMode.single == RFIDConst.RFIDConfig.INVENTORY_MODE_CONTINUOUS
+//            if (!isContinuous && !isAutoScan) {
+//                mIsReadStart = false
+//                stopScanCompletable()
+//                mRfidMgr!!.Stop()
+//            }
+//            mAutoScanHandler.removeCallbacksAndMessages(null)
+//            if (mIsReadStart && mAutoScanStart) mAutoScanHandler.postDelayed(
+//                runnable,
+//                mAutoScanInterval.toLong()
+//            )
+//        }
+//
+//        override fun notifyChangedState(state: Int) {
+//            Log.d(TAG, "notifyChangedState : $state")
+//            if (state == RFIDConst.DeviceState.TRIGGER_RFID_KEYDOWN) {
+//                Log.d(D, "Trigger key down")
+//                Log.d(TAG, "TRIGGER_RFID_KEYDOWN")
+//                binding.appBarDemo.contentRfid.pbLoading.visibility = View.VISIBLE
+//                mAutoScanHandler.removeCallbacksAndMessages(null)
+//                if (!mIsReadStart && !mAutoScanStart) {
+//                    mIsReadStart = true
+//                    triggerStartScanCompletable()
+//                } else {
+//                    mIsReadStart = false
+//                    stopScanCompletable()
+//                }
+//            } else if (state == RFIDConst.DeviceState.TRIGGER_RFID_KEYUP) {
+//                Log.d(D, "Trigger key up")
+//                Log.d(TAG, "TRIGGER_RFID_KEYUP")
+//                binding.appBarDemo.contentRfid.pbLoading.visibility = View.GONE
+//                if (!mAutoScanStart) {
+//                    mIsReadStart = false
+//                    triggerStopScanCompletable()
+//                }
+//            } else if (state == RFIDConst.DeviceState.TRIGGER_SCAN_KEYDOWN) {
+//                Log.d(TAG, "TRIGGER_SCAN_KEYDOWN")
+//                if (!isPause) Toast.makeText(
+//                    applicationContext,
+//                    getString(R.string.scanner_mode),
+//                    Toast.LENGTH_LONG
+//                ).show()
+//            } else if (state == RFIDConst.DeviceState.LOW_BATT) {
+//                Log.d(TAG, "LOW_BATT")
+//                mIsReadStart = false
+//                stopScanCompletable()
+//                mRfidMgr!!.Stop()
+//                Log.d(TAG, "stop7")
+//            } else if (state == RFIDConst.DeviceState.BT_DISCONNECTED) {
+//                Log.d(TAG, "BT_DISCONNECTED")
+//                mRfidMgr!!.Close()
+//                Log.d(TAG, "close12")
+//                mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SAVE_LOG, false)
+//                mIsReadStart = false
+//                RFIDControlActivity.POWER_OFF_FLAG = true
+//                val intent = Intent(this@RFIDDemoActivity, RFIDControlActivity::class.java)
+//                startActivity(intent)
+//            } else if (state == RFIDConst.DeviceState.USB_DISCONNECTED
+//                && mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_OPEN_OPTION)
+//                    .equals(RFIDControlActivity.OpenOption.WIRED.toString(), ignoreCase = true)
+//            ) {
+//                Log.d(TAG, "USB_DISCONNECTED")
+//                Log.d(TAG, if (mIsReadStart) "mIsReadStart : true" else "mIsReadStart : false")
+//                RFIDControlActivity.USB_DETACHED_FLAG = true
+//                mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SAVE_LOG, false)
+//                mIsReadStart = false
+//                val connectionIntent =
+//                    Intent(this@RFIDDemoActivity, RFIDControlActivity::class.java)
+//                startActivity(connectionIntent)
+//            } else if (state == RFIDConst.DeviceState.POWER_OFF
+//                && mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_OPEN_OPTION)
+//                    .equals(RFIDControlActivity.OpenOption.WIRED.toString(), ignoreCase = true)
+//            ) {
+//                mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SAVE_LOG, false)
+//                mIsReadStart = false
+//                RFIDControlActivity.POWER_OFF_FLAG = true
+//                val intent = Intent(this@RFIDDemoActivity, RFIDControlActivity::class.java)
+//                startActivity(intent)
+//            }
+//        }
+//    }
 
     private fun callbackTimerCancel() {
         try {
@@ -962,7 +969,7 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
             Log.d(TAG, "CallbackTimer Started")
             mCallbackCheckTimer.start()
             Log.d(TAG, "--- handler start ")
-            mRfidMgr!!.StartInventory()
+//            mRfidMgr!!.StartInventory()
         }
     }
 
@@ -993,30 +1000,30 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         if (v.id == R.id.checkbox_auto_scan) {
             if (binding.appBarDemo.contentDemo.checkboxAutoScan.isChecked) {
                 binding.appBarDemo.contentDemo.checkboxContinuous.isChecked = false
-                mOperationMode.single = RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE
-                mRfidMgr!!.SetOperationMode(mOperationMode)
+//                mOperationMode.single = RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE
+//                mRfidMgr!!.SetOperationMode(mOperationMode)
                 mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SCAN_AUTO_ENABLE, true)
             } else {
                 mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SCAN_AUTO_ENABLE, false)
             }
-            Log.e(
-                "checkchange_autoscan",
-                if (mOperationMode.single == RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE) "single" else "continuous"
-            )
+//            Log.e(
+//                "checkchange_autoscan",
+//                if (mOperationMode.single == RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE) "single" else "continuous"
+//            )
         } else if (v.id == R.id.checkbox_continuous) {
             if (binding.appBarDemo.contentDemo.checkboxContinuous.isChecked) {
                 binding.appBarDemo.contentDemo.checkboxAutoScan.isChecked = false
                 mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SCAN_AUTO_ENABLE, false)
-                mOperationMode.single = RFIDConst.RFIDConfig.INVENTORY_MODE_CONTINUOUS
+//                mOperationMode.single = RFIDConst.RFIDConfig.INVENTORY_MODE_CONTINUOUS
                 mAutoScanStart = false
             } else {
-                mOperationMode.single = RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE
+//                mOperationMode.single = RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE
             }
-            mRfidMgr!!.SetOperationMode(mOperationMode)
-            Log.e(
-                "checkchange_continuous",
-                if (mOperationMode.single == RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE) "single" else "continuous"
-            )
+//            mRfidMgr!!.SetOperationMode(mOperationMode)
+//            Log.e(
+//                "checkchange_continuous",
+//                if (mOperationMode.single == RFIDConst.RFIDConfig.INVENTORY_MODE_SINGLE) "single" else "continuous"
+//            )
         } else if (v.id == R.id.checkbox_save_log) {
             if (binding.appBarDemo.contentDemo.checkboxSaveLog.isChecked) {
                 mPrefUtil!!.putBooleanPreference(PreferenceUtil.KEY_SAVE_LOG, true)
@@ -1030,55 +1037,57 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
                 asyncSetVolume.execute(
                     mPrefUtil!!.getIntPreference(
                         PreferenceUtil.KEY_BEEP_SOUND,
-                        RFIDConst.DeviceConfig.BUZZER_HIGH
+//                        RFIDConst.DeviceConfig.BUZZER_HIGH
+                        2
                     )
                 )
             } else {
                 val asyncSetVolume = AsyncSetVolume()
-                asyncSetVolume.execute(RFIDConst.DeviceConfig.BUZZER_MUTE)
+//                asyncSetVolume.execute(RFIDConst.DeviceConfig.BUZZER_MUTE)
+                asyncSetVolume.execute(2)
             }
         }
     }
-    private val mOnClickListener = View.OnClickListener { v ->
-        if (v.id == R.id.btn_start_inventory) {
-            /* Stop */
-            if (mIsReadStart || mAutoScanStart) {
-                //stopScan();
-                stopScanCompletable()
-                mIsReadStart = false
-                val asyncStop = AsyncStop()
-                asyncStop.execute()
-                //mPrefUtil.putBooleanPreference(PreferenceUtil.KEY_IS_READ_TEMP, false);
-            } else {
-                val mode = mRfidMgr!!.GetTriggerMode()
-                Log.d("mode", "trigger mode : $mode")
-                when (mode) {
-                    SCAN_MODE -> if (!isPause) {
-                        Log.d(TAG, "RFID Demo is currently paused")
-                        Toast.makeText(
-                            applicationContext,
-                            getString(R.string.scanner_mode),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    RFID_MODE -> {
-                        mIsReadStart = true
-                        startScanCompletable()
-                    }
-                    else -> {
-                        mIsReadStart = true
-                        startScanCompletable()
-                    }
-                }
-            }
-        } else if (v.id == R.id.btn_write_tag) {
-            val intent = Intent(this@RFIDDemoActivity, DialogWriteTag::class.java)
-            startActivityForResult(intent, REQUEST_WRITE_TAG)
-            //startWriteTag();
-        } else if (v.id == R.id.btn_read_tag) {
-            startReadTag()
-        }
-    }
+//    private val mOnClickListener = View.OnClickListener { v ->
+//        if (v.id == R.id.btn_start_inventory) {
+//            /* Stop */
+//            if (mIsReadStart || mAutoScanStart) {
+//                //stopScan();
+//                stopScanCompletable()
+//                mIsReadStart = false
+//                val asyncStop = AsyncStop()
+//                asyncStop.execute()
+//                //mPrefUtil.putBooleanPreference(PreferenceUtil.KEY_IS_READ_TEMP, false);
+//            } else {
+//                val mode = mRfidMgr!!.GetTriggerMode()
+//                Log.d("mode", "trigger mode : $mode")
+//                when (mode) {
+//                    SCAN_MODE -> if (!isPause) {
+//                        Log.d(TAG, "RFID Demo is currently paused")
+//                        Toast.makeText(
+//                            applicationContext,
+//                            getString(R.string.scanner_mode),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                    RFID_MODE -> {
+//                        mIsReadStart = true
+//                        startScanCompletable()
+//                    }
+//                    else -> {
+//                        mIsReadStart = true
+//                        startScanCompletable()
+//                    }
+//                }
+//            }
+//        } else if (v.id == R.id.btn_write_tag) {
+//            val intent = Intent(this@RFIDDemoActivity, DialogWriteTag::class.java)
+//            startActivityForResult(intent, REQUEST_WRITE_TAG)
+//            //startWriteTag();
+//        } else if (v.id == R.id.btn_read_tag) {
+//            startReadTag()
+//        }
+//    }
 
     private class LogSaveHandler(activity: RFIDDemoActivity) : Handler() {
         private val weakReference: WeakReference<RFIDDemoActivity>
@@ -1096,7 +1105,7 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         when (msg.what) {
             HANDLER_MSG_SAVE_LOG -> if (mIsReadStart && mIsSaveLog) {
                 Log.d(TAG, "MSG_SAVE_LOG")
-                /* Save log every 10 seconds to check battery info */saveLog(getBatteryInfo(true))
+//                /* Save log every 10 seconds to check battery info */saveLog(getBatteryInfo(true))
                 mHandler!!.sendEmptyMessageDelayed(HANDLER_MSG_SAVE_LOG, (10 * 1000).toLong())
             }
         }
@@ -1113,25 +1122,25 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         }
 
         override fun doInBackground(vararg voids: Void?): Boolean {
-            if (mRfidMgr!!.IsOpened()) {
-                var count = 0
-                do {
-                    mVolumeValue = mRfidMgr!!.GetBuzzerVol()
-                    Log.e("AsyncGetVolume", "mVolume === $mVolumeValue")
-                    if (mVolumeValue > 0) {
-                        if (mVolumeValue == 0 || mVolumeValue == 1 || mVolumeValue == 2) {
-                            break
-                        }
-                    } else {
-                        count++
-                    }
-                    if (count > 2) break
-                    try {
-                        Thread.sleep(100)
-                    } catch (e: Exception) {
-                    }
-                } while (true)
-            }
+//            if (mRfidMgr!!.IsOpened()) {
+//                var count = 0
+//                do {
+//                    mVolumeValue = mRfidMgr!!.GetBuzzerVol()
+//                    Log.e("AsyncGetVolume", "mVolume === $mVolumeValue")
+//                    if (mVolumeValue > 0) {
+//                        if (mVolumeValue == 0 || mVolumeValue == 1 || mVolumeValue == 2) {
+//                            break
+//                        }
+//                    } else {
+//                        count++
+//                    }
+//                    if (count > 2) break
+//                    try {
+//                        Thread.sleep(100)
+//                    } catch (e: Exception) {
+//                    }
+//                } while (true)
+//            }
             return true
         }
 
@@ -1148,15 +1157,15 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
 
     internal inner class AsyncSetVolume : AsyncTask<Int?, Void?, Boolean>() {
         override fun doInBackground(vararg integers: Int?): Boolean {
-            if (mRfidMgr!!.IsOpened()) {
-                do {
-                    val result = mRfidMgr!!.SetBuzzerVol(integers[0]!!)
-                    Log.e("buzzerVolumeResult=====", "" + result)
-                    if (result != -1 && result != -100) {
-                        break
-                    }
-                } while (true)
-            }
+//            if (mRfidMgr!!.IsOpened()) {
+//                do {
+//                    val result = mRfidMgr!!.SetBuzzerVol(integers[0]!!)
+//                    Log.e("buzzerVolumeResult=====", "" + result)
+//                    if (result != -1 && result != -100) {
+//                        break
+//                    }
+//                } while (true)
+//            }
             return true
         }
 
@@ -1169,7 +1178,7 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
     internal inner class AsyncStop : AsyncTask<Void?, Void?, Void?>() {
         override fun doInBackground(vararg voids: Void?): Void? {
             Log.d(TAG, "stop9")
-            mRfidMgr!!.Stop()
+//            mRfidMgr!!.Stop()
             return null
         }
 
@@ -1178,14 +1187,14 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
             if (mIsSaveLog) {
                 removeHandlerMessage()
                 mUtil!!.startFileOnlyMediaScan(mFile!!.parent)
-                saveLog(getBatteryInfo(false))
+//                saveLog(getBatteryInfo(false))
             }
         }
     }
 
     internal inner class AsyncStart : AsyncTask<Void?, Void?, Void?>() {
         override fun doInBackground(vararg voids: Void?): Void? {
-            mRfidMgr!!.StartInventory()
+//            mRfidMgr!!.StartInventory()
             return null
         }
     }
@@ -1209,7 +1218,7 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
                 mIsReadStart = false
                 mAutoScanStart = false
                 stopScanCompletable()
-                mRfidMgr!!.Stop()
+//                mRfidMgr!!.Stop()
                 Log.d("stop", "stop10")
             }
         }
@@ -1232,4 +1241,5 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         var mAutoScanHandler: Handler = object : Handler() {
         }
     }
+
 }

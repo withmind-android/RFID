@@ -10,12 +10,12 @@ import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 
-import device.sdk.RFIDManager;
+//import device.sdk.RFIDManager;
 import com.rfid.R;
 
 public class DialogWriteTag extends Activity {
     private final String TAG = getClass().getSimpleName();
-    private RFIDManager mRfidMgr;
+//    private RFIDManager mRfidMgr;
 
     private EditText etCurrentTagId;
     private EditText etTagIdToWrite;
@@ -35,7 +35,7 @@ public class DialogWriteTag extends Activity {
     }
 
     private void init() {
-        mRfidMgr = RFIDManager.getInstance();
+//        mRfidMgr = RFIDManager.getInstance();
 
         etCurrentTagId = findViewById(R.id.et_current_tag_id);
         etTagIdToWrite = findViewById(R.id.et_tag_id_to_write);

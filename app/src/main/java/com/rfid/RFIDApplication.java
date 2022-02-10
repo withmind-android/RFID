@@ -8,9 +8,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import device.common.rfid.RFIDCallback;
-import device.common.rfid.RecvPacket;
-import device.sdk.RFIDManager;
+//import device.common.rfid.RFIDCallback;
+//import device.common.rfid.RecvPacket;
+//import device.sdk.RFIDManager;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 
@@ -30,19 +30,19 @@ public class RFIDApplication extends Application
 
     private static RFIDApplication mRFIDApplication;
 
-    private RFIDManager mRfidMgr;
+//    private RFIDManager mRfidMgr;
     private PreferenceUtil mPrefUtil;
     private Utils mUtils;
-    private NotifyDataCallbacks mDataCallbacks;
+//    private NotifyDataCallbacks mDataCallbacks;
 
     public boolean mIsSleep = false;
 
-    public interface NotifyDataCallbacks
-    {
-        void notifyDataPacket(RecvPacket recvPacket);
-
-        void notifyChangedState(int state);
-    }
+//    public interface NotifyDataCallbacks
+//    {
+//        void notifyDataPacket(RecvPacket recvPacket);
+//
+//        void notifyChangedState(int state);
+//    }
 
     @Override
     public void onCreate()
@@ -65,20 +65,20 @@ public class RFIDApplication extends Application
 
     public void init()
     {
-        mRfidMgr = RFIDManager.getInstance();
-        mRfidMgr.RegisterRFIDCallback(mRFIDCallback);
+//        mRfidMgr = RFIDManager.getInstance();
+//        mRfidMgr.RegisterRFIDCallback(mRFIDCallback);
     }
 
     public void terminate()
     {
-        mRfidMgr.UnregisterRFIDCallback(mRFIDCallback);
+//        mRfidMgr.UnregisterRFIDCallback(mRFIDCallback);
     }
 
-    public void setNotifyDataCallback(NotifyDataCallbacks callbacks)
-    {
-        mDataCallbacks = callbacks;
-        Log.d(TAG,"mDataCallbacks : " + mDataCallbacks);
-    }
+//    public void setNotifyDataCallback(NotifyDataCallbacks callbacks)
+//    {
+//        mDataCallbacks = callbacks;
+//        Log.d(TAG,"mDataCallbacks : " + mDataCallbacks);
+//    }
 
     ActivityLifecycleCallbacks mActivityLifecycleCallbacks = new ActivityLifecycleCallbacks()
     {
@@ -157,33 +157,33 @@ public class RFIDApplication extends Application
         }
     });
 
-    RFIDCallback mRFIDCallback = new RFIDCallback(mHandler)
-    {
-        @Override
-        public void onNotifyReceivedPacket(RecvPacket recvPacket)
-        {
-            super.onNotifyReceivedPacket(recvPacket);
-            Log.d(TAG, "onNotifyReceivedPacket : " + recvPacket.RecvString);
-            if(mDataCallbacks != null)
-                mDataCallbacks.notifyDataPacket(recvPacket);
-            else
-                Log.d(TAG,"mDataCallbacks is null");
-        }
-
-        @Override
-        public void onNotifyChangedState(int state)
-        {
-            super.onNotifyChangedState(state);
-            Log.d(TAG, "onNotifyChangedState : " + state);
-            Log.d(TAG, "mCurrentActivity : " + mCurrentActivity);
-            if(mCurrentActivity.contains(RFID_CONTROL_ACTIVITY)
-                    || mCurrentActivity.contains(RFID_DEMO_ACTIVITY))
-            {
-                if(mDataCallbacks != null)
-                    mDataCallbacks.notifyChangedState(state);
-                else
-                    Log.d(TAG,"mDataCallbacks is null");
-            }
-        }
-    };
+//    RFIDCallback mRFIDCallback = new RFIDCallback(mHandler)
+//    {
+//        @Override
+//        public void onNotifyReceivedPacket(RecvPacket recvPacket)
+//        {
+//            super.onNotifyReceivedPacket(recvPacket);
+//            Log.d(TAG, "onNotifyReceivedPacket : " + recvPacket.RecvString);
+//            if(mDataCallbacks != null)
+//                mDataCallbacks.notifyDataPacket(recvPacket);
+//            else
+//                Log.d(TAG,"mDataCallbacks is null");
+//        }
+//
+//        @Override
+//        public void onNotifyChangedState(int state)
+//        {
+//            super.onNotifyChangedState(state);
+//            Log.d(TAG, "onNotifyChangedState : " + state);
+//            Log.d(TAG, "mCurrentActivity : " + mCurrentActivity);
+//            if(mCurrentActivity.contains(RFID_CONTROL_ACTIVITY)
+//                    || mCurrentActivity.contains(RFID_DEMO_ACTIVITY))
+//            {
+//                if(mDataCallbacks != null)
+//                    mDataCallbacks.notifyChangedState(state);
+//                else
+//                    Log.d(TAG,"mDataCallbacks is null");
+//            }
+//        }
+//    };
 }

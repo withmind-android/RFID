@@ -23,9 +23,9 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
-import device.common.DevInfoIndex;
-import device.sdk.Information;
-import device.sdk.RFIDManager;
+//import device.common.DevInfoIndex;
+//import device.sdk.Information;
+//import device.sdk.RFIDManager;
 import com.rfid.R;
 import com.rfid.ui.RFIDControlActivity;
 
@@ -238,27 +238,27 @@ public class Utils
     public int getDevice()
     {
         int majorNum = 0;
-        try
-        {
-            Information information = Information.getInstance();
-            majorNum = information.getMajorNumber();
-        } catch(RemoteException e)
-        {
-            e.printStackTrace();
-        }
+//        try
+//        {
+//            Information information = Information.getInstance();
+//            majorNum = information.getMajorNumber();
+//        } catch(RemoteException e)
+//        {
+//            e.printStackTrace();
+//        }
         return majorNum;
     }
 
     public String getDefaultOption()
     {
-        if(getDevice() == DevInfoIndex.PM30_MAJOR)
-        {
-            return RFIDControlActivity.OpenOption.WIRED.toString();
-        }
-        else if(getDevice() == DevInfoIndex.PM75_MAJOR || getDevice() == DevInfoIndex.PM90_MAJOR)
-        {
-            return RFIDControlActivity.OpenOption.UART.toString();
-        }
+//        if(getDevice() == DevInfoIndex.PM30_MAJOR)
+//        {
+//            return RFIDControlActivity.OpenOption.WIRED.toString();
+//        }
+//        else if(getDevice() == DevInfoIndex.PM75_MAJOR || getDevice() == DevInfoIndex.PM90_MAJOR)
+//        {
+//            return RFIDControlActivity.OpenOption.UART.toString();
+//        }
         return RFIDControlActivity.OpenOption.BLUETOOTH.toString();
     }
 
@@ -308,32 +308,32 @@ public class Utils
     {
         int tryCount = 0;
         String result = "";
-        RFIDManager mgr = RFIDManager.getInstance();
-        if(mgr.IsOpened())
-        {
-            do
-            {
-                String btName = mgr.GetBtDevice();
-                Log.d("Utils", "Bt Name : " + btName);
-                if(btName != null && btName.length() > 0 && isRFIDDevice(btName))
-                {
-                    result = btName.toUpperCase();
-                    return result;
-                }
-                else
-                {
-                    tryCount++;
-                }
-
-                if(tryCount > 2)
-                    return "";
-
-                sleep(100);
-
-            }
-            while(true);
-
-        }
+//        RFIDManager mgr = RFIDManager.getInstance();
+//        if(mgr.IsOpened())
+//        {
+//            do
+//            {
+//                String btName = mgr.GetBtDevice();
+//                Log.d("Utils", "Bt Name : " + btName);
+//                if(btName != null && btName.length() > 0 && isRFIDDevice(btName))
+//                {
+//                    result = btName.toUpperCase();
+//                    return result;
+//                }
+//                else
+//                {
+//                    tryCount++;
+//                }
+//
+//                if(tryCount > 2)
+//                    return "";
+//
+//                sleep(100);
+//
+//            }
+//            while(true);
+//
+//        }
         return result;
     }
 
@@ -341,40 +341,40 @@ public class Utils
     {
         int tryCount = 0;
         String result = "";
-        RFIDManager mgr = RFIDManager.getInstance();
-        if(mgr.IsOpened())
-        {
-            do
-            {
-                String macAddr = mgr.GetBtMacAddr();
-                Log.d("Utils", "Bt MacAddress : " + macAddr);
-                if(macAddr != null && macAddr.length() > 0)
-                {
-                    macAddr = macAddr.toUpperCase();
-                    if(macAddr.length() == 12)
-                    {
-                        String mac0 = macAddr.substring(0, 2);
-                        String mac1 = macAddr.substring(2, 4);
-                        String mac2 = macAddr.substring(4, 6);
-                        String mac3 = macAddr.substring(6, 8);
-                        String mac4 = macAddr.substring(8, 10);
-                        String mac5 = macAddr.substring(10, 12);
-                        result = mac0 + ":" + mac1 + ":" + mac2 + ":" + mac3 + ":" + mac4 + ":" + mac5;
-                    }
-                    return result;
-                }
-                else
-                    tryCount++;
-
-                if(tryCount > 2)
-                    return "";
-
-                sleep(100);
-
-            }
-            while(true);
-
-        }
+//        RFIDManager mgr = RFIDManager.getInstance();
+//        if(mgr.IsOpened())
+//        {
+//            do
+//            {
+//                String macAddr = mgr.GetBtMacAddr();
+//                Log.d("Utils", "Bt MacAddress : " + macAddr);
+//                if(macAddr != null && macAddr.length() > 0)
+//                {
+//                    macAddr = macAddr.toUpperCase();
+//                    if(macAddr.length() == 12)
+//                    {
+//                        String mac0 = macAddr.substring(0, 2);
+//                        String mac1 = macAddr.substring(2, 4);
+//                        String mac2 = macAddr.substring(4, 6);
+//                        String mac3 = macAddr.substring(6, 8);
+//                        String mac4 = macAddr.substring(8, 10);
+//                        String mac5 = macAddr.substring(10, 12);
+//                        result = mac0 + ":" + mac1 + ":" + mac2 + ":" + mac3 + ":" + mac4 + ":" + mac5;
+//                    }
+//                    return result;
+//                }
+//                else
+//                    tryCount++;
+//
+//                if(tryCount > 2)
+//                    return "";
+//
+//                sleep(100);
+//
+//            }
+//            while(true);
+//
+//        }
         return result;
     }
 
