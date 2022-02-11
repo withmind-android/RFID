@@ -38,7 +38,7 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
     private var mProgress: ProgressDialog? = null
     private var mUtil: Utils? = null
     private var mPrefUtil: PreferenceUtil? = null
-    private var mBluetoothAdapter: BluetoothAdapter? = null
+//    private var mBluetoothAdapter: BluetoothAdapter? = null
 //    private var mRfidMgr: RFIDManager? = null
     private var mMacAddress: String? = null
     private var mDeviceName: String? = null
@@ -61,7 +61,7 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         mProgress = ProgressDialog(this@RFIDControlActivity)
 //        mRfidMgr = RFIDManager.getInstance()
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+//        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
         //init value
         if (mPrefUtil!!.getBooleanPreference(PreferenceUtil.KEY_FIRST_START, true)) {
@@ -80,52 +80,53 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
 //        initOpenOption(checkDeviceInfo())
         POWER_OFF_FLAG = false
         USB_DETACHED_FLAG = false
-        registerBTStateReceiver()
-        registerParingReceiver()
-        bluetoothOn()
+        // Bluetooth 기능 삭제
+//        registerBTStateReceiver()
+//        registerParingReceiver()
+//        bluetoothOn()
         onClicks()
     }
 
-    private fun registerBTStateReceiver() {
-        try {
-            val intentFilter = IntentFilter()
-            intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED)
-            registerReceiver(mBluetoothOffReceiver, intentFilter)
-        } catch (e: Exception) {
-        }
-    }
+//    private fun registerBTStateReceiver() {
+//        try {
+//            val intentFilter = IntentFilter()
+//            intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED)
+//            registerReceiver(mBluetoothOffReceiver, intentFilter)
+//        } catch (e: Exception) {
+//        }
+//    }
 
-    private fun unregisterBTStateReceiver() {
-        try {
-            unregisterReceiver(mBluetoothOffReceiver)
-        } catch (e: Exception) {
-        }
-    }
+//    private fun unregisterBTStateReceiver() {
+//        try {
+//            unregisterReceiver(mBluetoothOffReceiver)
+//        } catch (e: Exception) {
+//        }
+//    }
 
-    private fun registerParingReceiver() {
-        try {
-            val intentFilter = IntentFilter()
-            intentFilter.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST)
-            registerReceiver(mParingReceiver, intentFilter)
-        } catch (e: Exception) {
-        }
-    }
-
-    private fun unregisterParingReceiver() {
-        try {
-            unregisterReceiver(mParingReceiver)
-        } catch (e: Exception) {
-        }
-    }
-
-    private fun setSwitchChanged(isEnable: Boolean) {
-        //SWITCH_CHANGED_FLAG = true;
-        binding.appBarMain.main.apply {
-            switchReadConnect.setOnCheckedChangeListener(null)
-            switchReadConnect.isChecked = isEnable
-            switchReadConnect.setOnCheckedChangeListener(mOnSwitchChangedListener)
-        }
-    }
+//    private fun registerParingReceiver() {
+//        try {
+//            val intentFilter = IntentFilter()
+//            intentFilter.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST)
+//            registerReceiver(mParingReceiver, intentFilter)
+//        } catch (e: Exception) {
+//        }
+//    }
+//
+//    private fun unregisterParingReceiver() {
+//        try {
+//            unregisterReceiver(mParingReceiver)
+//        } catch (e: Exception) {
+//        }
+//    }
+//
+//    private fun setSwitchChanged(isEnable: Boolean) {
+//        //SWITCH_CHANGED_FLAG = true;
+//        binding.appBarMain.main.apply {
+//            switchReadConnect.setOnCheckedChangeListener(null)
+//            switchReadConnect.isChecked = isEnable
+//            switchReadConnect.setOnCheckedChangeListener(mOnSwitchChangedListener)
+//        }
+//    }
 
     override fun onStart() {
         Log.d("RFIDControlActivity", "OnStart!!!")
@@ -275,22 +276,22 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
 //        }
 //    }
 
-    private fun bluetoothOn() {
-        Log.d(TAG, "bluetoothOn")
-        if (!mBluetoothAdapter!!.isEnabled
-            && mPrefUtil!!.getStringPreference(
-                PreferenceUtil.KEY_OPEN_OPTION,
-                mUtil!!.defaultOption
-            ).equals(
-                OpenOption.BLUETOOTH.toString(), ignoreCase = true
-            )
-        ) {
-            setSwitchChanged(false)
-            binding.appBarMain.main.textRfidName.text = ""
-            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-            startActivityForResult(enableBtIntent, REQUEST_BLUETOOTH)
-        }
-    }
+//    private fun bluetoothOn() {
+//        Log.d(TAG, "bluetoothOn")
+//        if (!mBluetoothAdapter!!.isEnabled
+//            && mPrefUtil!!.getStringPreference(
+//                PreferenceUtil.KEY_OPEN_OPTION,
+//                mUtil!!.defaultOption
+//            ).equals(
+//                OpenOption.BLUETOOTH.toString(), ignoreCase = true
+//            )
+//        ) {
+//            setSwitchChanged(false)
+//            binding.appBarMain.main.textRfidName.text = ""
+//            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+//            startActivityForResult(enableBtIntent, REQUEST_BLUETOOTH)
+//        }
+//    }
 
     override fun onPause() {
         super.onPause()
@@ -308,8 +309,9 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
 //                || mUtil!!.device == DevInfoIndex.PM75_MAJOR
 //            ) setSavedOption(OpenOption.UART)
 //        }
-        unregisterBTStateReceiver()
-        unregisterParingReceiver()
+        // Bluetooth 기능 삭제
+//        unregisterBTStateReceiver()
+//        unregisterParingReceiver()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -398,87 +400,87 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
 //        alert.show()
 //    }
 
-    private fun performSwitchClicked() {
-        /* Switch On */
-        if (binding.appBarMain.main.switchReadConnect.isChecked) {
-            /* Open option : Bluetooth */
-            if (savedOption.equals(OpenOption.BLUETOOTH.toString(), ignoreCase = true)
-//                && !mRfidMgr!!.IsOpened()
-            ) {
-                Log.d(TAG, "Switch on, Open option : Bluetooth")
-                val macAddr = mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_CONNECT_BT_MACADDR)
-                if (macAddr == null) {
-                    Log.d(TAG, "null")
-                }
-                if (macAddr == null || !BluetoothAdapter.checkBluetoothAddress(macAddr)) {
-                    Log.d(TAG, "mac address is null")
-                    setSwitchChanged(false)
-                    return
-                }
-                val rfDevice = mBluetoothAdapter!!.getRemoteDevice(macAddr)
-                var already_bonded_flag = false
-                val pairedDevices = mBluetoothAdapter!!.bondedDevices
-                val pairedDeviceCount = pairedDevices.size
-                if (pairedDeviceCount > 0) {
-                    for (bonded_device in pairedDevices) {
-                        if (macAddr == bonded_device.address) {
-                            already_bonded_flag = true
-                        }
-                    }
-                }
-                if (!already_bonded_flag) {
-                    Log.d(TAG, "222")
-                    mPrefUtil!!.putStringPrefrence(PreferenceUtil.KEY_CONNECT_BT_MACADDR, null)
-                    setSwitchChanged(false)
-                    return
-                }
-//                if (rfDevice != null) {
-//                    requestRfidConnection(macAddr, rfDevice.name)
+//    private fun performSwitchClicked() {
+//        /* Switch On */
+//        if (binding.appBarMain.main.switchReadConnect.isChecked) {
+//            /* Open option : Bluetooth */
+//            if (savedOption.equals(OpenOption.BLUETOOTH.toString(), ignoreCase = true)
+////                && !mRfidMgr!!.IsOpened()
+//            ) {
+//                Log.d(TAG, "Switch on, Open option : Bluetooth")
+//                val macAddr = mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_CONNECT_BT_MACADDR)
+//                if (macAddr == null) {
+//                    Log.d(TAG, "null")
 //                }
-            } else if (savedOption.equals(OpenOption.WIRED.toString(), ignoreCase = true)
-//                && !mRfidMgr!!.IsOpened()
-            ) {
-                Log.d(TAG, "Switch On, Open option : Wired")
-                USB_ATTACHED_TEMP_FLAG = false
-                //unRegisterConnReceiver();
-                val async = AsyncInit()
-                async.execute()
-            } else if (savedOption.equals(OpenOption.UART.toString(), ignoreCase = true)
-//                && !mRfidMgr!!.IsOpened()
-            ) {
-                Log.d(TAG, "Switch On, Open option : Uart")
-                val async = AsyncInit()
-                async.execute()
-            }
-        } else {
-            /* Open option : Bluetooth */
-            if (savedOption.equals(OpenOption.BLUETOOTH.toString(), ignoreCase = true)
-//                && mRfidMgr!!.IsOpened()
-            ) {
-                Log.d(TAG, "Switch off, Open option : Bluetooth")
-                /* Stop service When BT is disconnected by connection switch otherwise RFID closes twice. */
-                //stopConnService();
-                val asyncClose = AsyncClose()
-                asyncClose.execute(OpenOption.BLUETOOTH)
-                mHandler.sendEmptyMessageDelayed(REQUEST_DISCONNECT, 7000)
-            } else if (savedOption.equals(
-                    OpenOption.WIRED.toString(),
-                    ignoreCase = true
-                ) // && mRfidMgr!!.IsOpened()
-                && !POWER_OFF_FLAG
-                && !USB_DETACHED_FLAG
-            ) {
-                Log.d(TAG, "Switch Off, Open option : Wired")
-                val asyncClose = AsyncClose()
-                asyncClose.execute(OpenOption.WIRED)
-            } else if (savedOption.equals(OpenOption.UART.toString(), ignoreCase = true)
-//                && mRfidMgr!!.IsOpened()
-            ) {
-                val asyncClose = AsyncClose()
-                asyncClose.execute(OpenOption.UART)
-            }
-        }
-    }
+//                if (macAddr == null || !BluetoothAdapter.checkBluetoothAddress(macAddr)) {
+//                    Log.d(TAG, "mac address is null")
+//                    setSwitchChanged(false)
+//                    return
+//                }
+//                val rfDevice = mBluetoothAdapter!!.getRemoteDevice(macAddr)
+//                var already_bonded_flag = false
+//                val pairedDevices = mBluetoothAdapter!!.bondedDevices
+//                val pairedDeviceCount = pairedDevices.size
+//                if (pairedDeviceCount > 0) {
+//                    for (bonded_device in pairedDevices) {
+//                        if (macAddr == bonded_device.address) {
+//                            already_bonded_flag = true
+//                        }
+//                    }
+//                }
+//                if (!already_bonded_flag) {
+//                    Log.d(TAG, "222")
+//                    mPrefUtil!!.putStringPrefrence(PreferenceUtil.KEY_CONNECT_BT_MACADDR, null)
+//                    setSwitchChanged(false)
+//                    return
+//                }
+////                if (rfDevice != null) {
+////                    requestRfidConnection(macAddr, rfDevice.name)
+////                }
+//            } else if (savedOption.equals(OpenOption.WIRED.toString(), ignoreCase = true)
+////                && !mRfidMgr!!.IsOpened()
+//            ) {
+//                Log.d(TAG, "Switch On, Open option : Wired")
+//                USB_ATTACHED_TEMP_FLAG = false
+//                //unRegisterConnReceiver();
+//                val async = AsyncInit()
+//                async.execute()
+//            } else if (savedOption.equals(OpenOption.UART.toString(), ignoreCase = true)
+////                && !mRfidMgr!!.IsOpened()
+//            ) {
+//                Log.d(TAG, "Switch On, Open option : Uart")
+//                val async = AsyncInit()
+//                async.execute()
+//            }
+//        } else {
+//            /* Open option : Bluetooth */
+//            if (savedOption.equals(OpenOption.BLUETOOTH.toString(), ignoreCase = true)
+////                && mRfidMgr!!.IsOpened()
+//            ) {
+//                Log.d(TAG, "Switch off, Open option : Bluetooth")
+//                /* Stop service When BT is disconnected by connection switch otherwise RFID closes twice. */
+//                //stopConnService();
+//                val asyncClose = AsyncClose()
+//                asyncClose.execute(OpenOption.BLUETOOTH)
+//                mHandler.sendEmptyMessageDelayed(REQUEST_DISCONNECT, 7000)
+//            } else if (savedOption.equals(
+//                    OpenOption.WIRED.toString(),
+//                    ignoreCase = true
+//                ) // && mRfidMgr!!.IsOpened()
+//                && !POWER_OFF_FLAG
+//                && !USB_DETACHED_FLAG
+//            ) {
+//                Log.d(TAG, "Switch Off, Open option : Wired")
+//                val asyncClose = AsyncClose()
+//                asyncClose.execute(OpenOption.WIRED)
+//            } else if (savedOption.equals(OpenOption.UART.toString(), ignoreCase = true)
+////                && mRfidMgr!!.IsOpened()
+//            ) {
+//                val asyncClose = AsyncClose()
+//                asyncClose.execute(OpenOption.UART)
+//            }
+//        }
+//    }
 
 //    var mDataCallbacks: NotifyDataCallbacks = object : NotifyDataCallbacks {
 //        override fun notifyDataPacket(recvPacket: RecvPacket) {
@@ -572,15 +574,15 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
 
     private fun onClicks() {
         binding.appBarMain.main.apply {
-            relSearchReader
-                .clicks()
-                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
-                .subscribe({
-                    binding.appBarMain.main.linearConnect
-                    intent.setClass(applicationContext, SearchReaderActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-                    startActivityForResult(intent, REQUEST_SEARCH_RFIDREADER)
-                }, { it.printStackTrace() })
+//            relSearchReader
+//                .clicks()
+//                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+//                .subscribe({
+//                    binding.appBarMain.main.linearConnect
+//                    intent.setClass(applicationContext, SearchReaderActivity::class.java)
+//                    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+//                    startActivityForResult(intent, REQUEST_SEARCH_RFIDREADER)
+//                }, { it.printStackTrace() })
             detectItem1
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
@@ -640,25 +642,25 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
         }
     }
 
-    private val mOnSwitchChangedListener =
-        CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-            Log.d(TAG, "onCheckChanged")
-            performSwitchClicked()
-        }
-    private val mBluetoothOffReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            val action = intent.action
-            if (action == BluetoothAdapter.ACTION_STATE_CHANGED) {
-                val state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)
-                if (state == BluetoothAdapter.STATE_OFF) {
-//                    if (!mRfidMgr!!.IsOpened()) {
-//                        bluetoothOn()
-//                        Log.d(TAG, "bluetoothOn 3")
-//                    }
-                }
-            }
-        }
-    }
+//    private val mOnSwitchChangedListener =
+//        CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+//            Log.d(TAG, "onCheckChanged")
+//            performSwitchClicked()
+//        }
+//    private val mBluetoothOffReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+//        override fun onReceive(context: Context, intent: Intent) {
+//            val action = intent.action
+//            if (action == BluetoothAdapter.ACTION_STATE_CHANGED) {
+//                val state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)
+//                if (state == BluetoothAdapter.STATE_OFF) {
+////                    if (!mRfidMgr!!.IsOpened()) {
+////                        bluetoothOn()
+////                        Log.d(TAG, "bluetoothOn 3")
+////                    }
+//                }
+//            }
+//        }
+//    }
 
     private class ConnectionCheckHandler(activity: RFIDControlActivity) : Handler() {
         private val weakReference: WeakReference<RFIDControlActivity>
@@ -689,49 +691,49 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
 //        }
 //    }
 
-    private val mParingReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            val action = intent.action
-            Log.d(TAG, "Paring receiver action : $action")
-            if (action.equals(BluetoothDevice.ACTION_PAIRING_REQUEST, ignoreCase = true)) {
-                Log.d(TAG, "ACTION_PARING_REQUEST")
-                val macAddress =
-                    mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_CONNECT_BT_MACADDR, "")
-                val pickedDevice: BluetoothDevice
-                if (!macAddress.isEmpty()) {
-                    pickedDevice = mBluetoothAdapter!!.getRemoteDevice(macAddress)
-                    //                    if(pickedDevice != null)
-//                        pickedDevice.setPairingConfirmation(true);
-                }
-            }
-        }
-    }
+//    private val mParingReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+//        override fun onReceive(context: Context, intent: Intent) {
+//            val action = intent.action
+//            Log.d(TAG, "Paring receiver action : $action")
+//            if (action.equals(BluetoothDevice.ACTION_PAIRING_REQUEST, ignoreCase = true)) {
+//                Log.d(TAG, "ACTION_PARING_REQUEST")
+//                val macAddress =
+//                    mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_CONNECT_BT_MACADDR, "")
+//                val pickedDevice: BluetoothDevice
+//                if (!macAddress.isEmpty()) {
+//                    pickedDevice = mBluetoothAdapter!!.getRemoteDevice(macAddress)
+//                    //                    if(pickedDevice != null)
+////                        pickedDevice.setPairingConfirmation(true);
+//                }
+//            }
+//        }
+//    }
 
-    internal inner class AsyncDeviceInfo : AsyncTask<Void?, Void?, Void?>() {
-        override fun doInBackground(vararg voids: Void?): Void? {
-            /* Get MacAddress */
-            mMacAddress = mUtil!!.btMacAddress
-            Log.d(TAG, "macAddress : $mMacAddress")
-            if (mMacAddress!!.isNotEmpty() && mMacAddress != null) mPrefUtil!!.putStringPrefrence(
-                PreferenceUtil.KEY_CONNECT_BT_MACADDR,
-                mMacAddress
-            )
-
-            /* Get Device Name */
-            mDeviceName = mUtil!!.deviceName
-            Log.d(TAG, "Device Name : $mDeviceName")
-            if (mDeviceName!!.isNotEmpty() && mDeviceName != null) mPrefUtil!!.putStringPrefrence(
-                PreferenceUtil.KEY_CONNECT_BT_NAME,
-                mDeviceName
-            )
-            return null
-        }
-
-        override fun onPostExecute(aVoid: Void?) {
-            super.onPostExecute(aVoid)
-            binding.appBarMain.main.textRfidName.text = mDeviceName
-        }
-    }
+//    internal inner class AsyncDeviceInfo : AsyncTask<Void?, Void?, Void?>() {
+//        override fun doInBackground(vararg voids: Void?): Void? {
+//            /* Get MacAddress */
+//            mMacAddress = mUtil!!.btMacAddress
+//            Log.d(TAG, "macAddress : $mMacAddress")
+//            if (mMacAddress!!.isNotEmpty() && mMacAddress != null) mPrefUtil!!.putStringPrefrence(
+//                PreferenceUtil.KEY_CONNECT_BT_MACADDR,
+//                mMacAddress
+//            )
+//
+//            /* Get Device Name */
+//            mDeviceName = mUtil!!.deviceName
+//            Log.d(TAG, "Device Name : $mDeviceName")
+//            if (mDeviceName!!.isNotEmpty() && mDeviceName != null) mPrefUtil!!.putStringPrefrence(
+//                PreferenceUtil.KEY_CONNECT_BT_NAME,
+//                mDeviceName
+//            )
+//            return null
+//        }
+//
+//        override fun onPostExecute(aVoid: Void?) {
+//            super.onPostExecute(aVoid)
+//            binding.appBarMain.main.textRfidName.text = mDeviceName
+//        }
+//    }
 
     internal inner class AsyncInit : AsyncTask<Void?, Void?, Boolean>() {
         override fun onPreExecute() {
@@ -862,20 +864,20 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
             ) Toast.makeText(
                 applicationContext, getString(R.string.check_mode), Toast.LENGTH_SHORT
             ).show()
-            if (result) {
-                val btName = mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_CONNECT_BT_NAME, "")
-                if (!savedOption.equals(
-                        OpenOption.WIRED.toString(),
-                        ignoreCase = true
-                    )
-                )
-                    binding.appBarMain.main.textRfidName.text = btName
-                setSwitchChanged(true)
-            } else {
-//                mRfidMgr!!.DisconnectBTDevice()
-                Log.d(TAG, "disconn4")
-                setSwitchChanged(false)
-            }
+//            if (result) {
+//                val btName = mPrefUtil!!.getStringPreference(PreferenceUtil.KEY_CONNECT_BT_NAME, "")
+//                if (!savedOption.equals(
+//                        OpenOption.WIRED.toString(),
+//                        ignoreCase = true
+//                    )
+//                )
+//                    binding.appBarMain.main.textRfidName.text = btName
+//                setSwitchChanged(true)
+//            } else {
+////                mRfidMgr!!.DisconnectBTDevice()
+//                Log.d(TAG, "disconn4")
+////                setSwitchChanged(false)
+//            }
             mUtil!!.showProgress(mProgress, this@RFIDControlActivity, false)
         }
     }
@@ -904,8 +906,8 @@ class RFIDControlActivity : BaseActivityK<ActivityRfidControlBinding>(R.layout.a
 
         override fun onPostExecute(aVoid: Void?) {
             super.onPostExecute(aVoid)
-            binding.appBarMain.main.textRfidName.text = ""
-            setSwitchChanged(false)
+//            binding.appBarMain.main.textRfidName.text = ""
+//            setSwitchChanged(false)
             if (savedOption.equals(OpenOption.WIRED.toString(), ignoreCase = true)
                 || savedOption.equals(OpenOption.UART.toString(), ignoreCase = true)
             ) mUtil!!.showProgress(mProgress, this@RFIDControlActivity, false)

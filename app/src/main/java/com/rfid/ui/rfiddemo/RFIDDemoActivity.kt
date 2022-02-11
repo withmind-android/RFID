@@ -10,10 +10,22 @@ import android.os.*
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.annotation.NonNull
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.atid.lib.dev.ATRfidManager
+import com.atid.lib.dev.ATRfidReader
+import com.atid.lib.dev.event.RfidReaderEventListener
+import com.atid.lib.dev.rfid.ATRfid900MAReader
+import com.atid.lib.dev.rfid.type.ActionState
+import com.atid.lib.dev.rfid.type.ConnectionState
+import com.atid.lib.dev.rfid.type.ResultCode
+import com.atid.lib.dev.rfid.type.TagType
+import com.atid.lib.diagnostics.ATLog
+import com.atid.lib.system.device.type.RfidModuleType
+import com.atid.lib.util.SysUtil
 import com.rfid.R
 //import com.rfid.RFIDApplication.NotifyDataCallbacks
 import com.rfid.adapter.RfidRvAdapter
@@ -50,7 +62,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activity_rfid_demo) {
+class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activity_rfid_demo), RfidReaderEventListener {
     //    private val viewModel by viewModels<RFIDDemoViewModel>()
     private val viewModel: RFIDDemoViewModel by lazy {
         RFIDDemoViewModel(
@@ -99,6 +111,22 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
     private var mIsAsc = true
     private val mHandler: LogSaveHandler? = LogSaveHandler(this)
 
+    private var mReader: ATRfidReader? = null
+    private var mMAReader: ATRfid900MAReader? = null
+
+    private var mTick: Long = 0
+    private var mElapsedTick: Long = 0
+    private val mTagType: TagType? = null
+
+    /** Key code constant: Left key.  */
+    val AT907_LEFT_SCAN_KEY = 133
+    /** Key code constant: Gun trigger key.  */
+    val AT907_GUN_TRIGGER_KEY = 134
+    /** Key code constant: Right key.  */
+    val AT907_RIGHT_SCAN_KEY = 135
+
+    private val SKIP_KEY_EVENT_TIME: Long = 1000
+
     override fun init() {
         binding.lifecycleOwner = this
         binding.appBarDemo.contentRfid.pbLoading.visibility = View.GONE
@@ -121,6 +149,21 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         mTotalCount = 0
         mSimpleDataFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+
+        if (ATRfidManager.getInstance().also { mReader = it } == null) {
+            // The PDA is not equipped with a module, or another RFID App is running.
+            val builder = AlertDialog.Builder(this)
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+            builder.setTitle("Module Error")
+            builder.setMessage("The PDA is not equipped the module, or another RFID App is running.")
+            builder.setPositiveButton(
+                "OK"
+            ) { dialog, which -> finish() }
+            builder.show()
+        } else {
+            mReader?.setLogLevel(1)
+        }
+        ATLog.i(TAG,"INFO. onCreate() - RFID Libary Version [%s]", ATRfidManager.getVersion())
 
         //Check EXTERNAL_STORAGE_PERMISSION
         if (!checkPermission()) requestPermission()
@@ -315,10 +358,22 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
 //            asyncGetVolume.execute()
 //        }
 
-        checkTempOption()
+        registerKeyCodeReceiver()
+        if (mReader != null) {
+            mReader!!.setEventListener(this)
+        }
+        ATLog.d(TAG, "INFO. onResume()")
+
+//        checkTempOption()
     }
 
     override fun onPause() {
+        unregisterKeyCodeReceiver()
+        if (mReader != null) {
+            mReader!!.removeEventListener(this)
+        }
+        ATLog.i(TAG, "INFO. onPauise()")
+
         super.onPause()
         Log.d(TAG, "onPause()")
         isPause = true
@@ -586,7 +641,33 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
 //            mRfidMgr!!.Stop()
             Log.d(TAG, "stop4")
         }
+
+        // Deinitalize RFID reader Instance
+        ATRfidManager.onDestroy()
+
+        // Wake Unlock
+        SysUtil.wakeUnlock()
+
+        ATLog.d(TAG, "INFO. onDestroy")
+        ATLog.shutdown()
+
         super.onDestroy()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (mReader != null) {
+            ATRfidManager.wakeUp()
+        }
+        ATLog.i(TAG, "INFO. onStart()")
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        ATRfidManager.sleep()
+        ATLog.i(TAG, "INFO. onStop()")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -1242,4 +1323,208 @@ class RFIDDemoActivity : BaseActivityK<ActivityRfidDemoBinding>(R.layout.activit
         }
     }
 
+    override fun onReaderStateChanged(p0: ATRfidReader?, p1: ConnectionState?) {
+        when (p1) {
+            ConnectionState.Connected -> ATLog.i(TAG,
+                "INFO. onReaderStateChanged - Connected"
+            )
+            ConnectionState.Disconnected -> ATLog.i(TAG,
+                "INFO. onReaderStateChanged - Disconnected"
+            )
+            ConnectionState.Connecting -> ATLog.i(TAG,
+                "INFO. onReaderStateChanged - Connecting"
+            )
+            else -> {}
+        }
+        ATLog.i(TAG, "EVENT. onReaderStateChanged(%s)", p1)
+    }
+
+    override fun onReaderActionChanged(p0: ATRfidReader?, p1: ActionState?) {
+        ATLog.i(TAG, "EVENT. onReaderActionchanged(%s)", p1)
+    }
+
+    override fun onReaderReadTag(p0: ATRfidReader?, p1: String, p2: Float, p3: Float) {
+        ATLog.i(TAG, "EVENT. onReaderReadTag([%s], %.2f, %.2f)", p1, p2, p3)
+
+        if (p1 != null) {
+            addScanData(p1)
+
+            idList.add("10003")
+            idList.add("10007")
+            idList.add("10013")
+            idList.add("10015")
+            viewModel.scanTag(idList)
+        }
+    }
+
+    override fun onReaderResult(p0: ATRfidReader?, p1: ResultCode?, p2: ActionState?, p3: String?, p4: String?, p5: Float, p6: Float) {
+        ATLog.i(TAG,"EVENT. onReaderResult(%s, %s, [%s], [%s], %.2f, %.2f", p1, p2, p3, p4, p5, p6)
+    }
+
+    private fun startAction() {
+        var res = ResultCode.NoError
+        val tagType = TagType.Tag6C
+        ATLog.i(TAG, "INFO. startAction() - reader - %s", mReader)
+        if (mReader!!.moduleType == RfidModuleType.I900MA) {
+            mMAReader = mReader as ATRfid900MAReader
+            if (tagType == TagType.Tag6B) {
+                if (mMAReader!!.readEpc6bTag().also { res = it } != ResultCode.NoError) {
+                    ATLog.e(TAG,"ERROR. startAction() - Failed to start read 6B tag [%s]", res)
+                    if (res == ResultCode.NotSupported) Toast.makeText(
+                        this, R.string.not_supported, Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+            } else if (tagType == TagType.Tag6C) {
+                if (mMAReader!!.readEpc6cTag().also { res = it } != ResultCode.NoError) {
+                    ATLog.e(TAG,"ERROR. startAction() - Failed to start read 6C tag [%s]", res)
+                    if (res == ResultCode.NotSupported) Toast.makeText(
+                        this, R.string.not_supported, Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+            } else if (tagType == TagType.TagRail) {
+                if (mMAReader!!.readEpcRailTag().also { res = it } != ResultCode.NoError) {
+                    ATLog.e(TAG,"ERROR. startAction() - Failed to start read Rail tag [%s]", res)
+                    if (res == ResultCode.NotSupported) Toast.makeText(
+                        this, R.string.not_supported, Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+            } else if (tagType == TagType.TagAny) {
+                if (mMAReader!!.readEpcAnyTag().also { res = it } != ResultCode.NoError) {
+                    ATLog.e(TAG,"ERROR. startAction() - Failed to start read Any tag [%s]", res)
+                    if (res == ResultCode.NotSupported) Toast.makeText(
+                        this, R.string.not_supported, Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+            }
+        } else {
+            if (mReader!!.readEpc6cTag().also { res = it } != ResultCode.NoError) {
+                ATLog.e(TAG,"ERROR. startAction() - Failed to start read 6C tag [%s]", res)
+            }
+        }
+    }
+
+    private fun stopAction() {
+        if (mReader!!.action == ActionState.Stop) {
+            ATLog.e(TAG, "ActionState is not busy.")
+            return
+        }
+        var res: ResultCode?
+        if (mReader!!.stop().also { res = it } != ResultCode.NoError) {
+            ATLog.e(TAG,"ERROR. stopAction() - Failed to stop operation [%s]", res)
+            return
+        }
+        ATLog.i(TAG, "INFO. stopAction()")
+    }
+
+    /**
+     * 1.Receive the KeyEvent of keys for customizable functions
+     */
+    private val keyCodeReceiver = KeyCodeReceiver(this)
+
+    inner class KeyCodeReceiver internal constructor(keyTestActivity: RFIDDemoActivity) :
+        BroadcastReceiver() {
+        private val mWeakReference: WeakReference<RFIDDemoActivity>
+        override fun onReceive(context: Context, intent: Intent) {
+            var keyCode = intent.getIntExtra("keyCode", 0)
+            if (keyCode == 0) {
+                keyCode = intent.getIntExtra("keycode", 0)
+            }
+            ATLog.i(TAG, "INFO. key down event - code - (%d)", keyCode)
+            val isKeyDown = intent.getBooleanExtra("keydown", false)
+            val displayTemplate = "[KeyCodeReceiver] receive keyCode:$keyCode, %1\$s"
+            var displayTips: String
+            if (isKeyDown) {
+                if ((keyCode == AT907_LEFT_SCAN_KEY || keyCode == AT907_GUN_TRIGGER_KEY || keyCode == AT907_RIGHT_SCAN_KEY) /* && event.getRepeatCount() <= 0*/
+                    && mReader?.getAction() == ActionState.Stop && mReader?.getState() == ConnectionState.Connected
+                ) {
+                    mElapsedTick = SystemClock.elapsedRealtime() - mTick
+                    if (mTick == 0L || mElapsedTick > SKIP_KEY_EVENT_TIME) {
+                        startAction()
+                        mTick = SystemClock.elapsedRealtime()
+                    } else {
+                        ATLog.e(TAG,"INFO. Skip key down event(elapsed:$mElapsedTick)")
+                    }
+                }
+                // press down
+                displayTips = String.format(displayTemplate, "press down")
+            } else {
+                if ((keyCode == AT907_LEFT_SCAN_KEY || keyCode == AT907_GUN_TRIGGER_KEY || keyCode == AT907_RIGHT_SCAN_KEY) /*&& event.getRepeatCount() <= 0*/
+                    && mReader?.getAction() != ActionState.Stop && mReader?.getState() == ConnectionState.Connected
+                ) {
+                    stopAction()
+                }
+                // release up
+                displayTips = String.format(displayTemplate, "release up")
+            }
+            displayTips = """
+            $displayTips
+            
+            """.trimIndent()
+            Log.e(TAG, "[KeyCodeReceiver] receive $displayTips")
+        }
+
+        init {
+            mWeakReference = WeakReference<RFIDDemoActivity>(keyTestActivity)
+        }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        ATLog.i(TAG, "===================down===============")
+        if ((keyCode == KeyEvent.KEYCODE_SOFT_RIGHT || keyCode == KeyEvent.KEYCODE_SHIFT_RIGHT ||
+                    keyCode == KeyEvent.KEYCODE_SHIFT_LEFT || keyCode == KeyEvent.KEYCODE_F7 ||
+                    keyCode == KeyEvent.KEYCODE_F8 || keyCode == 298 || keyCode == 299 ||
+                    keyCode == 300 || keyCode == 301 || keyCode == AT907_LEFT_SCAN_KEY ||
+                    keyCode == AT907_GUN_TRIGGER_KEY || keyCode == AT907_RIGHT_SCAN_KEY)
+            && event.repeatCount <= 0 && mReader!!.action == ActionState.Stop
+            && mReader!!.state == ConnectionState.Connected) {
+            ATLog.i(TAG, "INFO. onKeyDown(%d, %d)", keyCode, event.action)
+            mElapsedTick = SystemClock.elapsedRealtime() - mTick
+            if (mTick == 0L || mElapsedTick > SKIP_KEY_EVENT_TIME) {
+                startAction()
+                mTick = SystemClock.elapsedRealtime()
+            } else {
+                ATLog.e(TAG,"INFO. Skip key down event(elapsed:$mElapsedTick)")
+                return super.onKeyDown(keyCode, event)
+            }
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        ATLog.i(TAG, "===================up===============")
+        if ((keyCode == KeyEvent.KEYCODE_SOFT_RIGHT || keyCode == KeyEvent.KEYCODE_SHIFT_RIGHT ||
+                    keyCode == KeyEvent.KEYCODE_SHIFT_LEFT || keyCode == KeyEvent.KEYCODE_F7 ||
+                    keyCode == KeyEvent.KEYCODE_F8 || keyCode == 298 || keyCode == 299 ||
+                    keyCode == 300 || keyCode == 301 || keyCode == AT907_LEFT_SCAN_KEY ||
+                    keyCode == AT907_GUN_TRIGGER_KEY || keyCode == AT907_RIGHT_SCAN_KEY)
+            && event.repeatCount <= 0 && mReader!!.action != ActionState.Stop
+            && mReader!!.state == ConnectionState.Connected) {
+            ATLog.i(TAG, "INFO. onKeyUp(%d, %d)", keyCode, event.action)
+            stopAction()
+            return true
+        }
+        return super.onKeyUp(keyCode, event)
+    }
+
+    /**
+     * Register the BroadcastReceiver for receive KeyEvent
+     */
+    private fun registerKeyCodeReceiver() {
+        val filter = IntentFilter()
+        filter.addAction("android.rfid.FUN_KEY")
+        filter.addAction("android.intent.action.FUN_KEY")
+        registerReceiver(keyCodeReceiver, filter)
+    }
+
+    /**
+     * Unregister the BroadcastReceiver for receive KeyEvent
+     */
+    private fun unregisterKeyCodeReceiver() {
+        unregisterReceiver(keyCodeReceiver)
+    }
 }

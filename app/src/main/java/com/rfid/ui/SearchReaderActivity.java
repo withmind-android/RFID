@@ -99,6 +99,11 @@ public class SearchReaderActivity extends AppCompatActivity {
         searchFilter.addAction(BluetoothDevice.ACTION_FOUND); //BluetoothDevice.ACTION_FOUND : 블루투스 디바이스 찾음
         searchFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED); //BluetoothAdapter.ACTION_DISCOVERY_FINISHED : 블루투스 검색 종료
         searchFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED); //BluetoothAdapter.ACTION_BOND_STATE_CHANGED
+        searchFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED); //BluetoothAdapter.ACTION_STATE_CHANGED : 블루투스 상태변화 액션
+        searchFilter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED);
+        searchFilter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED); //연결 확인
+        searchFilter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED); //연결 끊김 확인
+        searchFilter.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST);
         registerReceiver(mBluetoothSearchReceiver, searchFilter);
     }
 
@@ -120,10 +125,10 @@ public class SearchReaderActivity extends AppCompatActivity {
     }
 
     public void updatePlayStatus() {
-//        if (mBluetoothAdapter.isDiscovering())
-//            mSearchMenu.setIcon(R.drawable.ic_start);
-//        else
-//            mSearchMenu.setIcon(R.drawable.ic_start);
+        if (mBluetoothAdapter.isDiscovering())
+            mSearchMenu.setIcon(R.drawable.ic_start);
+        else
+            mSearchMenu.setIcon(R.drawable.ic_start);
         mSearchMenu.setIcon(R.drawable.ic_start);
     }
 
@@ -135,7 +140,7 @@ public class SearchReaderActivity extends AppCompatActivity {
             finish();
             return true;
         } else if (item.getItemId() == R.id.action_bt_search) {
-//            mBluetoothAdapter.cancelDiscovery();
+            mBluetoothAdapter.cancelDiscovery();
             mSearchMenu.setIcon(R.drawable.ic_start);
             mItems.clear();
             mListAdapter.setItems(mItems);
@@ -174,11 +179,11 @@ public class SearchReaderActivity extends AppCompatActivity {
     }
 
     private void startSearchDevice() {
-//        if (mBluetoothAdapter.isDiscovering()) {
-//            mBluetoothAdapter.cancelDiscovery();
-//        }
-//        //mBluetoothAdapter.startDiscovery() : 블루투스 검색 시작
-//        mBluetoothAdapter.startDiscovery();
+        if (mBluetoothAdapter.isDiscovering()) {
+            mBluetoothAdapter.cancelDiscovery();
+        }
+        //mBluetoothAdapter.startDiscovery() : 블루투스 검색 시작
+        mBluetoothAdapter.startDiscovery();
 
         mProgressSearchDlg = new ProgressDialog(SearchReaderActivity.this);
         mProgressSearchDlg.setMessage(getString(R.string.search_bt_devices));
@@ -190,18 +195,18 @@ public class SearchReaderActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (mProgressSearchDlg != null && mProgressSearchDlg.isShowing()) {
-//                            mBluetoothAdapter.cancelDiscovery();
+                            mBluetoothAdapter.cancelDiscovery();
                             mProgressSearchDlg.dismiss();
                             dialog.cancel();
                         }
                     }
                 });
-//        mProgressSearchDlg.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//            @Override
-//            public void onCancel(DialogInterface dialog) {
-//                mBluetoothAdapter.cancelDiscovery();
-//            }
-//        });
+        mProgressSearchDlg.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                mBluetoothAdapter.cancelDiscovery();
+            }
+        });
         mProgressSearchDlg.show();
     }
 

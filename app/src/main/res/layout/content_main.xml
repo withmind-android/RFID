@@ -168,78 +168,78 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#e3e3e3" />
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="#e3e3e3" />-->
 
-                <RelativeLayout
-                    android:id="@+id/rel_search_reader"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp">
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rel_search_reader"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="55dp">-->
 
-                    <TextView
-                        style="@style/black_bold_14_font"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingHorizontal="20dp"
-                        android:paddingVertical="10dp"
-                        android:text="@string/search_reader" />
+<!--                    <TextView-->
+<!--                        style="@style/black_bold_14_font"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:paddingHorizontal="20dp"-->
+<!--                        android:paddingVertical="10dp"-->
+<!--                        android:text="@string/search_reader" />-->
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="#e3e3e3" />
-                </RelativeLayout>
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:layout_alignParentBottom="true"-->
+<!--                        android:background="#e3e3e3" />-->
+<!--                </RelativeLayout>-->
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="20dp"
-                    android:paddingVertical="10dp">
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:paddingHorizontal="20dp"-->
+<!--                    android:paddingVertical="10dp">-->
 
-                    <Switch
-                        android:id="@+id/switch_read_connect"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:switchMinWidth="73dp"
-                        android:thumb="@drawable/switch_thumb_selector"
-                        android:thumbTextPadding="16dp"
-                        android:track="@drawable/switch_track_selector" />
+<!--                    <Switch-->
+<!--                        android:id="@+id/switch_read_connect"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:switchMinWidth="73dp"-->
+<!--                        android:thumb="@drawable/switch_thumb_selector"-->
+<!--                        android:thumbTextPadding="16dp"-->
+<!--                        android:track="@drawable/switch_track_selector" />-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:layout_toLeftOf="@id/switch_read_connect"
-                        android:orientation="vertical">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:layout_toLeftOf="@id/switch_read_connect"-->
+<!--                        android:orientation="vertical">-->
 
-                        <TextView
-                            style="@style/black_bold_14_font"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/connect_dlg_title" />
+<!--                        <TextView-->
+<!--                            style="@style/black_bold_14_font"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="@string/connect_dlg_title" />-->
 
-                        <TextView
-                            android:id="@+id/text_rfid_name"
-                            style="@style/hint_14_font"
-                            android:textSize="12sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="" />
-                    </LinearLayout>
-                </RelativeLayout>
+<!--                        <TextView-->
+<!--                            android:id="@+id/text_rfid_name"-->
+<!--                            style="@style/hint_14_font"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:text="" />-->
+<!--                    </LinearLayout>-->
+<!--                </RelativeLayout>-->
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#e3e3e3" />
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="#e3e3e3" />-->
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
